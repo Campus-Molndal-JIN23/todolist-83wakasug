@@ -3,6 +3,9 @@ package org.campusmolndal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mockito;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -27,15 +30,21 @@ void setUP() throws SQLException {
 
         when(DriverManager.getConnection(url)).thenReturn(mockConn);
         when(DriverManager.getConnection(null)).thenReturn(null);
+        when(mockConn.isClosed()).thenReturn(true);
 
 }
 
 @Test
 void connectionTest() throws SQLException {
 
-        Connection expected = null;
         assertEquals(DriverManager.getConnection(null),null);
+        assertEquals(DriverManager.getConnection(url),mockConn);
     }
 
+    @Test
+    void CloseConnectionTest() throws SQLException {;
+        mockConn.close();
+       assertTrue(mockConn.isClosed());
+    }
 
 }

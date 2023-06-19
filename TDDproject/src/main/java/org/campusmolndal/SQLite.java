@@ -7,10 +7,20 @@ import java.sql.Statement;
 
 public class SQLite {
     private String dbName = null;
-    Connection connection;
-
-
     Connection conn;
+    private String TODOTable =  "CREATE TABLE IF NOT EXISTS TODO (\n" +
+            " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+            "  NAME VARCHAR(50) NOT NULL,\n" +
+            "  TEXT VARCHAR(200),\n" +
+            "PROGRESS Integer,\n" +
+            "AssignedTo Integer"+
+            "FOREIGN KEY (PROGRESS) REFERENCES (PROGRESS) ProgressID" +
+            ")";
+    private String progress = "CREATE TABLE IF NOT EXISTS PROGRESS (\n" +
+            "ProgressID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+            "STATUS VARCHAR(50) NOT NULL"+
+            ")";
+
     String url="jdbc:sqlite:" + dbName+ ".db";
 
     // The constructor for SQLite class calls connect() and createTable() methods.
@@ -46,14 +56,21 @@ public class SQLite {
         }
     }
 
+    /**
+     *
+     * Create a table
+     *
+     *
+     */
 
-    //create a table named "PLAYERS" in the database if it does not already exist.
     public void createTable() throws SQLException {
 
-        String sql = "CREATE TABLE IF NOT EXISTS PLAYERS (\n" +
-                "  PLAYERID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+        String sql = "CREATE TABLE IF NOT EXISTS TODO (\n" +
+                " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "  NAME VARCHAR(50) NOT NULL,\n" +
-                "  POINTS INTEGER\n" +
+                "  TEXT VARCHAR(200),\n" +
+                "PROGRESS Integer,\n" +
+                "AssignedTo Integer"+
                 ")";
         try {
             Statement stm = conn.createStatement();
