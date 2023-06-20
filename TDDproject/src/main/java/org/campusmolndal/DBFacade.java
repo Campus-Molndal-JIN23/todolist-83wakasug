@@ -10,7 +10,7 @@ SQLite sqlite;
     }
 
     public Connection connectDB(){
-        return sqlite.connect();
+        return sqlite.connection();
     }
 
     public String disconnetDB(){

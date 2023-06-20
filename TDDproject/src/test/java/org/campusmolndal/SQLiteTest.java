@@ -46,26 +46,22 @@ void connectionTestWhenURLISNULL() throws SQLException {
 
   @Test
    void connectDatabaseThenReturnMessageConnected() throws SQLException {
-        String expected = "Connection is open";
-
-        Connection actual = sqLite.connect();
-        when(mockConn.isClosed()).thenReturn(mockConn);
-        assertEquals(expected,actual);
+       Connection expected= null;
+       Connection actual = sqLite.connection();
+       assertEquals(expected,actual);
    }
 
     @Test
     void connectDatabaseThenReturnNull() throws SQLException {
-        String expected = "Something went wrong";
-        Connection actual = sqLite.connect();
-        when(mockConn.isClosed()).thenReturn(null);
-
-
-        assertEquals(expected,null);
+        boolean expected = false;
+       when(!mockConn.isClosed()).thenReturn(false);
+        Connection actual = sqLite.connection();
+        assertEquals(expected,actual);
     }
 
     @Test
     void disconnectTestWhenConnectionIsClosed() throws SQLException {
-        String actual = sqLite.disconnect();
+        String actual = sqLite.disConnect();
         String expected = "Connection is closed";
         when(mockConn.isClosed()).thenReturn(true);
 
@@ -75,7 +71,7 @@ void connectionTestWhenURLISNULL() throws SQLException {
 
     @Test
     void disconnectTestWhenConnectionIsOpen() throws SQLException {
-        String actual = sqLite.disconnect();
+        String actual = sqLite.disConnect();
         String expected = "Something went wrong";
 
         when(mockConn.isClosed()).thenReturn(false);

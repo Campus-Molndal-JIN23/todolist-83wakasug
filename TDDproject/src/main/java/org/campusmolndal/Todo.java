@@ -3,7 +3,7 @@ package org.campusmolndal;
 public class Todo {
    private int id ;
    private String text ;
-   private String done ;
+   private int done ;
    private String assignedTo;
 
     public int getId() {
@@ -22,11 +22,11 @@ public class Todo {
         this.text = text;
     }
 
-    public String getDone() {
+    public int getDone() {
         return this.done;
     }
 
-    public void setDone(String done) {
+    public void setDone(int done) {
         this.done = done;
     }
 
