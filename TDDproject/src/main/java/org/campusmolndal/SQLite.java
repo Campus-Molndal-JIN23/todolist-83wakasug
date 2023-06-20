@@ -8,26 +8,15 @@ import java.sql.Statement;
 public class SQLite {
     private String dbName = null;
     Connection conn;
-    private String TODOTable =  "CREATE TABLE IF NOT EXISTS TODO (\n" +
-            " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-            "  NAME VARCHAR(50) NOT NULL,\n" +
-            "  TEXT VARCHAR(200),\n" +
-            "PROGRESS Integer,\n" +
-            "AssignedTo Integer"+
-            "FOREIGN KEY (PROGRESS) REFERENCES (PROGRESS) ProgressID" +
-            ")";
-    private String progress = "CREATE TABLE IF NOT EXISTS PROGRESS (\n" +
-            "ProgressID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-            "STATUS VARCHAR(50) NOT NULL"+
-            ")";
+
 
     String url="jdbc:sqlite:" + dbName+ ".db";
 
     // The constructor for SQLite class calls connect() and createTable() methods.
     public SQLite(String dbName) throws SQLException {
         this.dbName = dbName;
-        connect();
-        createTable();
+         connect();
+         initialTable();
     }
     /**
      *
@@ -35,12 +24,17 @@ public class SQLite {
      * handles any exceptions that may occur during the connection
      * by printing an error message.
      */
-    public void connect() {
+    public String connect() throws SQLException {
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage());;
         }
+
+        if (conn != null && !conn.isClosed()) {
+            return "Connection is open";
+        }
+        return "Something went wrong";
     }
     /**
      *
@@ -48,12 +42,17 @@ public class SQLite {
      * handle any exceptions that may occur at closure
      * by printing an error message.
      */
-    public void disconnect(){
+    public String disconnect() throws SQLException {
         try {
             conn.close();
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
+
+        if (conn == null || conn.isClosed()) {
+            return "Connection is closed";
+        }
+        return "Something went wrong";
     }
 
     /**
@@ -63,22 +62,36 @@ public class SQLite {
      *
      */
 
-    public void createTable() throws SQLException {
-
-        String sql = "CREATE TABLE IF NOT EXISTS TODO (\n" +
+    private  void initialTable() throws SQLException {
+        String TODOTable =  "CREATE TABLE IF NOT EXISTS TODO (\n" +
                 " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "  NAME VARCHAR(50) NOT NULL,\n" +
                 "  TEXT VARCHAR(200),\n" +
-                "PROGRESS Integer,\n" +
-                "AssignedTo Integer"+
+                "  PROGRESS INTEGER,\n" +
+                "  AssignedTo INTEGER," + // Add comma here
+                "  FOREIGN KEY (PROGRESS) REFERENCES Progress(ProgressID)" +
                 ")";
+
+        String progress = "CREATE TABLE IF NOT EXISTS PROGRESS (\n" +
+                "ProgressID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "STATUS VARCHAR(50) NOT NULL"+
+                ")";
+
+        createTable(TODOTable);
+        createTable(progress);
+
+    }
+
+    private String createTable(String query) throws SQLException {
+
+
         try {
             Statement stm = conn.createStatement();
-            stm.execute(sql);
+            stm.execute(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
-
+        return "Table Created";
     }
 
 }
