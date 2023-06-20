@@ -5,15 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class SQLiteCRUD {
-    SQLite sqlite;
-    Connection conn;
+     private SQLite sqlite;
+     private Connection conn;
 
     public SQLiteCRUD(SQLite sqlite){
         this.sqlite = sqlite;
     }
 
     public void add(Todo todo){
-            sqlite.connection();
+            conn=sqlite.connection();
 
             String sql = "INSERT INTO TODO (NAME, POINTS) VALUES (?, ?)";
 

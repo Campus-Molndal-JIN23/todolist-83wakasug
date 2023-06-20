@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,34 +15,37 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SQLiteCRUDTest {
- PreparedStatement mockPstm;
- Connection mockConn;
- Todo mockTodo;
+    PreparedStatement mockPstm;
+    Connection mockConn;
+    Todo mockTodo;
+    SQLite mockSqLite;
+    SQLiteCRUD sqLiteCrud;
+
+
+
 
     @BeforeEach
-    void setUp() throws SQLException {
+    void setUP() throws SQLException {
         Mockito.framework().clearInlineMocks();
+        mockConn = Mockito.mock(Connection.class);
         mockPstm = Mockito.mock(PreparedStatement.class);
-        mockConn =Mockito.mock(Connection.class);
         mockTodo = Mockito.mock(Todo.class);
-
-        when(mockConn.prepareStatement(any())).thenReturn(mockPstm);
+        mockSqLite = Mockito.mock(SQLite.class);
+        when(mockConn.prepareStatement(anyString())).thenReturn(mockPstm);
         doNothing().when(mockPstm).setString(anyInt(),anyString());
-        when(mockTodo.getText()).thenReturn("Cleaning");
-        when(mockTodo.getDone()).thenReturn(1);
+        doNothing().when(mockPstm).setInt(anyInt(),anyInt());
+        when(mockSqLite.connection()).thenReturn(mockConn);
 
+        sqLiteCrud = new SQLiteCRUD(mockSqLite);
 
     }
 
     @Test
     void add() throws SQLException {
-
-        String sql = "INSERT INTO TODO (NAME, POINTS) VALUES (?, ?)";
-        System.out.println(mockConn);
-        verify(mockConn.prepareStatement(sql));
-        verify(mockPstm).setString(1, mockTodo.getText());
-        //verify(mockPstm).setInt(2, mockTodo.getDone());
-        //verify(mockPstm).executeUpdate();
-
+        mockTodo.setId(1);
+        mockTodo.setDone(5);
+        mockTodo.setText("Test");
+        sqLiteCrud.add(mockTodo);
+        verify(mockPstm).executeUpdate();
     }
 }
