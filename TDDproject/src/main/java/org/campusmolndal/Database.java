@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 public interface Database {
 
- String disConnect();
+ boolean disConnect();
  Connection connection();
  boolean createTable(String Query);
 

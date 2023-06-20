@@ -1,17 +1,10 @@
 package org.campusmolndal;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import java.sql.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -63,19 +56,17 @@ void connectionTestWhenURLISNULL() throws SQLException {
     @Test
     void disconnectTestWhenConnectionIsClosed() throws SQLException {
         when(mockConn.isClosed()).thenReturn(true);
-        String expected = "Connection is closed";
-        String actual = sqLite.disConnect();
+         boolean actual = sqLite.disConnect();
 
-        assertEquals(expected, actual);
+        assertTrue(actual);
     }
 
     @Test
     void disconnectTestWhenConnectionIsOpen() throws SQLException {
-        String expected = "Something went wrong";
-        when(mockConn.isClosed()).thenReturn(false);
-        String actual = sqLite.disConnect();
 
-        assertEquals(expected, actual);
+        when(mockConn.isClosed()).thenReturn(false);
+        boolean actual = sqLite.disConnect();
+        assertFalse(actual);
     }
 
     @ParameterizedTest
@@ -101,7 +92,6 @@ void connectionTestWhenURLISNULL() throws SQLException {
         boolean expected = false;
         when(mockStm.execute(query)).thenThrow(exception);
         boolean actual = sqLite.createTable(query);
-
 
         assertEquals(expected, actual);
     }

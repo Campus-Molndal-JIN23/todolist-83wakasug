@@ -49,7 +49,7 @@ public class SQLite implements Database {
      * handle any exceptions that may occur at closure
      * by printing an error message.
      */
-    public String disConnect(){
+    public boolean disConnect(){
         try {
             conn.close();
         }catch (SQLException e){
@@ -58,13 +58,13 @@ public class SQLite implements Database {
 
         try{
             if (conn == null || conn.isClosed()) {
-                return "Connection is closed";
+                return true;
             }
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
 
-        return "Something went wrong";
+        return false;
     }
 
     /**

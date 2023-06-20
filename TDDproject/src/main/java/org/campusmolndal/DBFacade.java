@@ -13,7 +13,7 @@ SQLite sqlite;
         return sqlite.connection();
     }
 
-    public String disconnetDB(){
+    public boolean disconnetDB(){
         return sqlite.disConnect();
     }
 
