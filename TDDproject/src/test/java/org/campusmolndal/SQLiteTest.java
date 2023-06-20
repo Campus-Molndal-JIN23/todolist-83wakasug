@@ -27,13 +27,14 @@ SQLite sqLite;
     @BeforeEach
 void setUP() throws SQLException {
         Mockito.framework().clearInlineMocks();
-        sqLite = new SQLite(url);
+
         mockConn = Mockito.mock(Connection.class);
         mockStm = Mockito.mock(Statement.class);
         mockStatic(DriverManager.class);
         when(DriverManager.getConnection(url)).thenReturn(mockConn);
         when(DriverManager.getConnection(null)).thenReturn(null);
         when(mockConn.createStatement()).thenReturn(mockStm);
+        sqLite = new SQLite(url);
 
     }
 
@@ -46,35 +47,33 @@ void connectionTestWhenURLISNULL() throws SQLException {
 
   @Test
    void connectDatabaseThenReturnMessageConnected() throws SQLException {
-       Connection expected= null;
+      when(mockConn.isClosed()).thenReturn(false);
+        Connection expected= mockConn;
        Connection actual = sqLite.connection();
        assertEquals(expected,actual);
    }
 
     @Test
     void connectDatabaseThenReturnNull() throws SQLException {
-        boolean expected = false;
-       when(!mockConn.isClosed()).thenReturn(false);
+        when(mockConn.isClosed()).thenReturn(true);
         Connection actual = sqLite.connection();
-        assertEquals(expected,actual);
+        assertNull(actual);
     }
 
     @Test
     void disconnectTestWhenConnectionIsClosed() throws SQLException {
-        String actual = sqLite.disConnect();
-        String expected = "Connection is closed";
         when(mockConn.isClosed()).thenReturn(true);
-
+        String expected = "Connection is closed";
+        String actual = sqLite.disConnect();
 
         assertEquals(expected, actual);
     }
 
     @Test
     void disconnectTestWhenConnectionIsOpen() throws SQLException {
-        String actual = sqLite.disConnect();
         String expected = "Something went wrong";
-
         when(mockConn.isClosed()).thenReturn(false);
+        String actual = sqLite.disConnect();
 
         assertEquals(expected, actual);
     }
