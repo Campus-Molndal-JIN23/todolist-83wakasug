@@ -48,18 +48,19 @@ void connectionTestWhenURLISNULL() throws SQLException {
    void connectDatabaseThenReturnMessageConnected() throws SQLException {
         String expected = "Connection is open";
 
-        String actual = sqLite.connect();
-        when(mockConn.isClosed()).thenReturn(false);
+        Connection actual = sqLite.connect();
+        when(mockConn.isClosed()).thenReturn(mockConn);
         assertEquals(expected,actual);
    }
 
     @Test
-    void connectDatabaseThenReturnMessageWrong() throws SQLException {
+    void connectDatabaseThenReturnNull() throws SQLException {
         String expected = "Something went wrong";
-        when(mockConn.isClosed()).thenReturn(true);
+        Connection actual = sqLite.connect();
+        when(mockConn.isClosed()).thenReturn(null);
 
-        String actual = sqLite.connect();
-        assertEquals(expected,actual);
+
+        assertEquals(expected,null);
     }
 
     @Test
@@ -91,8 +92,8 @@ void connectionTestWhenURLISNULL() throws SQLException {
     void createTableSuccessful(String query) throws SQLException {
 
         when(mockStm.execute(query)).thenReturn(true);
-        String actual = sqLite.createTable(query);
-        String expected = "Table Created";
+        boolean actual = sqLite.createTable(query);
+        boolean expected = true;
 
         assertEquals(expected,actual);
     }
@@ -102,12 +103,12 @@ void connectionTestWhenURLISNULL() throws SQLException {
         String query = "Create Table 123";
         String errorMessage = "[SQLITE_ERROR] SQL error or missing database (near \"123\": syntax error)";
         SQLException exception = new SQLException(errorMessage);
-
+        boolean expected = false;
         when(mockStm.execute(query)).thenThrow(exception);
+        boolean actual = sqLite.createTable(query);
 
-        String result = sqLite.createTable(query);
 
-        assertEquals("[SQLITE_ERROR] SQL error or missing database (near \"123\": syntax error)", result);
+        assertEquals(expected, actual);
     }
 
 }

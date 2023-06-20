@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SQLite {
+public class SQLite implements Database {
+
     private String dbName = null;
     Connection conn;
 
@@ -13,9 +14,9 @@ public class SQLite {
     String url="jdbc:sqlite:" + dbName+ ".db";
 
     // The constructor for SQLite class calls connect() and createTable() methods.
-    public SQLite(String dbName) throws SQLException {
+    public SQLite(String dbName) {
         this.dbName = dbName;
-         connect();
+         connection();
          initialTable();
     }
     /**
@@ -24,17 +25,23 @@ public class SQLite {
      * handles any exceptions that may occur during the connection
      * by printing an error message.
      */
-    public String connect() throws SQLException {
+
+
+
+    public Connection connection() {
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
             System.out.println(e.getMessage());;
         }
-
-        if (conn != null && !conn.isClosed()) {
-            return "Connection is open";
+        try{
+            if (conn != null && !conn.isClosed()) {
+                return conn;
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
         }
-        return "Something went wrong";
+        return null;
     }
     /**
      *
@@ -42,27 +49,32 @@ public class SQLite {
      * handle any exceptions that may occur at closure
      * by printing an error message.
      */
-    public String disconnect() throws SQLException {
+    public String disConnect(){
         try {
             conn.close();
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
 
-        if (conn == null || conn.isClosed()) {
-            return "Connection is closed";
+        try{
+            if (conn == null || conn.isClosed()) {
+                return "Connection is closed";
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
         }
+
         return "Something went wrong";
     }
 
     /**
      *
-     * Create a table
+     * Create tables
      *
      *
      */
 
-    private  void initialTable() throws SQLException {
+    private void initialTable() {
         String TODOTable =  "CREATE TABLE IF NOT EXISTS TODO (\n" +
                 " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "  NAME VARCHAR(50) NOT NULL,\n" +
@@ -82,16 +94,18 @@ public class SQLite {
 
     }
 
-    private String createTable(String query) throws SQLException {
+
+    public boolean createTable(String query) {
 
 
         try {
             Statement stm = conn.createStatement();
             stm.execute(query);
         } catch (SQLException e) {
-            return e.getMessage();
+            System.out.println(e.getMessage());
+            return false;
         }
-        return "Table Created";
+        return true;
     }
 
 }

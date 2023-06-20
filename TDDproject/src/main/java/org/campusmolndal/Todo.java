@@ -1,10 +1,10 @@
 package org.campusmolndal;
 
 public class Todo {
-    int id ;
-    String text ;
-    String done ;
-    String assignedTo;
+   private int id ;
+   private String text ;
+   private String done ;
+   private String assignedTo;
 
     public int getId() {
         return this.id;
