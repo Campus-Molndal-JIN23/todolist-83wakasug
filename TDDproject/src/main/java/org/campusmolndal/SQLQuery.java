@@ -67,6 +67,25 @@ public class SQLQuery {
         return showAllData;
     }
 
+    public static String showONETODOData(String description){
+        String showAllData ="SELECT\n" +
+                "  TODO.DESCRIPTION,\n" +
+                "  TODO.AssignedTo,\n" +
+                "  USER.NAME,\n" +
+                "  USER.AGE,\n" +
+                "  PROGRESS.STATUS\n" +
+                "\n" +
+                "FROM\n" +
+                "  TODO\n" +
+                "\n" +
+                "Left  JOIN\n" +
+                "  USER ON USER.USERID = TODO.AssignedTo\n" +
+                "Left JOIN \n" +
+                "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID "+
+                "WHERE DESCRIPTION = \""+description +"\"";
+        return showAllData;
+    }
+
     public static String showAllDescription(){
         String showData = "SELECT\n" +
                 "  TODO.DESCRIPTION\n" +
@@ -86,7 +105,7 @@ public class SQLQuery {
                 "FROM\n" +
                 "  TODO\n" +
                 "\n" +
-                "Right  JOIN\n" +
+                "RIGHT  JOIN\n" +
                 "  USER ON USER.USERID = TODO.AssignedTo\n" +
                 "RIGHT JOIN \n" +
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
@@ -105,9 +124,9 @@ public class SQLQuery {
                 "FROM\n" +
                 "  TODO\n" +
                 "\n" +
-                "Left  JOIN\n" +
+                "RIGHT  JOIN\n" +
                 "  USER ON USER.USERID = TODO.AssignedTo\n" +
-                "Left JOIN \n" +
+                "RIGHT JOIN \n" +
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
                 "WHERE Name = \""+name +"\"";
 
