@@ -49,7 +49,9 @@ public class Text {
             System.out.println("2:Delete a user");
         }
 
-
+        public static void wrongInput(){
+            System.out.println("Wrong Input. Please Enter Again.");
+        }
 
 
 }

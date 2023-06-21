@@ -16,8 +16,6 @@ public class SQLite implements Database {
     // The constructor for SQLite class calls connect() and createTable() methods.
     public SQLite(String dbName) {
         this.dbName = dbName;
-         connection();
-         initialTable();
     }
     /**
      *
@@ -67,33 +65,6 @@ public class SQLite implements Database {
         return false;
     }
 
-    /**
-     *
-     * Create tables
-     *
-     *
-     */
-
-    private void initialTable() {
-        String TODOTable =  "CREATE TABLE IF NOT EXISTS TODO (\n" +
-                " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "  TODO VARCHAR(50) NOT NULL,\n" +
-                "  PROGRESS INTEGER,\n" +
-                "  AssignedTo INTEGER," + // Add comma here
-                "  FOREIGN KEY (PROGRESS) REFERENCES Progress(ProgressID)" +
-                ")";
-
-        String progress = "CREATE TABLE IF NOT EXISTS PROGRESS (\n" +
-                "ProgressID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "STATUS VARCHAR(50) NOT NULL"+
-                ")";
-
-        createTable(TODOTable);
-        createTable(progress);
-
-    }
-
-
     public boolean createTable(String query) {
 
 
@@ -106,5 +77,16 @@ public class SQLite implements Database {
         }
         return true;
     }
+
+    private void initialTable(String descriptionTable,String ProgressTable,String Usertable) {
+        createTable(descriptionTable);
+        createTable(ProgressTable);
+        createTable(Usertable);
+    }
+
+
+
+
+
 
 }

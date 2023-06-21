@@ -3,6 +3,7 @@ package org.campusmolndal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SQLiteCRUD {
      private SQLite sqlite;
@@ -11,6 +12,7 @@ public class SQLiteCRUD {
     public SQLiteCRUD(SQLite sqlite){
         this.sqlite = sqlite;
     }
+    
 
     public void add(Object object,String sql){
             conn=sqlite.connection();

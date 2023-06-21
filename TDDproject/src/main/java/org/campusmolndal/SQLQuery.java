@@ -24,6 +24,15 @@ public class SQLQuery {
         return progress;
     }
 
+    public String createUserTable(){
+        String progress = "CREATE TABLE IF NOT EXISTS USER (\n" +
+                "USERID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "STATUS VARCHAR(50) NOT NULL"+
+                ")";
+
+        return progress;
+    }
+
     public String addDataToTODO(){
         String addTODO = "INSERT INTO TODO (TODO, PROGRESS) VALUES (?, ?)";
 
