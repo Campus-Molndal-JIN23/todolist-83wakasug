@@ -12,14 +12,14 @@ public class SQLiteCRUD {
         this.sqlite = sqlite;
     }
 
-    public void add(Todo todo){
+    public void add(Object object,String sql){
             conn=sqlite.connection();
 
-            String sql = "INSERT INTO TODO (NAME, POINTS) VALUES (?, ?)";
+             sql = "INSERT INTO TODO (TODO, PROGRESS) VALUES (?, ?)";
 
             try{
                 PreparedStatement pstmt=conn.prepareStatement(sql);
-                pstmt.setString(1, todo.getText());
+                pstmt.setString(1, object.getText());
                 pstmt.setInt(2,todo.getDone());
                 pstmt.executeUpdate();
             }

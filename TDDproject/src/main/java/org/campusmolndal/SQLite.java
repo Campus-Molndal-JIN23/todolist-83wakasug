@@ -77,8 +77,7 @@ public class SQLite implements Database {
     private void initialTable() {
         String TODOTable =  "CREATE TABLE IF NOT EXISTS TODO (\n" +
                 " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "  NAME VARCHAR(50) NOT NULL,\n" +
-                "  TEXT VARCHAR(200),\n" +
+                "  TODO VARCHAR(50) NOT NULL,\n" +
                 "  PROGRESS INTEGER,\n" +
                 "  AssignedTo INTEGER," + // Add comma here
                 "  FOREIGN KEY (PROGRESS) REFERENCES Progress(ProgressID)" +
