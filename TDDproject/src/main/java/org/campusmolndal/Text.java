@@ -33,7 +33,7 @@ public class Text {
 
         public static void updateTODOList(){
             System.out.println("Please Enter Choice");
-            System.out.println("1:update TODO");
+            System.out.println("1:update Description");
             System.out.println("2:update status");
             System.out.println("3:update assignedTo");
         }
@@ -42,12 +42,11 @@ public class Text {
             System.out.println("Please Enter Choice");
             System.out.println("1:update Name");
             System.out.println("2:Update Age");
-            System.out.println("3:Update ");
         }
 
          public static void deleteDataMenu(){
             System.out.println("Please Enter Choice");
-            System.out.println("1:Delete a TODO List");
+            System.out.println("1:Delete a TODO");
             System.out.println("2:Delete a user");
         }
 

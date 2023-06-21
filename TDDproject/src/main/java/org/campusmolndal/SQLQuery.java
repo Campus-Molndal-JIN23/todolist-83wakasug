@@ -4,53 +4,46 @@ public class SQLQuery {
 
     public static String createTODOTable (){
 
-        String DESCRIPTIONTable =  "CREATE TABLE IF NOT EXISTS TODO (\n" +
+        return  "CREATE TABLE IF NOT EXISTS TODO (\n" +
                 " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "  DESCRIPTION VARCHAR(50) NOT NULL,\n" +
                 "  PROGRESS INTEGER,\n" +
                 "  ASSIGNEDTO INTEGER," +
-                "  FOREIGN KEY (PROGRESS) REFERENCES Progress(ProgressID)" +
-                "  FOREIGN KEY (ASSIGNEDTO) REFERENCES USER(USERID)" +
+                "  FOREIGN KEY (PROGRESS) REFERENCES Progress(ID)" +
+                "  FOREIGN KEY (ASSIGNEDTO) REFERENCES USER(ID)" +
                 ")";
 
-            return DESCRIPTIONTable;
     }
 
     public static String createProgressTable(){
-        String progressTable = "CREATE TABLE IF NOT EXISTS PROGRESS (\n" +
-                "ProgressID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+        return "CREATE TABLE IF NOT EXISTS PROGRESS (\n" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "STATUS VARCHAR(50) NOT NULL"+
-                "  FOREIGN KEY (ProgressID) REFERENCES TODO(PROGRESS)" +
+                "  FOREIGN KEY (ID) REFERENCES TODO(PROGRESS)" +
                 ")";
-
-        return progressTable;
     }
 
     public static String createUserTable(){
-        String userTable = "CREATE TABLE IF NOT EXISTS USER (\n" +
-                "USERID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+        return "CREATE TABLE IF NOT EXISTS USER (\n" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "NAME VARCHAR(50) NOT NULL,\n"+
                 "AGE Integer,\n"+
-                "  FOREIGN KEY (USERID) REFERENCES TODO(ASSIGNEDTO)" +
+                "  FOREIGN KEY (ID) REFERENCES TODO(ASSIGNEDTO)" +
                 ")";
-
-        return userTable;
     }
 
 
 
     public static String setupTODOProgress(){
-        String todoAddQuery ="INSERT INTO TODO.PROGRESS (STATUS) VALUES ('TODO')";
-        return todoAddQuery;
+        return "INSERT INTO TODO.PROGRESS (STATUS) VALUES ('TODO')";
     }
 
     public static String setupDONEProgress(){
-        String doneAddQuery ="INSERT INTO TODO.PROGRESS (STATUS) VALUES ('DONE')";
-        return doneAddQuery;
+        return  "INSERT INTO TODO.PROGRESS (STATUS) VALUES ('DONE')";
     }
 
-    public static String showAllTODOData(){
-        String showAllData ="SELECT\n" +
+    public static String showAllTODO(){
+        return "SELECT\n" +
                 "  TODO.DESCRIPTION,\n" +
                 "  TODO.AssignedTo,\n" +
                 "  USER.NAME,\n" +
@@ -64,11 +57,10 @@ public class SQLQuery {
                 "  USER ON USER.USERID = TODO.AssignedTo\n" +
                 "Left JOIN \n" +
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID ";
-        return showAllData;
     }
 
-    public static String showONETODOData(String description){
-        String showAllData ="SELECT\n" +
+    public static String showONETODO(String description){
+       return "SELECT\n" +
                 "  TODO.DESCRIPTION,\n" +
                 "  TODO.AssignedTo,\n" +
                 "  USER.NAME,\n" +
@@ -83,19 +75,15 @@ public class SQLQuery {
                 "Left JOIN \n" +
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID "+
                 "WHERE DESCRIPTION = \""+description +"\"";
-        return showAllData;
+
     }
 
-    public static String showAllDescription(){
-        String showData = "SELECT\n" +
-                "  TODO.DESCRIPTION\n" +
-                "FROM\n" +
-                "  TODO";
-        return showData;
+    public static String showAllTODOTable(){
+        return  "SELECT * FROM TODO";
     }
 
     public static String ShowALLAssignedTODO(){
-        String showData = "SELECT\n" +
+        return "SELECT\n" +
                 "  TODO.DESCRIPTION,\n" +
                 "  TODO.AssignedTo,\n" +
                 "  USER.NAME,\n" +
@@ -111,11 +99,10 @@ public class SQLQuery {
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
                 "  \n" +
                 "  WHERE TODO.AssignedTo IS NOT NULL;";
-        return showData;
     }
 
     public static String showSpecificUsersTODO(String name){
-        String showUsersTodo = "SELECT\n" +
+        return "SELECT\n" +
                 "  TODO.DESCRIPTION,\n" +
                 "  USER.NAME,\n" +
                 "  USER.AGE,\n" +
@@ -130,25 +117,29 @@ public class SQLQuery {
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
                 "WHERE Name = \""+name +"\"";
 
-        return showUsersTodo;
     }
 
     public static String showOnlyUsers(){
-        String users = "SELECT USER.NAME FROM TODO";
-        return users;
+        return "SELECT * FROM  USER";
     }
 
 
 
     public static String addDataToTODO(){
-        String addTODO = "INSERT INTO TODO (DESCRIPTION, PROGRESS,ASSIGNEDTO) VALUES (?,1,?)";
-        return addTODO;
+        return "INSERT INTO TODO (DESCRIPTION, PROGRESS,ASSIGNEDTO) VALUES (?,1,?)";
     }
 
     public static String addDataToUser(){
-        String addUser = "INSERT INTO USER (NAME, AGE) VALUES (?,?)";
-        return addUser;
+        return  "INSERT INTO USER (NAME, AGE) VALUES (?,?)";
     }
 
+   public static String updateTODOTable(String table,String colum,String newStatus,String oldStatus){
+      return  "UPDATE "+table+" SET " +colum +" = "+ " ? " +" WHERE "+ colum +" = "+ oldStatus ;
+
+   }
+
+   public static String deleteData(String table,String id){
+        return "DELETE FROM " + table + " WHERE ID = " + id;
+   }
 
 }
