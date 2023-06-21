@@ -29,8 +29,8 @@ SQLiteCRUD sqLiteCRUD;
         sqLiteCRUD.addTODO(SQLQuery.addDataToTODO(),description,assignedTo);
     }
 
-    public void addUser(String description,int assignedTo){
-        sqLiteCRUD.addTODO(SQLQuery.addDataToTODO(),description,assignedTo);
+    public void addUser(String name,int age){
+        sqLiteCRUD.addTODO(SQLQuery.addDataToTODO(),name,age);
     }
 
 }

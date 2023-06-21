@@ -14,7 +14,7 @@ public class Text {
         public static void showDataMenu(){
             System.out.println("Please Enter Choice");
             System.out.println("1:Show ALL TODO List");
-            System.out.println("2:Show a List");
+            System.out.println("2:Show a TODO List");
             System.out.println("3:Show ALL Users");
             System.out.println("4:Show a user");
         }
@@ -32,12 +32,14 @@ public class Text {
         }
 
         public static void updateTODOList(){
+            System.out.println("Please Enter Choice");
             System.out.println("1:update TODO");
             System.out.println("2:update status");
             System.out.println("3:update assignedTo");
         }
 
         public static void updateUser(){
+            System.out.println("Please Enter Choice");
             System.out.println("1:update Name");
             System.out.println("2:Update Age");
             System.out.println("3:Update ");

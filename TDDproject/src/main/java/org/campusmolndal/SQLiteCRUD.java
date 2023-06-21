@@ -1,9 +1,7 @@
 package org.campusmolndal;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class SQLiteCRUD {
      private SQLite sqlite;
@@ -41,6 +39,29 @@ public class SQLiteCRUD {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public ArrayList<Todo> showTodo(){
+        Todo todo = null;
+        ArrayList<Todo> topTen = new ArrayList<>();
+
+        try{
+            PreparedStatement pstmt=conn.prepareStatement(sql);
+            ResultSet rst = pstmt.executeQuery();
+
+            while(rst.next()){
+                player = new Player(
+                        rst.getString("Name"),
+                        rst.getInt("Points"));
+                topTen.add(player);
+            }
+
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        return topTen;
     }
 
 
