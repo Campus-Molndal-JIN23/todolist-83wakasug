@@ -12,13 +12,13 @@ public class SQLiteCRUD {
     }
 
 
-    public void addTODO(String query,String description,int assignTo){
+    public void addData(String query,String value1,int value2){
             conn=sqlite.connection();
 
             try{
                 PreparedStatement pstmt=conn.prepareStatement(query);
-                pstmt.setString(1, description);
-                pstmt.setInt(2,assignTo);
+                pstmt.setString(1, value1);
+                pstmt.setInt(2,value2);
                 pstmt.executeUpdate();
             }
             catch(SQLException e){
@@ -27,33 +27,20 @@ public class SQLiteCRUD {
         }
 
 
-    public void addUser(String query,String name,int age){
-        conn=sqlite.connection();
+    public ArrayList<Todo> showTodo(String query){
+        Todo todo = null;
+        ArrayList<Todo> list = new ArrayList<>();
 
         try{
             PreparedStatement pstmt=conn.prepareStatement(query);
-            pstmt.setString(1, name);
-            pstmt.setInt(2,age);
-            pstmt.executeUpdate();
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public ArrayList<Todo> showTodo(){
-        Todo todo = null;
-        ArrayList<Todo> topTen = new ArrayList<>();
-
-        try{
-            PreparedStatement pstmt=conn.prepareStatement(sql);
             ResultSet rst = pstmt.executeQuery();
 
             while(rst.next()){
-                player = new Player(
-                        rst.getString("Name"),
-                        rst.getInt("Points"));
-                topTen.add(player);
+                todo = new Todo(
+                        rst.getString("DESCRIPTION"),
+                        rst.getString("STATUS"),
+                        rst.getString("ASSIGNEDTO"));
+                list.add(todo);
             }
 
         }

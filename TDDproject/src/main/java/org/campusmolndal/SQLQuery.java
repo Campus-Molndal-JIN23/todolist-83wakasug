@@ -124,7 +124,6 @@ public class SQLQuery {
     }
 
 
-
     public static String addDataToTODO(){
         return "INSERT INTO TODO (DESCRIPTION, PROGRESS,ASSIGNEDTO) VALUES (?,1,?)";
     }

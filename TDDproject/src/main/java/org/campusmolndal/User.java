@@ -1,11 +1,13 @@
 package org.campusmolndal;
 
+import java.util.ArrayList;
+
 public class User {
 
    private int id ;
    private String name;
    private int age;
-   private String todos ;
+   private ArrayList <String > todos ;
 
     public int getId() {
         return this.id;
@@ -31,11 +33,11 @@ public class User {
         this.age = age;
     }
 
-    public String getTodos() {
+    public ArrayList<String> getTodos() {
         return this.todos;
     }
 
-    public void setTodos(String todos) {
-        this.todos = todos;
+    public void setTodos(ArrayList<String>todos) {
+       this.todos = todos;
     }
 }
