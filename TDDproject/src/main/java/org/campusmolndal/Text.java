@@ -4,7 +4,7 @@ public class Text {
 
 
         public static void firstMenu (){
-            System.out.println("Please Enter Choice");
+            System.out.println("Please Enter Number");
             System.out.println("1:Show data");
             System.out.println("2:Add data");
             System.out.println("3:Update data");

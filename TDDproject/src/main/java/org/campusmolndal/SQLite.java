@@ -16,6 +16,7 @@ public class SQLite implements Database {
     // The constructor for SQLite class calls connect() and createTable() methods.
     public SQLite(String dbName) {
         this.dbName = dbName;
+        initialTable(SQLQuery.createTODOTable(),SQLQuery.createProgressTable(),SQLQuery.createUserTable(),SQLQuery.setupTODOProgress(),SQLQuery.setupDONEProgress());
     }
     /**
      *
@@ -65,8 +66,7 @@ public class SQLite implements Database {
         return false;
     }
 
-    public boolean createTable(String query) {
-
+    private boolean createTable(String query) {
 
         try {
             Statement stm = conn.createStatement();
@@ -78,10 +78,22 @@ public class SQLite implements Database {
         return true;
     }
 
-    private void initialTable(String descriptionTable,String ProgressTable,String Usertable) {
+    private void readyForProgressTable(String query){
+        try{
+            Statement stm = conn.createStatement();
+            stm.execute(query);
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    private void initialTable(String descriptionTable,String ProgressTable,String Usertable,String addTODO,String addDone) {
         createTable(descriptionTable);
         createTable(ProgressTable);
         createTable(Usertable);
+        readyForProgressTable(addDone);
+        readyForProgressTable(addTODO );
     }
 
 

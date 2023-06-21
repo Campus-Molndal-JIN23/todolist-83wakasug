@@ -12,23 +12,36 @@ public class SQLiteCRUD {
     public SQLiteCRUD(SQLite sqlite){
         this.sqlite = sqlite;
     }
-    
 
-    public void add(Object object,String sql){
+
+    public void addTODO(String query,String description,int assignTo){
             conn=sqlite.connection();
 
-             sql = "INSERT INTO TODO (TODO, PROGRESS) VALUES (?, ?)";
-
             try{
-                PreparedStatement pstmt=conn.prepareStatement(sql);
-                pstmt.setString(1, object.getText());
-                pstmt.setInt(2,todo.getDone());
+                PreparedStatement pstmt=conn.prepareStatement(query);
+                pstmt.setString(1, description);
+                pstmt.setInt(2,assignTo);
                 pstmt.executeUpdate();
             }
             catch(SQLException e){
                 System.out.println(e.getMessage());
             }
         }
+
+
+    public void addUser(String query,String name,int age){
+        conn=sqlite.connection();
+
+        try{
+            PreparedStatement pstmt=conn.prepareStatement(query);
+            pstmt.setString(1, name);
+            pstmt.setInt(2,age);
+            pstmt.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
 
 
