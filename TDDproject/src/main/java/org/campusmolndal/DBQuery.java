@@ -47,6 +47,7 @@ public class DBQuery {
                 "  TODO.ID,\n" +
                 "  TODO.DESCRIPTION,\n" +
                 "  TODO.AssignedTo,\n" +
+                "  TODO.PROGRESS,\n"+
                 "  USER.NAME,\n" +
                 "  USER.AGE,\n" +
                 "  PROGRESS.STATUS\n" +
@@ -57,34 +58,33 @@ public class DBQuery {
                 "Left  JOIN\n" +
                 "  USER ON USER.ID = TODO.AssignedTo\n" +
                 "Left JOIN \n" +
-                "PROGRESS ON PROGRESS.ID = TODO.ID ";
+                "PROGRESS ON PROGRESS.ID = TODO.PROGRESS ";
     }
 
     public static String showALLData(){
        return "SELECT *\n" +
                "FROM TODO\n" +
                "RIGHT JOIN USER ON USER.ID = TODO.AssignedTo\n" +
-               "RIGHT JOIN PROGRESS ON PROGRESS.ID = TODO.PROGRESSID\n" +
+               "RIGHT JOIN PROGRESS ON PROGRESS.ID = TODO.PROGRESS\n" +
                "WHERE DESCRIPTION NOT NULL";
     }
 
     public static String showONETODO(int id){
-       return "  SELECT\n" +
-               " TODO.ID,\n" +
+       return "SELECT\n" +
+               "TODO.ID,\n" +
                "TODO.DESCRIPTION,\n" +
-               "                  TODO.AssignedTo,\n" +
-               "                  USER.NAME,\n" +
-               "                  USER.AGE,\n" +
-               "                  PROGRESS.STATUS\n" +
-               "                \n" +
-               "                FROM\n" +
-               "                  TODO\n" +
-               "                \n" +
-               "                Left  JOIN\n" +
-               "                  USER ON USER.ID = TODO.AssignedTo\n" +
-               "                Left JOIN \n" +
-               "                PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
-               "                WHERE TODO.ID = "+ id;
+               "TODO.AssignedTo,\n" +
+               "TODO.PROGRESS,\n"+
+               "USER.NAME,\n" +
+               "USER.AGE,\n" +
+               "PROGRESS.STATUS\n" +
+               " FROM\n" +
+               " TODO\n" +
+               "Left  JOIN\n" +
+               "USER ON USER.ID = TODO.AssignedTo\n" +
+               "Left JOIN \n" +
+               "PROGRESS ON PROGRESS.ID = TODO.PROGRESS \n" +
+               "WHERE TODO.ID = "+ id;
 
     }
 
@@ -94,22 +94,19 @@ public class DBQuery {
 
     public static String ShowALLAssignedTODO(){
         return "SELECT TODO.ID AS TODOID,\n" +
-                "                  TODO.DESCRIPTION,\n" +
-                "                  TODO.AssignedTo,\n" +
-                "                  USER.NAME,\n" +
-                "                  USER.AGE,\n" +
-                "                  USER.ID,\n" +
-                "                  PROGRESS.STATUS\n" +
-                "                \n" +
-                "                FROM\n" +
-                "                  TODO\n" +
-                "                \n" +
-                "                RIGHT  JOIN\n" +
-                "                  USER ON USER.ID = TODO.AssignedTo\n" +
-                "                RIGHT JOIN \n" +
-                "                PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
-                "                  \n" +
-                "                  WHERE TODO.AssignedTo IS NOT NULL";
+                "TODO.DESCRIPTION,\n" +
+                "TODO.AssignedTo,\n" +
+                "USER.NAME,\n" +
+                "USER.AGE,\n" +
+                "USER.ID,\n" +
+                "PROGRESS.STATUS\n" +
+                "FROM\n" +
+                "TODO\n" +
+                "RIGHT  JOIN\n" +
+                "USER ON USER.ID = TODO.AssignedTo\n" +
+                "RIGHT JOIN \n" +
+                "PROGRESS ON PROGRESS.ID = TODO.PROGRESS \n" +
+                "WHERE TODO.AssignedTo IS NOT NULL";
     }
 
     public static String showSpecificUsersTODO(String name){
@@ -125,7 +122,7 @@ public class DBQuery {
                 "RIGHT  JOIN\n" +
                 "  USER ON USER.USERID = TODO.AssignedTo\n" +
                 "RIGHT JOIN \n" +
-                "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
+                "PROGRESS ON PROGRESS.ID = TODO.PROGRESS \n" +
                 "WHERE Name = \""+name +"\"";
 
     }

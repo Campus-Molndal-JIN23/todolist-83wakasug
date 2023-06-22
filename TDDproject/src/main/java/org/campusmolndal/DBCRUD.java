@@ -153,21 +153,23 @@ public class DBCRUD {
         return allUsers;
     }
 
-    public ArrayList<User> showALLUser(String query){
+    public Map<Integer,User> showALLUser(String query){
 
              User user;
-             ArrayList <User> usersList = null;
+            Map<Integer, User> usersList = new HashMap<>();
+
         try{
             PreparedStatement pstmt=conn.prepareStatement(query);
             ResultSet rst = pstmt.executeQuery();
-
+            int i = 1;
             while(rst.next()){
                 user = new User(
                         rst.getInt("ID"),
                         rst.getString("NAME"),
                         rst.getInt("AGE")
                 );
-                usersList.add(user);
+                i++;
+                usersList.put(i,user);
             }
         }
         catch(SQLException e){

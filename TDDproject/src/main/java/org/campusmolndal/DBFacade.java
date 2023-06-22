@@ -32,9 +32,9 @@ Connection conn;
         if(allTodoList.isEmpty()){
             Text.noDataFound();
         }else{allTodoList.forEach((todo,user)->{
-            todo.toString();
-            user.toString();
+            showResult(user,todo);
         });
+
         }
 
     }
@@ -52,12 +52,23 @@ Connection conn;
         Map<Todo, User> allTodoList ;
         allTodoList =dbCRUD.showALLTodo(DBQuery.showONETODO(id));
         allTodoList.forEach((todo,user)->{
-            todo.toString();
-            user.toString();
+            showResult(user,todo);
         });
     }
 
+    public Map<Integer, User> showOnlyUsers(){
+        Map<Integer, User> allUsers;
+        allUsers=dbCRUD.showALLUser(DBQuery.showOnlyUsers());
 
+        return allUsers;
+    }
+
+    public void showUsersData(Map<Integer, User> userList){
+
+            userList.forEach((id,user)->{
+                System.out.println(id+": " + user.getName());
+            });
+    }
 
     public ArrayList<Todo> test(int id){
         ArrayList <Todo> list = null;
@@ -77,5 +88,14 @@ Connection conn;
         //dbCRUD.addTODO(SQLQuery.addDataToTODO(),name,age);
     }
 
+    public void showResult(User user,Todo todo){
+        if(user.getName() == null){
+            System.out.println(todo.toString()+ " "+"User: Not Registered");
+        }
+        else{
+            System.out.println(todo.toString()+ " "+user.toString());
+        }
+        System.out.println("");
+    }
 
 }

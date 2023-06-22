@@ -73,8 +73,12 @@ public class Text {
             System.out.println("Data not Found");
         }
 
-        public static void inputValue(){
+        public static void inputNumber(){
             System.out.println("Please input Number");
+        }
+        public static void choseName(){
+            System.out.println("Who do you want to assign to assign?");
+            System.out.println("");
         }
 
         public static void inputName(){

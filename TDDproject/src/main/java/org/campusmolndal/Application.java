@@ -76,7 +76,7 @@ public class Application {
             noDataFound();
         }
 
-        Text.inputValue();
+        Text.inputNumber();
         Todo todo = null;
 
         try{
@@ -97,7 +97,7 @@ public class Application {
             int input = Input.number();
 
             switch (input) {
-                case 1:
+                case 1:addTODOData();
                     break;
                 case 2:
                     break;
@@ -112,6 +112,31 @@ public class Application {
         }
     }
 
+    public void addTODOData(){
+        Integer nameId;
+        User user;
+        Map<Integer, User> userList;
+        Text.inputTodo();
+        String description = Input.Str();
+
+        userList= dbFacade.showOnlyUsers();
+
+        if(userList.isEmpty()){
+            nameId = 0 ;
+        }
+        else{
+            Text.choseName();
+            dbFacade.showUsersData(userList);
+            Text.inputNumber();
+            int number = Input.number();
+            user = userList.get(number);
+
+            nameId= user.getId();
+
+        }
+
+        dbFacade.addTODO(description,nameId);
+    }
 
     public void updateDataMenu(){
 
