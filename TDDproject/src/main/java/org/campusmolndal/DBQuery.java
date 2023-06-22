@@ -83,22 +83,23 @@ public class DBQuery {
     }
 
     public static String ShowALLAssignedTODO(){
-        return "SELECT\n" +
-                "  TODO.DESCRIPTION,\n" +
-                "  TODO.AssignedTo,\n" +
-                "  USER.NAME,\n" +
-                "  USER.AGE,\n" +
-                "  PROGRESS.STATUS\n" +
-                "\n" +
-                "FROM\n" +
-                "  TODO\n" +
-                "\n" +
-                "RIGHT  JOIN\n" +
-                "  USER ON USER.USERID = TODO.AssignedTo\n" +
-                "RIGHT JOIN \n" +
-                "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
-                "  \n" +
-                "  WHERE TODO.AssignedTo IS NOT NULL;";
+        return "SELECT TODO.ID AS TODOID,\n" +
+                "                  TODO.DESCRIPTION,\n" +
+                "                  TODO.AssignedTo,\n" +
+                "                  USER.NAME,\n" +
+                "                  USER.AGE,\n" +
+                "                  USER.ID,\n" +
+                "                  PROGRESS.STATUS\n" +
+                "                \n" +
+                "                FROM\n" +
+                "                  TODO\n" +
+                "                \n" +
+                "                RIGHT  JOIN\n" +
+                "                  USER ON USER.ID = TODO.AssignedTo\n" +
+                "                RIGHT JOIN \n" +
+                "                PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
+                "                  \n" +
+                "                  WHERE TODO.AssignedTo IS NOT NULL";
     }
 
     public static String showSpecificUsersTODO(String name){

@@ -7,9 +7,9 @@ public class Todo {
    private int id ;
    private String text ;
    private String  done ;
-   private String assignedTo;
+   private int assignedTo;
 
-    public Todo(int id,String description,String status,String assignedTo) {
+    public Todo(int id,String description,int assignedTo,String status) {
         this.id = id;
         this.text = description;
         this.done = status;
@@ -41,11 +41,11 @@ public class Todo {
         this.done = done;
     }
 
-    public String getAssignedTo() {
+    public int getAssignedTo() {
         return this.assignedTo;
     }
 
-    public void setAssignedTo(String assignedTo) {
+    public void setAssignedTO(int assignedTo) {
         this.assignedTo = assignedTo;
     }
 }

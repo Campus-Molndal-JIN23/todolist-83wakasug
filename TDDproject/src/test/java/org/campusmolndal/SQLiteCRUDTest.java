@@ -19,7 +19,7 @@ class SQLiteCRUDTest {
     Connection mockConn;
     Todo mockTodo;
     SQLite mockSqLite;
-    SQLiteCRUD sqLiteCrud;
+    DBCRUD sqLiteCrud;
 
 
 
@@ -36,7 +36,7 @@ class SQLiteCRUDTest {
         doNothing().when(mockPstm).setInt(anyInt(),anyInt());
         when(mockSqLite.connection()).thenReturn(mockConn);
 
-        sqLiteCrud = new SQLiteCRUD(mockSqLite);
+        sqLiteCrud = new DBCRUD(mockSqLite);
 
     }
 
@@ -45,7 +45,7 @@ class SQLiteCRUDTest {
         mockTodo.setId(1);
         mockTodo.setDone(5);
         mockTodo.setText("Test");
-        sqLiteCrud.add(mockTodo);
+        sqLiteCrud.addData(mockTodo);
         verify(mockPstm).executeUpdate();
     }
 }
