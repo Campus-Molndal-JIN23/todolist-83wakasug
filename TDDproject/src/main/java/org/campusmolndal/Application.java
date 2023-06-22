@@ -5,8 +5,11 @@ import java.util.Map;
 public class Application {
 
     DBFacade dbFacade = new DBFacade("TODO");
-
-
+    private final String todoTable = "TODO";
+    private final String userTable = "USER";
+    private final String columDescription = "DESCRIPTION";
+    private final String columID="ID";
+    private final String columStatus = "Status";
 
     public void start(){
         mainMenu();
@@ -115,7 +118,6 @@ public class Application {
         Map<Integer, User> userList;
         Text.inputTodo();
         String description = Input.Str();
-
         userList= dbFacade.showOnlyUsers();
 
         if(userList.isEmpty()){
@@ -181,6 +183,8 @@ public class Application {
         Map<Integer, Todo> toDoList;
         Todo todo;
         int toDoid;
+
+        Text.choseTodo();
         String description = Input.Str();
         toDoList= dbFacade.showOnlyDescription();
 
@@ -192,7 +196,7 @@ public class Application {
                 toDoid = getTodoID(toDoList);
                 Text.inputTodo();
                 String newDescription = Input.Str();
-                dbFacade.updateDescription("TODO", "DESCRIPTION", "id", toDoid, newDescription);
+                dbFacade.updateDescription(todoTable, columDescription, columID, toDoid, newDescription);
             }catch (Exception e) {
                 Text.noDataFound();
             }
@@ -214,7 +218,7 @@ public class Application {
             try {
                 toDoid = getTodoID(toDoList);
                 status = choseStatus();
-                dbFacade.updateStatus("TODO", "STATUS", "id", toDoid, status);
+                dbFacade.updateStatus(todoTable, columStatus, columID, toDoid, status);
             }catch (Exception e) {
                 Text.noDataFound();
             }
@@ -250,7 +254,7 @@ public class Application {
             try {
                 toDoid = getTodoID(toDoList);
                 status = choseStatus();
-                dbFacade.updateStatus("TODO", "STATUS", "id", toDoid, assignedUser);
+                dbFacade.updateStatus(todoTable, columStatus, columID, toDoid, assignedUser);
             }catch (Exception e) {
                 Text.noDataFound();
             }
@@ -289,7 +293,7 @@ public class Application {
             int input = Input.number();
 
             switch (input) {
-                case 1:
+                    case 1:deleteTodo();
                     break;
                     case 2:
                     break;
@@ -304,6 +308,26 @@ public class Application {
         }
     }
 
+    public void deleteTodo(){
+        Map<Integer, Todo> toDoList ;
+        Todo todo;
+        int toDoid;
+
+        Text.choseTodo();
+        toDoList=dbFacade.showOnlyDescription();
+
+        if(toDoList.isEmpty()){
+            Text.noDataFound();
+        }
+        else{
+            try {
+                toDoid = getTodoID(toDoList);
+                dbFacade.deleteData(todoTable, toDoid);
+            }catch (Exception e) {
+                Text.noDataFound();
+            }
+        }
+    }
 
     public void noDataFound(){
         Text.noDataFound();
@@ -312,7 +336,7 @@ public class Application {
 
     public Integer getTodoID(Map<Integer, Todo> toDoList){
         Todo todo;
-        Text.whichDataUpdate();
+        Text.choseTodo();
         Text.inputNumber();
         int number = Input.number();
        try {
@@ -323,4 +347,5 @@ public class Application {
        }
         return todo.getId();
     }
+
 }

@@ -68,8 +68,8 @@ public class Text {
         public static void whichDescripion(){
             System.out.println("Which TODO details do you want to check?");
         }
-        public static void whichDataUpdate(){
-            System.out.println("Which one do you want to update?");
+        public static void choseTodo(){
+            System.out.println("Chose ToDO");
         }
         public static void noDataFound(){
             System.out.println("Data not Found");

@@ -98,6 +98,11 @@ Connection conn;
 
     }
 
+    public void deleteData(String table,int id){
+
+        dbCRUD.deleteData(table,id);
+
+    }
 
     public void addUser(String name,int age){
         //dbCRUD.addTODO(SQLQuery.addDataToTODO(),name,age);
