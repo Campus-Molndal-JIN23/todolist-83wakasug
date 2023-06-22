@@ -38,13 +38,14 @@ public class Application {
 
     public void showDataMenu(){
         boolean run = true;
+        int input;
         while(run) {
-
             Text.showDataMenu();
-            int input = Input.number();
+            input = Input.number();
 
             switch (input) {
-                case 1:dbFacade.showALLTODO();
+
+                case 1:showAllTODO();
                     break;
                 case 2:ShowSingleTODO();
                     break;
@@ -52,37 +53,40 @@ public class Application {
                     break;
                 case 4:
                     break;
-                case 5 :run = false;
+                case 5 : run =false;
                         mainMenu();
                     break;
-
-                default: Text.wrongInput();
+                    default: Text.wrongInput();
 
             }
         }
+
+    }
+
+    private void showAllTODO(){
+       dbFacade.showALLTODO();
     }
 
     private void ShowSingleTODO(){
         int id;
         Text.whichDescripion();
         Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
-        if(list == null){
+
+        if(list.isEmpty()){
             noDataFound();
         }
+
         Text.inputValue();
         Todo todo = null;
 
         try{
              todo = list.get(Input.number());
-
+            id=todo.getId();
+            dbFacade.showONETODO(id);
         }
             catch(Exception e){
-                Text.somethingWrong();
-                mainMenu();
+                noDataFound();
         }
-
-        id=todo.getId();
-        dbFacade.showONETODO(id);
 
     }
 

@@ -29,10 +29,13 @@ Connection conn;
     public void showALLTODO(){
         Map<Todo, User> allTodoList ;
         allTodoList =dbCRUD.showALLTodo(DBQuery.showAllTODO());
-        allTodoList.forEach((todo,user)->{
+        if(allTodoList.isEmpty()){
+            Text.noDataFound();
+        }else{allTodoList.forEach((todo,user)->{
             todo.toString();
             user.toString();
         });
+        }
 
     }
 
