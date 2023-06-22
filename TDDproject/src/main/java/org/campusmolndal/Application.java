@@ -12,8 +12,7 @@ public class Application {
     }
 
     public void firstMenu(){
-
-        boolean run = false;
+        boolean run = true;
         while(run) {
             run = false;
             Text.firstMenu();
@@ -38,8 +37,7 @@ public class Application {
     }
 
     public void showDataMenu(){
-
-        boolean run = false;
+        boolean run = true;
         while(run) {
             run = false;
             Text.showDataMenu();
@@ -63,8 +61,7 @@ public class Application {
     }
 
     public void addDataMenu(){
-
-        boolean run = false;
+        boolean run = true;
         while(run) {
             run = false;
             Text.addDataMenu();
@@ -86,7 +83,7 @@ public class Application {
 
     public void updateDataMenu(){
 
-        boolean run = false;
+        boolean run = true;
         while(run) {
             run = false;
             Text.updateDataMenu();
@@ -106,7 +103,7 @@ public class Application {
     }
     public void updateTODOList(){
 
-        boolean run = false;
+        boolean run = true;
         while(run) {
             run = false;
             Text.updateTODOList();
@@ -129,7 +126,7 @@ public class Application {
 
     public void updateUser(){
 
-        boolean run = false;
+        boolean run = true;
         while(run) {
             run = false;
             Text.updateUser();
@@ -151,7 +148,7 @@ public class Application {
     }
     public void deleteDataMenu(){
 
-        boolean run = false;
+        boolean run = true;
         while(run) {
             run = false;
             Text.deleteDataMenu();

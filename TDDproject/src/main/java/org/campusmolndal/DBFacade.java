@@ -9,6 +9,7 @@ import java.util.Map;
 public class DBFacade {
 SQLite sqlite;
 DBCRUD dbCRUD;
+Connection conn;
 
 
     public DBFacade(String dbName) {
@@ -27,13 +28,12 @@ DBCRUD dbCRUD;
 
     public void showALLTODO(){
         Map<Todo, User> allTodoList ;
-        sqlite.connection();
         allTodoList =dbCRUD.showALLTodo(DBQuery.showAllTODO());
-        sqlite.disConnect();
         allTodoList.forEach((todo,user)->{
             todo.toString();
             user.toString();
         });
+        sqlite.disConnect();
     }
 
 

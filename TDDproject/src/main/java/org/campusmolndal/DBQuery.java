@@ -55,9 +55,9 @@ public class DBQuery {
                 "  TODO\n" +
                 "\n" +
                 "Left  JOIN\n" +
-                "  USER ON USER.USERID = TODO.AssignedTo\n" +
+                "  USER ON USER.ID = TODO.AssignedTo\n" +
                 "Left JOIN \n" +
-                "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID ";
+                "PROGRESS ON PROGRESS.ID = TODO.ID ";
     }
 
     public static String showALLData(){

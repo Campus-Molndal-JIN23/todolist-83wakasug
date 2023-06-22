@@ -29,6 +29,7 @@ public class DBCRUD {
 
 
     public Map<Todo,User> showALLTodo(String query){
+        conn = sqlite.connection();
         Todo todo = null;
         User user = null;
         Map<Todo, User> allTodo = new HashMap<>();
@@ -62,6 +63,7 @@ public class DBCRUD {
     }
 
     public Todo showONETodo(String query){
+        conn = sqlite.connection();
         Todo todo = null;
 
         try{
@@ -86,6 +88,7 @@ public class DBCRUD {
     }
 
     public Map<Integer,User> showUsers(String query){
+        conn = sqlite.connection();
         User user = null;
         Todo todo = null;
         Map<Integer,User>allUsers = new HashMap<Integer,User>();
@@ -122,6 +125,7 @@ public class DBCRUD {
     }
 
     public ArrayList<User> showALLUser(String query){
+        conn = sqlite.connection();
              User user;
              ArrayList <User> usersList = null;
         try{
@@ -147,6 +151,7 @@ public class DBCRUD {
     }
 
     public void updateDataInt(String query,int value) throws SQLException {
+        conn = sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, value);
@@ -157,6 +162,7 @@ public class DBCRUD {
     }
 
     public void updateDataString(String query,String value) throws SQLException {
+        conn = sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1,value);
@@ -167,6 +173,7 @@ public class DBCRUD {
     }
 
     public void deleteData(String query,int id) throws SQLException {
+        conn = sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1,id);

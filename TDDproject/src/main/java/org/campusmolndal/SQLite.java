@@ -92,11 +92,8 @@ public class SQLite implements Database {
 
     private void initialTable(String descriptionTable,String ProgressTable,String Usertable,String addTODO,String addDone) {
         createTable(descriptionTable);
-        System.out.println(1);
         createTable(ProgressTable);
-        System.out.println(2);
         createTable(Usertable);
-        System.out.println(3);
         readyForProgressTable(addDone);
         readyForProgressTable(addTODO );
     }
