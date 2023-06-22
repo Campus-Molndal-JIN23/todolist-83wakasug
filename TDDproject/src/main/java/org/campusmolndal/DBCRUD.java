@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DBCRUD {
-     private SQLite sqlite;
-     private Connection conn;
+    private SQLite sqlite;
+    private Connection conn;
 
-    public DBCRUD(SQLite sqlite){
-        this.sqlite = sqlite;
+    public DBCRUD(Connection conn){
+       this.conn = conn;
     }
 
 
@@ -29,7 +29,7 @@ public class DBCRUD {
 
 
     public Map<Todo,User> showALLTodo(String query){
-        conn = sqlite.connection();
+
         Todo todo = null;
         User user = null;
         Map<Todo, User> allTodo = new HashMap<>();
@@ -62,8 +62,37 @@ public class DBCRUD {
         return  allTodo;
     }
 
+    public Map<Integer,Todo> showTodo(String query){
+
+        Todo todo = null;
+        Map<Integer, Todo> allTodo = new HashMap<>();
+
+        try{
+            PreparedStatement pstmt=conn.prepareStatement(query);
+            ResultSet rst = pstmt.executeQuery();
+
+            int i = 1;
+            while(rst.next()){
+                todo = new Todo(
+                        rst.getInt("ID"),
+                        rst.getString("DESCRIPTION"),
+                        rst.getInt("ASSIGNEDTO"),
+                        rst.getString("PROGRESS"));
+
+                allTodo.put(i,todo);
+                i++;
+            }
+
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        return  allTodo;
+    }
+
     public Todo showONETodo(String query){
-        conn = sqlite.connection();
+        this.conn = conn;
         Todo todo = null;
 
         try{
@@ -88,7 +117,7 @@ public class DBCRUD {
     }
 
     public Map<Integer,User> showUsers(String query){
-        conn = sqlite.connection();
+        this.conn = conn;
         User user = null;
         Todo todo = null;
         Map<Integer,User>allUsers = new HashMap<Integer,User>();
@@ -125,7 +154,7 @@ public class DBCRUD {
     }
 
     public ArrayList<User> showALLUser(String query){
-        conn = sqlite.connection();
+
              User user;
              ArrayList <User> usersList = null;
         try{
@@ -138,10 +167,8 @@ public class DBCRUD {
                         rst.getString("NAME"),
                         rst.getInt("AGE")
                 );
-
                 usersList.add(user);
             }
-
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
@@ -151,7 +178,6 @@ public class DBCRUD {
     }
 
     public void updateDataInt(String query,int value) throws SQLException {
-        conn = sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, value);
@@ -162,7 +188,6 @@ public class DBCRUD {
     }
 
     public void updateDataString(String query,String value) throws SQLException {
-        conn = sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1,value);
@@ -173,7 +198,6 @@ public class DBCRUD {
     }
 
     public void deleteData(String query,int id) throws SQLException {
-        conn = sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1,id);

@@ -14,8 +14,8 @@ Connection conn;
 
     public DBFacade(String dbName) {
         sqlite = new SQLite(dbName);
-        dbCRUD = new DBCRUD(sqlite);
-
+        conn = connectDB();
+        dbCRUD = new DBCRUD(conn);
     }
 
     public Connection connectDB(){
@@ -33,7 +33,25 @@ Connection conn;
             todo.toString();
             user.toString();
         });
-        sqlite.disConnect();
+
+    }
+
+    public Map<Integer, Todo> showOnlyDescription(){
+        Map<Integer, Todo> allDescription;
+        allDescription=dbCRUD.showTodo(DBQuery.showAllTODO());
+        allDescription.forEach((id,todo)->{
+            System.out.println(id+": " + todo.getText());
+        });
+        return allDescription;
+    }
+
+    public void showONETODO (int id){
+        Map<Todo, User> allTodoList ;
+        allTodoList =dbCRUD.showALLTodo(DBQuery.showONETODO(id));
+        allTodoList.forEach((todo,user)->{
+            todo.toString();
+            user.toString();
+        });
     }
 
 
@@ -42,19 +60,19 @@ Connection conn;
         ArrayList <Todo> list = null;
         sqlite.connection();
         //list =dbCRUD.showALLTodo(DBQuery.showAllTODO());
-        sqlite.disConnect();
         return list;
     }
 
     public void addTODO(String value1,int value2){
-        sqlite.connection();
+
         dbCRUD.addData(DBQuery.addDataToTODO(),value1,value2);
-        sqlite.disConnect();
 
     }
+
 
     public void addUser(String name,int age){
         //dbCRUD.addTODO(SQLQuery.addDataToTODO(),name,age);
     }
+
 
 }

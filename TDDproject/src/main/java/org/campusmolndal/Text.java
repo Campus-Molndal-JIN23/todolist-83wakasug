@@ -3,12 +3,13 @@ package org.campusmolndal;
 public class Text {
 
 
-        public static void firstMenu (){
+        public static void mainMenu (){
             System.out.println("Please Enter Number");
             System.out.println("1:Show data");
             System.out.println("2:Add data");
             System.out.println("3:Update data");
             System.out.println("4:Delete Data");
+            System.out.println("5: Close program");
         }
 
         public static void showDataMenu(){
@@ -17,18 +18,21 @@ public class Text {
             System.out.println("2:Show a TODO List");
             System.out.println("3:Show ALL Users");
             System.out.println("4:Show a user");
+            System.out.println("5:Go back to Main Menu");
         }
 
         public static void addDataMenu(){
             System.out.println("Please Enter Choice");
             System.out.println("1:Add a TODO List");
             System.out.println("2:Add a user");
+            System.out.println("3:Go back to Main Menu");
         }
 
         public static void updateDataMenu(){
             System.out.println("Please Enter Choice");
             System.out.println("1:Update a TODO List");
             System.out.println("2:Update a user");
+            System.out.println("3:Go back to Main Menu");
         }
 
         public static void updateTODOList(){
@@ -36,18 +40,21 @@ public class Text {
             System.out.println("1:update Description");
             System.out.println("2:update status");
             System.out.println("3:update assignedTo");
+            System.out.println("4:Go back to Main Menu");
         }
 
         public static void updateUser(){
             System.out.println("Please Enter Choice");
             System.out.println("1:update Name");
             System.out.println("2:Update Age");
+            System.out.println("3:Go back to Main Menu");
         }
 
          public static void deleteDataMenu(){
             System.out.println("Please Enter Choice");
             System.out.println("1:Delete a TODO");
             System.out.println("2:Delete a user");
+             System.out.println("3:Go back to Main Menu");
         }
 
         public static void showData(String description,String progress,String status,String user,int age){
@@ -57,6 +64,28 @@ public class Text {
             System.out.println("Name: "+ user + "Age: "+ age);
             System.out.println();
 
+        }
+        public static void noDataFound(){
+            System.out.println("Data not Found");
+        }
+        public static void inputValue(){
+            System.out.println("Please input Number");
+        }
+
+        public static void inputName(){
+        System.out.println("Enter Name");
+        }
+
+        public static void inputAge(){
+            System.out.println("Enter Age");
+        }
+
+        public static void inputTodo(){
+        System.out.println("Enter Todo");
+        }
+
+        public static void endTheProgram(){
+            System.out.println();
         }
 
         public static void wrongInput(){

@@ -1,5 +1,7 @@
 package org.campusmolndal;
 
+import java.util.Map;
+
 public class Application {
 
     DBFacade dbFacade = new DBFacade("TODO");
@@ -15,7 +17,7 @@ public class Application {
         boolean run = true;
         while(run) {
             run = false;
-            Text.firstMenu();
+            Text.mainMenu();
             int input = Input.inputInt();
 
             switch (input) {
@@ -27,10 +29,8 @@ public class Application {
                     break;
                 case 4:deleteDataMenu();
                     break;
-
+                case 5: run = false;
                 default: Text.wrongInput();
-                        run = true;
-
             }
         }
 
@@ -39,7 +39,7 @@ public class Application {
     public void showDataMenu(){
         boolean run = true;
         while(run) {
-            run = false;
+
             Text.showDataMenu();
             int input = Input.inputInt();
 
@@ -52,18 +52,24 @@ public class Application {
                     break;
                 case 4:
                     break;
+                case 5 :run = false;
+                        firstMenu();
+                    break;
 
                 default: Text.wrongInput();
-                    run = true;
 
             }
         }
     }
 
+    public void ShowSingleTODO(){
+        Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
+
+    }
+
     public void addDataMenu(){
         boolean run = true;
         while(run) {
-            run = false;
             Text.addDataMenu();
             int input = Input.inputInt();
 
@@ -72,9 +78,12 @@ public class Application {
                     break;
                 case 2:
                     break;
+                case 3:run = false;
+                    firstMenu();
+                    break;
 
                 default: Text.wrongInput();
-                    run = true;
+
 
             }
         }
@@ -85,7 +94,6 @@ public class Application {
 
         boolean run = true;
         while(run) {
-            run = false;
             Text.updateDataMenu();
             int input = Input.inputInt();
 
@@ -94,9 +102,10 @@ public class Application {
                     break;
                 case 2:
                     break;
-
+                case 3:run = false;
+                    firstMenu();
+                    break;
                 default: Text.wrongInput();
-                    run = true;
 
             }
         }
@@ -105,7 +114,6 @@ public class Application {
 
         boolean run = true;
         while(run) {
-            run = false;
             Text.updateTODOList();
             int input = Input.inputInt();
 
@@ -116,9 +124,11 @@ public class Application {
                     break;
                 case 3:
                     break;
+                case 4:run = false;
+                    firstMenu();
+                    break;
 
                 default: Text.wrongInput();
-                    run = true;
 
             }
         }
@@ -128,7 +138,6 @@ public class Application {
 
         boolean run = true;
         while(run) {
-            run = false;
             Text.updateUser();
             int input = Input.inputInt();
 
@@ -139,9 +148,11 @@ public class Application {
                     break;
                 case 3:
                     break;
+                case 4:run = false;
+                    firstMenu();
+                    break;
 
                 default: Text.wrongInput();
-                    run = true;
 
             }
         }
@@ -157,9 +168,12 @@ public class Application {
             switch (input) {
                 case 1:
                     break;
-                case 2:
+                    case 2:
                     break;
 
+                    case 3:run = false;
+                    firstMenu();
+                    break;
                 default: Text.wrongInput();
                     run = true;
 
