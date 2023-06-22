@@ -27,24 +27,30 @@ Connection conn;
         return sqlite.disConnect();
     }
 
-    public void showALLTODO(){
+    public Map<Todo, User> showALLTODOList(){
         Map<Todo, User> allTodoList ;
         allTodoList =dbCRUD.showALLTodo(DBQuery.showAllTODO());
+
+        return allTodoList;
+    }
+
+    public void showALLTODO(Map<Todo, User> allTodoList){
         if(allTodoList.isEmpty()){
             Text.noDataFound();
         }else{allTodoList.forEach((todo,user)->{
             showResult(user,todo);
         });
-
         }
-
     }
+
+
 
     public Map<Integer, Todo> showOnlyDescription(){
         Map<Integer, Todo> allDescription;
         allDescription=dbCRUD.showTodo(DBQuery.showAllTODO());
         allDescription.forEach((id,todo)->{
-            System.out.println(id+": " + todo.getText());
+            System.out.println("   | " + todo.getId() + ": " + todo.getText() + " |");
+            System.out.println("------------------------------");
         });
         return allDescription;
     }
@@ -57,6 +63,14 @@ Connection conn;
         });
     }
 
+    public void showSingleUser(int id){
+        Map<Todo, User> allTodoList ;
+        allTodoList =dbCRUD.showALLTodo(DBQuery.showSingleUser(id));
+        allTodoList.forEach((todo,user)->{
+            showResult(user,todo);
+        });
+    }
+
     public Map<Integer, User> showOnlyUsers(){
         Map<Integer, User> allUsers;
         allUsers=dbCRUD.showALLUser(DBQuery.showOnlyUsers());
@@ -64,12 +78,19 @@ Connection conn;
         return allUsers;
     }
 
-    public void showUsersData(Map<Integer, User> userList){
-
-            userList.forEach((id,user)->{
-                System.out.println(id+": " + user.getName());
-            });
+    public Map<Integer, User> showUsersList(){
+        Map<Integer, User> userList = showOnlyUsers();
+         return userList;
     }
+
+    public void showAllUsers(Map<Integer, User> userList ){
+        userList.forEach((id,user)->{
+            System.out.println("   | " + id + ": " + user.getName() + " |");
+            System.out.println("--------------------");
+        });
+    }
+
+
 
     public void updateDescription (String table,String colum,String columId,int id,String description)  {
 
@@ -109,11 +130,12 @@ Connection conn;
     }
 
     public void showResult(User user,Todo todo){
-        if(user.getName() == null){
-            System.out.println(todo.toString()+ " "+"User: Not Registered");
-        }
-        else{
-            System.out.println(todo.toString()+ " "+user.toString());
+        if (user.getName() == null) {
+            System.out.println("   | " + todo.toString() + " User: Not Registered |");
+            System.out.println("--------------------");
+        } else {
+            System.out.println("   | " + todo.toString() + " " + user.toString() + " |");
+            System.out.println("--------------------");
         }
         System.out.println("");
     }

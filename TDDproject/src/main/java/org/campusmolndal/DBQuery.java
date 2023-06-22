@@ -88,6 +88,19 @@ public class DBQuery {
 
     }
 
+    public static String showSingleUser(int id){
+        return "SELECT\n" +
+                "*" +
+                " FROM\n" +
+                " TODO\n" +
+                "Left  JOIN\n" +
+                "USER ON USER.ID = TODO.AssignedTo\n" +
+                "Left JOIN \n" +
+                "PROGRESS ON PROGRESS.ID = TODO.PROGRESS \n" +
+                "WHERE TODO.AssignedTo = "+ id;
+
+    }
+
     public static String showAllTODOTable(){
         return  "SELECT * FROM TODO";
     }

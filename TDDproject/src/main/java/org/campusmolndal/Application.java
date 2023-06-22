@@ -51,9 +51,9 @@ public class Application {
                     break;
                 case 2:ShowSingleTODO();
                     break;
-                case 3:
+                case 3:showAllUsers();
                     break;
-                case 4:
+                case 4:showSingleUser();
                     break;
                 case 5 : run =false;
                         mainMenu();
@@ -66,7 +66,7 @@ public class Application {
     }
 
     private void showAllTODO(){
-       dbFacade.showALLTODO();
+       dbFacade.showALLTODO(dbFacade.showALLTODOList());
     }
 
     private void ShowSingleTODO(){
@@ -89,7 +89,17 @@ public class Application {
             catch(Exception e){
                 noDataFound();
         }
+    }
 
+    public void showAllUsers(){
+
+        dbFacade.showAllUsers(dbFacade.showUsersList());
+    }
+
+    public void showSingleUser(){
+        showAllUsers();
+        Map<Integer, User> usersList = dbFacade.showUsersList();
+        dbFacade.showSingleUser(getUserID(usersList));
     }
 
     public void addDataMenu(){
@@ -125,7 +135,7 @@ public class Application {
         }
         else{
             Text.choseName();
-            dbFacade.showUsersData(userList);
+            showAllUsers();
             Text.inputNumber();
             int number = Input.number();
             user = userList.get(number);
@@ -346,6 +356,20 @@ public class Application {
            return null;
        }
         return todo.getId();
+    }
+
+    public Integer getUserID(Map<Integer, User> userList){
+        User user;
+        Text.choseTodo();
+        Text.inputNumber();
+        int number = Input.number();
+        try {
+            user = userList.get(number);
+        } catch (Exception e){
+            Text.noDataFound();
+            return null;
+        }
+        return user.getId();
     }
 
 }
