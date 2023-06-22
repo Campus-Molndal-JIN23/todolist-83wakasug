@@ -114,8 +114,29 @@ public class DBCRUD {
         return allUsers;
     }
 
-    public ArrayList<User> showALLUser(){
+    public ArrayList<User> showALLUser(String query){
+             User user;
+             ArrayList <User> usersList = null;
+        try{
+            PreparedStatement pstmt=conn.prepareStatement(query);
+            ResultSet rst = pstmt.executeQuery();
 
+            while(rst.next()){
+                user = new User(
+                        rst.getInt("ID"),
+                        rst.getString("NAME"),
+                        rst.getInt("AGE")
+                );
+
+                usersList.add(user);
+            }
+
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        return  usersList;
     }
 
     public void updateDataInt(String query,int value) throws SQLException {
