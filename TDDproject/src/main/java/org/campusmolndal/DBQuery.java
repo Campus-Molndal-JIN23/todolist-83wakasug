@@ -9,7 +9,7 @@ public class DBQuery {
                 "  DESCRIPTION VARCHAR(50) NOT NULL,\n" +
                 "  PROGRESS INTEGER,\n" +
                 "  ASSIGNEDTO INTEGER," +
-                "  FOREIGN KEY (PROGRESS) REFERENCES Progress(ID)" +
+                "  FOREIGN KEY (PROGRESS) REFERENCES Progress(ID),\n" +
                 "  FOREIGN KEY (ASSIGNEDTO) REFERENCES USER(ID)" +
                 ")";
 
@@ -18,7 +18,7 @@ public class DBQuery {
     public static String createProgressTable(){
         return "CREATE TABLE IF NOT EXISTS PROGRESS (\n" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "STATUS VARCHAR(50) NOT NULL"+
+                "STATUS VARCHAR(50) NOT NULL,\n"+
                 "  FOREIGN KEY (ID) REFERENCES TODO(PROGRESS)" +
                 ")";
     }
@@ -35,11 +35,11 @@ public class DBQuery {
 
 
     public static String setupTODOProgress(){
-        return "INSERT INTO TODO.PROGRESS (STATUS) VALUES ('TODO')";
+        return "INSERT INTO PROGRESS (STATUS) VALUES ('TODO')";
     }
 
     public static String setupDONEProgress(){
-        return  "INSERT INTO TODO.PROGRESS (STATUS) VALUES ('DONE')";
+        return  "INSERT INTO PROGRESS (STATUS) VALUES ('DONE')";
     }
 
     public static String showAllTODO(){
@@ -58,6 +58,14 @@ public class DBQuery {
                 "  USER ON USER.USERID = TODO.AssignedTo\n" +
                 "Left JOIN \n" +
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID ";
+    }
+
+    public static String showALLData(){
+       return "SELECT *\n" +
+               "FROM TODO\n" +
+               "RIGHT JOIN USER ON USER.ID = TODO.AssignedTo\n" +
+               "RIGHT JOIN PROGRESS ON PROGRESS.ID = TODO.PROGRESSID\n" +
+               "WHERE DESCRIPTION NOT NULL";
     }
 
     public static String showONETODO(int id){

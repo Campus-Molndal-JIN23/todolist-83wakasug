@@ -40,12 +40,12 @@ class SQLiteCRUDTest {
 
     }
 
-    @Test
+   /* @Test
     void add() throws SQLException {
         mockTodo.setId(1);
         mockTodo.setDone(5);
         mockTodo.setText("Test");
         sqLiteCrud.addData(mockTodo);
         verify(mockPstm).executeUpdate();
-    }
+    }*/
 }

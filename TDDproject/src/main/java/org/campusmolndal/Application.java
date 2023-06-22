@@ -7,7 +7,7 @@ public class Application {
 
 
     public void start(){
-
+     firstMenu();
 
     }
 
@@ -46,7 +46,7 @@ public class Application {
             int input = Input.inputInt();
 
             switch (input) {
-                case 1:
+                case 1:dbFacade.showALLTODO();
                     break;
                 case 2:
                     break;

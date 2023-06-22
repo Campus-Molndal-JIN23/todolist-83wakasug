@@ -49,4 +49,9 @@ public class User {
     public void addTodo(Todo todo){
        todos.add(todo);
     }
+
+    public String toString(){
+       return "Name: "+ getName() + "Age: "+getAge();
+    }
+
 }

@@ -50,6 +50,15 @@ public class Text {
             System.out.println("2:Delete a user");
         }
 
+        public static void showData(String description,String progress,String status,String user,int age){
+            System.out.println("Description:"+ description);
+            System.out.println("Progress:" +description);
+            System.out.println("Status: "+status);
+            System.out.println("Name: "+ user + "Age: "+ age);
+            System.out.println();
+
+        }
+
         public static void wrongInput(){
             System.out.println("Wrong Input. Please Enter Again.");
         }

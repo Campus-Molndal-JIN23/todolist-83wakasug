@@ -15,7 +15,6 @@ public class DBCRUD {
 
 
     public void addData(String query,String value1,int value2){
-            conn=sqlite.connection();
 
             try{
                 PreparedStatement pstmt=conn.prepareStatement(query);
@@ -29,9 +28,10 @@ public class DBCRUD {
         }
 
 
-    public ArrayList<Todo> showALLTodo(String query){
+    public Map<Todo,User> showALLTodo(String query){
         Todo todo = null;
-        ArrayList<Todo> list = new ArrayList<>();
+        User user = null;
+        Map<Todo, User> allTodo = new HashMap<>();
 
         try{
             PreparedStatement pstmt=conn.prepareStatement(query);
@@ -43,7 +43,14 @@ public class DBCRUD {
                         rst.getString("DESCRIPTION"),
                         rst.getInt("ASSIGNEDTO"),
                         rst.getString("PROGRESS"));
-                list.add(todo);
+
+
+                user = new User(
+                        rst.getInt("ID"),
+                        rst.getString("NAME"),
+                        rst.getInt("AGE")
+                );
+                allTodo.put(todo,user);
             }
 
         }
@@ -51,7 +58,7 @@ public class DBCRUD {
             System.out.println(e.getMessage());
         }
 
-        return list;
+        return  allTodo;
     }
 
     public Todo showONETodo(String query){

@@ -48,4 +48,8 @@ public class Todo {
     public void setAssignedTO(int assignedTo) {
         this.assignedTo = assignedTo;
     }
+
+    public String toString(){
+        return "TODO: "+ getText() + " Progress: "+ getDone();
+    }
 }
