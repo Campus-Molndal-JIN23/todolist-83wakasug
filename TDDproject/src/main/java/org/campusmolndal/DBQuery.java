@@ -44,6 +44,7 @@ public class DBQuery {
 
     public static String showAllTODO(){
         return "SELECT\n" +
+                "  TODO.ID,\n" +
                 "  TODO.DESCRIPTION,\n" +
                 "  TODO.AssignedTo,\n" +
                 "  USER.NAME,\n" +
@@ -59,22 +60,23 @@ public class DBQuery {
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID ";
     }
 
-    public static String showONETODO(String description){
-       return "SELECT\n" +
-                "  TODO.DESCRIPTION,\n" +
-                "  TODO.AssignedTo,\n" +
-                "  USER.NAME,\n" +
-                "  USER.AGE,\n" +
-                "  PROGRESS.STATUS\n" +
-                "\n" +
-                "FROM\n" +
-                "  TODO\n" +
-                "\n" +
-                "Left  JOIN\n" +
-                "  USER ON USER.USERID = TODO.AssignedTo\n" +
-                "Left JOIN \n" +
-                "PROGRESS ON PROGRESS.ID = TODO.PROGRESSID "+
-                "WHERE DESCRIPTION = \""+description +"\"";
+    public static String showONETODO(int id){
+       return "  SELECT\n" +
+               " TODO.ID,\n" +
+               "TODO.DESCRIPTION,\n" +
+               "                  TODO.AssignedTo,\n" +
+               "                  USER.NAME,\n" +
+               "                  USER.AGE,\n" +
+               "                  PROGRESS.STATUS\n" +
+               "                \n" +
+               "                FROM\n" +
+               "                  TODO\n" +
+               "                \n" +
+               "                Left  JOIN\n" +
+               "                  USER ON USER.ID = TODO.AssignedTo\n" +
+               "                Left JOIN \n" +
+               "                PROGRESS ON PROGRESS.ID = TODO.PROGRESSID \n" +
+               "                WHERE TODO.ID = "+ id;
 
     }
 

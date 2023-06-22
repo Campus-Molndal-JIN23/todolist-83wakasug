@@ -16,7 +16,7 @@ public class SQLite implements Database {
     // The constructor for SQLite class calls connect() and createTable() methods.
     public SQLite(String dbName) {
         this.dbName = dbName;
-        initialTable(SQLQuery.createTODOTable(),SQLQuery.createProgressTable(),SQLQuery.createUserTable(),SQLQuery.setupTODOProgress(),SQLQuery.setupDONEProgress());
+        initialTable(DBQuery.createTODOTable(),DBQuery.createProgressTable(),DBQuery.createUserTable(),DBQuery.setupTODOProgress(),DBQuery.setupDONEProgress());
     }
     /**
      *

@@ -41,8 +41,8 @@ public class DBCRUD {
                 todo = new Todo(
                         rst.getInt("ID"),
                         rst.getString("DESCRIPTION"),
-                        rst.getString("PROGRESS"),
-                        rst.getString("ASSIGNEDTO"));
+                        rst.getInt("ASSIGNEDTO"),
+                        rst.getString("PROGRESS"));
                 list.add(todo);
             }
 
@@ -65,8 +65,9 @@ public class DBCRUD {
                 todo = new Todo(
                         rst.getInt("ID"),
                         rst.getString("DESCRIPTION"),
-                        rst.getString("PROGRESS"),
-                        rst.getString("ASSIGNEDTO"));
+                        rst.getInt("ASSIGNEDTO"),
+                        rst.getString("PROGRESS")
+                );
             }
 
         }
@@ -77,13 +78,15 @@ public class DBCRUD {
         return todo;
     }
 
-    public User showALLUsers(String query){
+    public Map<Integer,User> showUsers(String query){
         User user = null;
         Todo todo = null;
+        Map<Integer,User>allUsers = new HashMap<Integer,User>();
+
         try{
             PreparedStatement pstmt=conn.prepareStatement(query);
             ResultSet rst = pstmt.executeQuery();
-            Map<Integer,User>allUsers = new HashMap<Integer,User>();
+
 
             while(rst.next()){
                 if(!allUsers.containsKey(rst.getInt("ID"))){
@@ -104,13 +107,47 @@ public class DBCRUD {
 
                 allUsers.get(rst.getInt("ID")).addTodo(todo);
             }
-
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-
-        return todo;
+        return allUsers;
     }
+
+    public ArrayList<User> showALLUser(){
+
+    }
+
+    public void updateDataInt(String query,int value) throws SQLException {
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, value);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+
+    public void updateDataString(String query,String value) throws SQLException {
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1,value);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+
+    public void deleteData(String query,int id) throws SQLException {
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1,id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+
+
 
 }
