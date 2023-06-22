@@ -65,9 +65,14 @@ public class Text {
             System.out.println();
 
         }
+        public static void whichDescripion(){
+            System.out.println("Which TODO details do you want to check?");
+        }
+
         public static void noDataFound(){
             System.out.println("Data not Found");
         }
+
         public static void inputValue(){
             System.out.println("Please input Number");
         }
@@ -92,5 +97,7 @@ public class Text {
             System.out.println("Wrong Input. Please Enter Again.");
         }
 
-
+    public static void somethingWrong(){
+        System.out.println("Something went wrong, Try again");
+    }
 }

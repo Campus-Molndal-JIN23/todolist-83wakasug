@@ -7,14 +7,14 @@ public class Input {
     static Scanner input = new Scanner(System.in);
 
     //user input for String
-    public static String inputStr(){
+    public static String Str(){
         String text;
         text= input.nextLine();
         return text;
     }
 
     //user input for Int
-    public static int inputInt(){
+    public static int number(){
         int number = 0;
         boolean run = true;
         do{

@@ -9,16 +9,16 @@ public class Application {
 
 
     public void start(){
-     firstMenu();
+        mainMenu();
 
     }
 
-    public void firstMenu(){
+    public void mainMenu(){
         boolean run = true;
         while(run) {
             run = false;
             Text.mainMenu();
-            int input = Input.inputInt();
+            int input = Input.number();
 
             switch (input) {
                 case 1: showDataMenu();
@@ -41,19 +41,19 @@ public class Application {
         while(run) {
 
             Text.showDataMenu();
-            int input = Input.inputInt();
+            int input = Input.number();
 
             switch (input) {
                 case 1:dbFacade.showALLTODO();
                     break;
-                case 2:
+                case 2:ShowSingleTODO();
                     break;
                 case 3:
                     break;
                 case 4:
                     break;
                 case 5 :run = false;
-                        firstMenu();
+                        mainMenu();
                     break;
 
                 default: Text.wrongInput();
@@ -62,8 +62,27 @@ public class Application {
         }
     }
 
-    public void ShowSingleTODO(){
+    private void ShowSingleTODO(){
+        int id;
+        Text.whichDescripion();
         Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
+        if(list == null){
+            noDataFound();
+        }
+        Text.inputValue();
+        Todo todo = null;
+
+        try{
+             todo = list.get(Input.number());
+
+        }
+            catch(Exception e){
+                Text.somethingWrong();
+                mainMenu();
+        }
+
+        id=todo.getId();
+        dbFacade.showONETODO(id);
 
     }
 
@@ -71,7 +90,7 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.addDataMenu();
-            int input = Input.inputInt();
+            int input = Input.number();
 
             switch (input) {
                 case 1:
@@ -79,7 +98,7 @@ public class Application {
                 case 2:
                     break;
                 case 3:run = false;
-                    firstMenu();
+                    mainMenu();
                     break;
 
                 default: Text.wrongInput();
@@ -95,7 +114,7 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.updateDataMenu();
-            int input = Input.inputInt();
+            int input = Input.number();
 
             switch (input) {
                 case 1:
@@ -103,7 +122,7 @@ public class Application {
                 case 2:
                     break;
                 case 3:run = false;
-                    firstMenu();
+                    mainMenu();
                     break;
                 default: Text.wrongInput();
 
@@ -115,7 +134,7 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.updateTODOList();
-            int input = Input.inputInt();
+            int input = Input.number();
 
             switch (input) {
                 case 1:
@@ -125,7 +144,7 @@ public class Application {
                 case 3:
                     break;
                 case 4:run = false;
-                    firstMenu();
+                    mainMenu();
                     break;
 
                 default: Text.wrongInput();
@@ -139,7 +158,7 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.updateUser();
-            int input = Input.inputInt();
+            int input = Input.number();
 
             switch (input) {
                 case 1:
@@ -149,7 +168,7 @@ public class Application {
                 case 3:
                     break;
                 case 4:run = false;
-                    firstMenu();
+                    mainMenu();
                     break;
 
                 default: Text.wrongInput();
@@ -163,7 +182,7 @@ public class Application {
         while(run) {
             run = false;
             Text.deleteDataMenu();
-            int input = Input.inputInt();
+            int input = Input.number();
 
             switch (input) {
                 case 1:
@@ -172,12 +191,18 @@ public class Application {
                     break;
 
                     case 3:run = false;
-                    firstMenu();
+                        mainMenu();
                     break;
                 default: Text.wrongInput();
                     run = true;
 
             }
         }
+    }
+
+
+    public void noDataFound(){
+        Text.noDataFound();
+        mainMenu();
     }
 }
