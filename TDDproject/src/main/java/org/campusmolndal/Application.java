@@ -4,12 +4,23 @@ import java.util.Map;
 
 public class Application {
 
-    DBFacade dbFacade = new DBFacade("TODO");
+    DBFacade dbFacade;
     private final String todoTable = "TODO";
     private final String userTable = "USER";
     private final String columDescription = "DESCRIPTION";
     private final String columID="ID";
     private final String columStatus = "Status";
+    private final String columAssignedTo = "AssignedTo";
+    private Map<Integer, User> usersList;
+    private Map<Todo, User> allTodoList ;
+    private Map<Integer, Todo> toDoList;
+
+    public Application (){
+        dbFacade = new DBFacade("TODO");
+        usersList = dbFacade.showUsersList();
+        allTodoList = dbFacade.showALLTODOList();
+        toDoList = dbFacade.showOnlyDescription();
+    }
 
     public void start(){
         mainMenu();
@@ -66,7 +77,7 @@ public class Application {
     }
 
     private void showAllTODO(){
-       dbFacade.showALLTODO(dbFacade.showALLTODOList());
+       dbFacade.showALLTODO(allTodoList);
     }
 
     private void ShowSingleTODO(){
@@ -93,12 +104,11 @@ public class Application {
 
     public void showAllUsers(){
 
-        dbFacade.showAllUsers(dbFacade.showUsersList());
+        dbFacade.showAllUsers(usersList);
     }
 
     public void showSingleUser(){
         showAllUsers();
-        Map<Integer, User> usersList = dbFacade.showUsersList();
         dbFacade.showSingleUser(getUserID(usersList));
     }
 
@@ -111,7 +121,7 @@ public class Application {
             switch (input) {
                 case 1:addTODOData();
                     break;
-                case 2:
+                case 2:addUser();
                     break;
                 case 3:run = false;
                     mainMenu();
@@ -125,12 +135,11 @@ public class Application {
     public void addTODOData(){
         Integer nameId;
         User user;
-        Map<Integer, User> userList;
         Text.inputTodo();
         String description = Input.Str();
-        userList= dbFacade.showOnlyUsers();
+        usersList= dbFacade.showOnlyUsers();
 
-        if(userList.isEmpty()){
+        if(usersList.isEmpty()){
             nameId = 0 ;
         }
         else{
@@ -138,12 +147,21 @@ public class Application {
             showAllUsers();
             Text.inputNumber();
             int number = Input.number();
-            user = userList.get(number);
+            user = usersList.get(number);
 
             nameId= user.getId();
         }
 
         dbFacade.addTODO(description,nameId);
+    }
+
+    public void addUser(){
+        Text.inputName();
+        String name = Input.Str();
+        Text.inputAge();
+        int age = Input.number();
+        dbFacade.addUser(name,age);
+
     }
 
     public void updateDataMenu(){
@@ -178,7 +196,7 @@ public class Application {
                     break;
                 case 2:updateStatus();
                     break;
-                case 3:
+                case 3:updateAssignedUser();
                     break;
                 case 4:run = false;
                     mainMenu();
@@ -191,11 +209,9 @@ public class Application {
 
     public void updateTODO(){
         Map<Integer, Todo> toDoList;
-        Todo todo;
         int toDoid;
 
         Text.choseTodo();
-        String description = Input.Str();
         toDoList= dbFacade.showOnlyDescription();
 
         if(toDoList.isEmpty()){
@@ -215,10 +231,9 @@ public class Application {
 
     public void updateStatus(){
         Map<Integer, Todo> toDoList;
-        Todo todo;
         int toDoid;
         int status;
-        String description = Input.Str();
+
         toDoList= dbFacade.showOnlyDescription();
 
         if(toDoList.isEmpty()){
@@ -250,23 +265,23 @@ public class Application {
     }
 
     public void updateAssignedUser(){
-        Map<Integer, Todo> toDoList;
-        Todo todo;
-        int toDoid;
-        int assignedUser;
-        String description = Input.Str();
-        toDoList= dbFacade.showOnlyDescription();
-
-        if(toDoList.isEmpty()){
+       showAllTODO();
+        if(usersList.isEmpty()){
             Text.noDataFound();
-        }
-        else{
-            try {
-                toDoid = getTodoID(toDoList);
-                status = choseStatus();
-                dbFacade.updateStatus(todoTable, columStatus, columID, toDoid, assignedUser);
-            }catch (Exception e) {
+        }else {
+            int todoID =getTodoID(toDoList);
+
+            showAllUsers();
+            int userId = getUserID(usersList);
+
+            if (usersList.isEmpty()) {
                 Text.noDataFound();
+            } else {
+                try {
+                    dbFacade.updateStatus(todoTable, columAssignedTo, columID,todoID , userId);
+                } catch (Exception e) {
+                    Text.noDataFound();
+                }
             }
         }
     }

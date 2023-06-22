@@ -65,7 +65,7 @@ Connection conn;
 
     public void showSingleUser(int id){
         Map<Todo, User> allTodoList ;
-        allTodoList =dbCRUD.showALLTodo(DBQuery.showSingleUser(id));
+        allTodoList =dbCRUD.showALLTodo(DBQuery.showSpecificUsersTODO(id));
         allTodoList.forEach((todo,user)->{
             showResult(user,todo);
         });
@@ -119,15 +119,16 @@ Connection conn;
 
     }
 
+    public void addUser(String name,int age){
+        dbCRUD.addData(DBQuery.addDataToUser(),name,age);
+    }
+
     public void deleteData(String table,int id){
 
         dbCRUD.deleteData(table,id);
 
     }
 
-    public void addUser(String name,int age){
-        //dbCRUD.addTODO(SQLQuery.addDataToTODO(),name,age);
-    }
 
     public void showResult(User user,Todo todo){
         if (user.getName() == null) {

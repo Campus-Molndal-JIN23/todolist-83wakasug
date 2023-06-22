@@ -122,7 +122,7 @@ public class DBQuery {
                 "WHERE TODO.AssignedTo IS NOT NULL";
     }
 
-    public static String showSpecificUsersTODO(String name){
+    public static String showSpecificUsersTODO(int id){
         return "SELECT\n" +
                 "  TODO.DESCRIPTION,\n" +
                 "  USER.NAME,\n" +
@@ -136,7 +136,7 @@ public class DBQuery {
                 "  USER ON USER.USERID = TODO.AssignedTo\n" +
                 "RIGHT JOIN \n" +
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESS \n" +
-                "WHERE Name = \""+name +"\"";
+                "WHERE USER.ID = \""+ id +"\"";
 
     }
 
