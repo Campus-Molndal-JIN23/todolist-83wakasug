@@ -9,10 +9,13 @@ public class Todo {
    private String  done ;
    private String assignedTo;
 
-    public Todo(String description,String status,String assignedTo){
-
-        description.
+    public Todo(int id,String description,String status,String assignedTo) {
+        this.id = id;
+        this.text = description;
+        this.done = status;
+        this.assignedTo = assignedTo;
     }
+
 
     public int getId() {
         return this.id;
@@ -30,11 +33,11 @@ public class Todo {
         this.text = text;
     }
 
-    public int getDone() {
+    public String getDone() {
         return this.done;
     }
 
-    public void setDone(int done) {
+    public void setDone(String done) {
         this.done = done;
     }
 

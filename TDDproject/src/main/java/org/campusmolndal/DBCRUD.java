@@ -3,11 +3,11 @@ package org.campusmolndal;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SQLiteCRUD {
+public class DBCRUD {
      private SQLite sqlite;
      private Connection conn;
 
-    public SQLiteCRUD(SQLite sqlite){
+    public DBCRUD(SQLite sqlite){
         this.sqlite = sqlite;
     }
 
@@ -27,7 +27,7 @@ public class SQLiteCRUD {
         }
 
 
-    public ArrayList<Todo> showTodo(String query){
+    public ArrayList<Todo> showALLTodo(String query){
         Todo todo = null;
         ArrayList<Todo> list = new ArrayList<>();
 
@@ -37,8 +37,9 @@ public class SQLiteCRUD {
 
             while(rst.next()){
                 todo = new Todo(
+                        rst.getInt("ID"),
                         rst.getString("DESCRIPTION"),
-                        rst.getString("STATUS"),
+                        rst.getString("PROGRESS"),
                         rst.getString("ASSIGNEDTO"));
                 list.add(todo);
             }
@@ -48,9 +49,31 @@ public class SQLiteCRUD {
             System.out.println(e.getMessage());
         }
 
-        return topTen;
+        return list;
     }
 
+    public Todo showONETodo(String query){
+        Todo todo = null;
+
+        try{
+            PreparedStatement pstmt=conn.prepareStatement(query);
+            ResultSet rst = pstmt.executeQuery();
+
+            while(rst.next()){
+                todo = new Todo(
+                        rst.getInt("ID");
+                        rst.getString("DESCRIPTION"),
+                        rst.getString("PROGRESS"),
+                        rst.getString("ASSIGNEDTO"));
+            }
+
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        return todo;
+    }
 
 
 }

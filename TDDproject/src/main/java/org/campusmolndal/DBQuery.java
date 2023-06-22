@@ -1,6 +1,6 @@
 package org.campusmolndal;
 
-public class SQLQuery {
+public class DBQuery {
 
     public static String createTODOTable (){
 
