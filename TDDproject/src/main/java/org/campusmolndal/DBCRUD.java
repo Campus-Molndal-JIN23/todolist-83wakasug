@@ -168,8 +168,8 @@ public class DBCRUD {
                         rst.getString("NAME"),
                         rst.getInt("AGE")
                 );
-                i++;
                 usersList.put(i,user);
+                i++;
             }
         }
         catch(SQLException e){

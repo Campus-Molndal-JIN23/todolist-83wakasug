@@ -110,7 +110,7 @@ public class Text {
         public static void statusChoice(){
             System.out.println("Enter number");
             System.out.println("1:TODO");
-            System.out.println("2:TODO");
+            System.out.println("2:DONE");
         }
 
 }

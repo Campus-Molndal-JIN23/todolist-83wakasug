@@ -49,7 +49,13 @@ public class Todo {
         this.assignedTo = assignedTo;
     }
 
+    public String getProgress(){
+        if(Integer.parseInt(done) ==1) return "TODO";
+        if(Integer.parseInt(done)  ==2) return "DONE";
+
+        return "Not Registered";
+    }
     public String toString(){
-        return "TODO: "+ getText() + " Progress: "+ getDone();
+        return "TODO: "+ getText() + " Progress: "+ getProgress();
     }
 }

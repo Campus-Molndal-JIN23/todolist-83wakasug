@@ -9,7 +9,7 @@ public class Application {
     private final String userTable = "USER";
     private final String columDescription = "DESCRIPTION";
     private final String columID="ID";
-    private final String columStatus = "Status";
+    private final String columProgress = "PROGRESS";
     private final String columAssignedTo = "AssignedTo";
     private Map<Integer, User> usersList;
     private Map<Todo, User> allTodoList ;
@@ -18,13 +18,12 @@ public class Application {
     public Application (){
         dbFacade = new DBFacade("TODO");
         usersList = dbFacade.showUsersList();
-        allTodoList = dbFacade.showALLTODOList();
-        toDoList = dbFacade.showOnlyDescription();
+        //allTodoList = dbFacade.showALLTODOList();
+        //toDoList = dbFacade.showOnlyDescription();
     }
 
     public void start(){
         mainMenu();
-
     }
 
     public void mainMenu(){
@@ -70,14 +69,12 @@ public class Application {
                         mainMenu();
                     break;
                     default: Text.wrongInput();
-
             }
         }
-
     }
 
     private void showAllTODO(){
-       dbFacade.showALLTODO(allTodoList);
+       dbFacade.showALLTODO(dbFacade.showALLTODOList());
     }
 
     private void ShowSingleTODO(){
@@ -104,12 +101,12 @@ public class Application {
 
     public void showAllUsers(){
 
-        dbFacade.showAllUsers(usersList);
+        dbFacade.showAllUsers(dbFacade.showUsersList());
     }
 
     public void showSingleUser(){
         showAllUsers();
-        dbFacade.showSingleUser(getUserID(usersList));
+        dbFacade.showSingleUser(getUserID(dbFacade.showUsersList()));
     }
 
     public void addDataMenu(){
@@ -137,7 +134,8 @@ public class Application {
         User user;
         Text.inputTodo();
         String description = Input.Str();
-        usersList= dbFacade.showOnlyUsers();
+        usersList= dbFacade.showUsersList();
+        usersList= dbFacade.showUsersList();
 
         if(usersList.isEmpty()){
             nameId = 0 ;
@@ -243,7 +241,7 @@ public class Application {
             try {
                 toDoid = getTodoID(toDoList);
                 status = choseStatus();
-                dbFacade.updateStatus(todoTable, columStatus, columID, toDoid, status);
+                dbFacade.updateStatus(todoTable, columProgress, columID, toDoid, status);
             }catch (Exception e) {
                 Text.noDataFound();
             }
@@ -265,11 +263,16 @@ public class Application {
     }
 
     public void updateAssignedUser(){
-       showAllTODO();
+        Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
+
+
+       usersList = dbFacade.showUsersList();
+
         if(usersList.isEmpty()){
             Text.noDataFound();
         }else {
-            int todoID =getTodoID(toDoList);
+
+            int todoID =getTodoID(list);
 
             showAllUsers();
             int userId = getUserID(usersList);
@@ -309,6 +312,7 @@ public class Application {
             }
         }
     }
+    
     public void deleteDataMenu(){
 
         boolean run = true;
@@ -328,12 +332,32 @@ public class Application {
                     break;
                 default: Text.wrongInput();
                     run = true;
-
             }
         }
     }
 
     public void deleteTodo(){
+        Map<Integer, Todo> toDoList ;
+        Todo todo;
+        int toDoid;
+
+        Text.choseTodo();
+        toDoList=dbFacade.showOnlyDescription();
+
+        if(toDoList.isEmpty()){
+            Text.noDataFound();
+        }
+        else{
+            try {
+                toDoid = getTodoID(toDoList);
+                dbFacade.deleteData(todoTable, toDoid);
+            }catch (Exception e) {
+                Text.noDataFound();
+            }
+        }
+    }
+
+    public void deleteUser(){
         Map<Integer, Todo> toDoList ;
         Todo todo;
         int toDoid;

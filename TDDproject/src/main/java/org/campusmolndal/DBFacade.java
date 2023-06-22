@@ -29,7 +29,7 @@ Connection conn;
 
     public Map<Todo, User> showALLTODOList(){
         Map<Todo, User> allTodoList ;
-        allTodoList =dbCRUD.showALLTodo(DBQuery.showAllTODO());
+        allTodoList =dbCRUD.showALLTodo(DBQuery.showALLData());
 
         return allTodoList;
     }
@@ -71,15 +71,9 @@ Connection conn;
         });
     }
 
-    public Map<Integer, User> showOnlyUsers(){
-        Map<Integer, User> allUsers;
-        allUsers=dbCRUD.showALLUser(DBQuery.showOnlyUsers());
-
-        return allUsers;
-    }
 
     public Map<Integer, User> showUsersList(){
-        Map<Integer, User> userList = showOnlyUsers();
+        Map<Integer, User> userList = dbCRUD.showALLUser(DBQuery.showOnlyUsers());
          return userList;
     }
 

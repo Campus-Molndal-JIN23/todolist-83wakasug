@@ -64,8 +64,8 @@ public class DBQuery {
     public static String showALLData(){
        return "SELECT *\n" +
                "FROM TODO\n" +
-               "RIGHT JOIN USER ON USER.ID = TODO.AssignedTo\n" +
-               "RIGHT JOIN PROGRESS ON PROGRESS.ID = TODO.PROGRESS\n" +
+               "Left JOIN USER ON USER.ID = TODO.AssignedTo\n" +
+               "Left JOIN PROGRESS ON PROGRESS.ID = TODO.PROGRESS\n" +
                "WHERE DESCRIPTION NOT NULL";
     }
 
@@ -124,17 +124,16 @@ public class DBQuery {
 
     public static String showSpecificUsersTODO(int id){
         return "SELECT\n" +
-                "  TODO.DESCRIPTION,\n" +
-                "  USER.NAME,\n" +
-                "  USER.AGE,\n" +
-                "  PROGRESS.STATUS\n" +
+                "  TODO.*,\n" +
+                "  USER.*,\n" +
+                "  PROGRESS.*\n" +
                 "\n" +
                 "FROM\n" +
                 "  TODO\n" +
                 "\n" +
-                "RIGHT  JOIN\n" +
-                "  USER ON USER.USERID = TODO.AssignedTo\n" +
-                "RIGHT JOIN \n" +
+                "LEFT  JOIN\n" +
+                "  USER ON USER.ID = TODO.AssignedTo\n" +
+                "LEFT JOIN \n" +
                 "PROGRESS ON PROGRESS.ID = TODO.PROGRESS \n" +
                 "WHERE USER.ID = \""+ id +"\"";
 
