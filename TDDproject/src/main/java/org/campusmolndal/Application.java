@@ -33,7 +33,6 @@ public class Application {
                 default: Text.wrongInput();
             }
         }
-
     }
 
     public void showDataMenu(){
@@ -106,8 +105,6 @@ public class Application {
                     break;
 
                 default: Text.wrongInput();
-
-
             }
         }
     }
@@ -132,7 +129,6 @@ public class Application {
             user = userList.get(number);
 
             nameId= user.getId();
-
         }
 
         dbFacade.addTODO(description,nameId);
@@ -154,10 +150,10 @@ public class Application {
                     mainMenu();
                     break;
                 default: Text.wrongInput();
-
             }
         }
     }
+
     public void updateTODOList(){
 
         boolean run = true;
@@ -166,9 +162,9 @@ public class Application {
             int input = Input.number();
 
             switch (input) {
-                case 1:
+                case 1:updateTODO();
                     break;
-                case 2:
+                case 2:updateStatus();
                     break;
                 case 3:
                     break;
@@ -177,19 +173,88 @@ public class Application {
                     break;
 
                 default: Text.wrongInput();
-
             }
         }
     }
 
     public void updateTODO(){
+        Map<Integer, Todo> toDoList;
+        Todo todo;
+        int toDoid;
+        String description = Input.Str();
+        toDoList= dbFacade.showOnlyDescription();
 
-        showAllTODO();
-        Text.inputTodo();
-        String todo = Input.Str();
-        dbFacade.
+        if(toDoList.isEmpty()){
+            Text.noDataFound();
+        }
+        else{
+            try {
+                toDoid = getTodoID(toDoList);
+                Text.inputTodo();
+                String newDescription = Input.Str();
+                dbFacade.updateDescription("TODO", "DESCRIPTION", "id", toDoid, newDescription);
+            }catch (Exception e) {
+                Text.noDataFound();
+            }
+        }
+    }
 
+    public void updateStatus(){
+        Map<Integer, Todo> toDoList;
+        Todo todo;
+        int toDoid;
+        int status;
+        String description = Input.Str();
+        toDoList= dbFacade.showOnlyDescription();
 
+        if(toDoList.isEmpty()){
+            Text.noDataFound();
+        }
+        else{
+            try {
+                toDoid = getTodoID(toDoList);
+                status = choseStatus();
+                dbFacade.updateStatus("TODO", "STATUS", "id", toDoid, status);
+            }catch (Exception e) {
+                Text.noDataFound();
+            }
+        }
+    }
+
+    public int choseStatus(){
+       int choice = 0;
+       boolean run = true;
+
+       while(run){
+           Text.statusChoice();
+           choice =Input.number();
+           if(choice == 1 || choice == 2){
+               run =false;
+           }
+       }
+       return choice;
+    }
+
+    public void updateAssignedUser(){
+        Map<Integer, Todo> toDoList;
+        Todo todo;
+        int toDoid;
+        int assignedUser;
+        String description = Input.Str();
+        toDoList= dbFacade.showOnlyDescription();
+
+        if(toDoList.isEmpty()){
+            Text.noDataFound();
+        }
+        else{
+            try {
+                toDoid = getTodoID(toDoList);
+                status = choseStatus();
+                dbFacade.updateStatus("TODO", "STATUS", "id", toDoid, assignedUser);
+            }catch (Exception e) {
+                Text.noDataFound();
+            }
+        }
     }
 
     public void updateUser(){
@@ -243,5 +308,19 @@ public class Application {
     public void noDataFound(){
         Text.noDataFound();
         mainMenu();
+    }
+
+    public Integer getTodoID(Map<Integer, Todo> toDoList){
+        Todo todo;
+        Text.whichDataUpdate();
+        Text.inputNumber();
+        int number = Input.number();
+       try {
+           todo = toDoList.get(number);
+       } catch (Exception e){
+           Text.noDataFound();
+           return null;
+       }
+        return todo.getId();
     }
 }

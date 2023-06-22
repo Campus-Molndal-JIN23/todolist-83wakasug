@@ -71,15 +71,26 @@ Connection conn;
             });
     }
 
-    public void updateDescription (String table,String description,String todoID,String id,String todo)  {
+    public void updateDescription (String table,String colum,String columId,int id,String description)  {
 
         try{
-            dbCRUD.updateDataString( DBQuery.updateTODOTable(table,description,todoID,id),todo);
+            dbCRUD.updateDataString( DBQuery.updateTODOTable(table,colum,columId,id),description);
             }catch (Exception e){
             System.out.println(e.getMessage());
         }
 
     }
+
+    public void updateStatus (String table,String colum,String columId,int id,int StatusNo)  {
+
+        try{
+            dbCRUD.updateDataInt( DBQuery.updateTODOTable(table,colum,columId,id),StatusNo);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
     public void addTODO(String value1,int value2){
 

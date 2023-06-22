@@ -140,8 +140,8 @@ public class DBQuery {
         return  "INSERT INTO USER (NAME, AGE) VALUES (?,?)";
     }
 
-   public static String updateTODOTable(String table,String colum,String newStatus,String oldStatus){
-      return  "UPDATE "+table+" SET " +colum +" = "+ " ? " +" WHERE "+ colum +" = "+ oldStatus ;
+   public static String updateTODOTable(String table,String colum,String columID,int oldStatus){
+      return  "UPDATE "+table+" SET " +colum +" = "+ " ? " +" WHERE "+ columID +" = "+ oldStatus ;
 
    }
 

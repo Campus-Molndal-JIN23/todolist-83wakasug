@@ -68,7 +68,9 @@ public class Text {
         public static void whichDescripion(){
             System.out.println("Which TODO details do you want to check?");
         }
-
+        public static void whichDataUpdate(){
+            System.out.println("Which one do you want to update?");
+        }
         public static void noDataFound(){
             System.out.println("Data not Found");
         }
@@ -101,7 +103,14 @@ public class Text {
             System.out.println("Wrong Input. Please Enter Again.");
         }
 
-    public static void somethingWrong(){
-        System.out.println("Something went wrong, Try again");
-    }
+        public static void somethingWrong(){
+            System.out.println("Something went wrong, Try again");
+        }
+
+        public static void statusChoice(){
+            System.out.println("Enter number");
+            System.out.println("1:TODO");
+            System.out.println("2:TODO");
+        }
+
 }
