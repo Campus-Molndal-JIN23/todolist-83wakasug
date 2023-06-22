@@ -146,9 +146,9 @@ public class Application {
             int input = Input.number();
 
             switch (input) {
-                case 1:
+                case 1:updateTODOList();
                     break;
-                case 2:
+                case 2:updateUser();
                     break;
                 case 3:run = false;
                     mainMenu();
@@ -180,6 +180,16 @@ public class Application {
 
             }
         }
+    }
+
+    public void updateTODO(){
+
+        showAllTODO();
+        Text.inputTodo();
+        String todo = Input.Str();
+        dbFacade.
+
+
     }
 
     public void updateUser(){

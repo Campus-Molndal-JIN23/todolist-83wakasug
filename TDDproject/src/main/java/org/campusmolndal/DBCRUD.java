@@ -179,33 +179,33 @@ public class DBCRUD {
         return  usersList;
     }
 
-    public void updateDataInt(String query,int value) throws SQLException {
+    public void updateDataInt(String query,int value) {
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, value);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
-    public void updateDataString(String query,String value) throws SQLException {
+    public void updateDataString(String query,String value) {
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1,value);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
-    public void deleteData(String query,int id) throws SQLException {
+    public void deleteData(String query,int id)  {
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1,id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 

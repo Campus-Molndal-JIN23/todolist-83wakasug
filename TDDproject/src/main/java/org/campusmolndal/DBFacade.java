@@ -2,6 +2,7 @@ package org.campusmolndal;
 
 import java.sql.Array;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,11 +71,14 @@ Connection conn;
             });
     }
 
-    public ArrayList<Todo> test(int id){
-        ArrayList <Todo> list = null;
-        sqlite.connection();
-        //list =dbCRUD.showALLTodo(DBQuery.showAllTODO());
-        return list;
+    public void updateDescription (String table,String description,String todoID,String id,String todo)  {
+
+        try{
+            dbCRUD.updateDataString( DBQuery.updateTODOTable(table,description,todoID,id),todo);
+            }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void addTODO(String value1,int value2){
