@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 public interface Database {
 
- boolean disConnect();
+ boolean disConnect(Connection conn);
  Connection connection();
 
 

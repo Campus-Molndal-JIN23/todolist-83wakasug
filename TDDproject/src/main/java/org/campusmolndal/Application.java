@@ -44,6 +44,7 @@ public class Application {
                 case 4:deleteDataMenu();
                     break;
                 case 5: run = false;
+                break;
                 default: Text.wrongInput();
             }
         }
@@ -66,7 +67,7 @@ public class Application {
                     break;
                 case 4:showSingleUser();
                     break;
-                case 5 : run =false;
+                case 5: run =false;
                         mainMenu();
                     break;
                     default: Text.wrongInput();

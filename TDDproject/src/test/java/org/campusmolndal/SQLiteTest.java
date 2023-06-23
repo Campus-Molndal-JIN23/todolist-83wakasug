@@ -56,7 +56,7 @@ void connectionTestWhenURLISNULL() throws SQLException {
     @Test
     void disconnectTestWhenConnectionIsClosed() throws SQLException {
         when(mockConn.isClosed()).thenReturn(true);
-         boolean actual = sqLite.disConnect();
+          boolean actual = sqLite.disConnect(this.mockConn);
 
         assertTrue(actual);
     }
@@ -65,7 +65,7 @@ void connectionTestWhenURLISNULL() throws SQLException {
     void disconnectTestWhenConnectionIsOpen() throws SQLException {
 
         when(mockConn.isClosed()).thenReturn(false);
-        boolean actual = sqLite.disConnect();
+        boolean actual = sqLite.disConnect(this.mockConn);
         assertFalse(actual);
     }
 

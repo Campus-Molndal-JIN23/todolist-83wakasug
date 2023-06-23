@@ -106,17 +106,11 @@ public class Text {
         System.out.println("Enter Todo");
         }
 
-        public static void endTheProgram(){
-            System.out.println();
-        }
 
         public static void wrongInput(){
             System.out.println("Wrong Input. Please Enter Again.");
         }
 
-        public static void somethingWrong(){
-            System.out.println("Something went wrong, Try again");
-        }
 
         public static void statusChoice(){
             System.out.println("Enter number");
