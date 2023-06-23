@@ -66,9 +66,17 @@ Connection conn;
     public void showSingleUser(int id){
         Map<Todo, User> allTodoList ;
         allTodoList =dbCRUD.showALLTodo(DBQuery.showSpecificUsersTODO(id));
+        ArrayList<Todo>userAssignedtask;
         allTodoList.forEach((todo,user)->{
-            showResult(user,todo);
-        });
+           try{
+               user.setTodos(todo);
+
+           }catch (Exception e){
+                 showSingleResultNull(user);
+           }
+        })
+
+        ;
     }
 
 
@@ -79,8 +87,9 @@ Connection conn;
 
     public void showAllUsers(Map<Integer, User> userList ){
         userList.forEach((id,user)->{
-            System.out.println("   | " + id + ": " + user.getName() + " |");
-            System.out.println("--------------------");
+            System.out.print("   | " + id + ": " + user.getName());
+            System.out.println("  Age :"+ user.getAge() +" |");
+            System.out.println("--------------------------------");
         });
     }
 
@@ -126,13 +135,25 @@ Connection conn;
 
     public void showResult(User user,Todo todo){
         if (user.getName() == null) {
-            System.out.println("   | " + todo.toString() + " User: Not Registered |");
-            System.out.println("--------------------");
+            System.out.println( todo.toString() + " User: Not Registered");
+            System.out.println("-----------------------------------------");
         } else {
-            System.out.println("   | " + todo.toString() + " " + user.toString() + " |");
-            System.out.println("--------------------");
+            System.out.println(todo.toString() + " " + user.toString());
+            System.out.println("-----------------------------------------");
         }
-        System.out.println("");
     }
 
+    public void showSingleResult(User user,Todo todo){
+            System.out.println(user.toString() );
+            ArrayList<Todo> todoList =user.getTodos();
+            for(Todo mission:todoList){
+                System.out.println(mission.toString());
+            }
+            System.out.println("-----------------------------------------");
+        }
+    }
+    public void showSingleResultNull(User user){
+        System.out.println( user.toString() + " Todo: No Assigment");
+        System.out.println("-----------------------------------------");
+    }
 }

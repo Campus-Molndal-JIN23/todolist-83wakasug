@@ -230,7 +230,7 @@ public class Application {
 
     public void updateStatus(){
         Map<Integer, Todo> toDoList;
-        int toDoid;
+        int toDoId;
         int status;
 
         toDoList= dbFacade.showOnlyDescription();
@@ -240,9 +240,9 @@ public class Application {
         }
         else{
             try {
-                toDoid = getTodoID(toDoList);
+                toDoId = getTodoID(toDoList);
                 status = choseStatus();
-                dbFacade.updateInt(todoTable, columProgress, columID, toDoid, status);
+                dbFacade.updateInt(todoTable, columProgress, columID, toDoId, status);
             }catch (Exception e) {
                 Text.noDataFound();
             }
@@ -306,7 +306,6 @@ public class Application {
                         mainMenu();
                      break;
                      default: Text.wrongInput();
-
             }
         }
     }
@@ -341,7 +340,7 @@ public class Application {
             switch (input) {
                     case 1:deleteTodo();
                     break;
-                    case 2:
+                    case 2:deleteUser();
                     break;
 
                     case 3:run = false;
@@ -355,7 +354,6 @@ public class Application {
 
     public void deleteTodo(){
         Map<Integer, Todo> toDoList ;
-        Todo todo;
         int toDoid;
 
         Text.choseTodo();
@@ -376,7 +374,6 @@ public class Application {
 
     public void deleteUser(){
         Map<Integer, Todo> toDoList ;
-        Todo todo;
         int toDoid;
 
         Text.choseTodo();

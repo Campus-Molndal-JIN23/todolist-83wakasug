@@ -43,11 +43,25 @@ public class DBQuery {
     }
 
     public static String showAllTODO(){
-        return "SELECT\n" +
+        /*return "SELECT\n" +
                 "  TODO.ID,\n" +
                 "  TODO.DESCRIPTION,\n" +
                 "  TODO.AssignedTo,\n" +
                 "  TODO.PROGRESS,\n"+
+                "  USER.NAME,\n" +
+                "  USER.AGE,\n" +
+                "  PROGRESS.STATUS\n" +
+                "\n" +
+                "FROM\n" +
+                "  TODO\n" +
+                "\n" +
+                "Left  JOIN\n" +
+                "  USER ON USER.ID = TODO.AssignedTo\n" +
+                "Left JOIN \n" +
+                "PROGRESS ON PROGRESS.ID = TODO.PROGRESS ";
+                */
+        return "SELECT\n" +
+                "  TODO.*,\n" +
                 "  USER.NAME,\n" +
                 "  USER.AGE,\n" +
                 "  PROGRESS.STATUS\n" +
@@ -109,9 +123,7 @@ public class DBQuery {
         return "SELECT TODO.ID AS TODOID,\n" +
                 "TODO.DESCRIPTION,\n" +
                 "TODO.AssignedTo,\n" +
-                "USER.NAME,\n" +
-                "USER.AGE,\n" +
-                "USER.ID,\n" +
+                "USER.*,\n" +
                 "PROGRESS.STATUS\n" +
                 "FROM\n" +
                 "TODO\n" +

@@ -144,7 +144,7 @@ public class DBCRUD {
                         rst.getString("Status")
                 );
 
-                allUsers.get(rst.getInt("ID")).addTodo(todo);
+                allUsers.get(rst.getInt("ID")).setTodos(todo);
             }
         }
         catch(SQLException e){

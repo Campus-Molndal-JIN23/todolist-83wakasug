@@ -56,6 +56,6 @@ public class Todo {
         return "Not Registered";
     }
     public String toString(){
-        return "TODO: "+ getText() + " Progress: "+ getProgress();
+        return "\nTODO: "+ getText() + "\nProgress: "+ getProgress();
     }
 }

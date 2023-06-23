@@ -42,8 +42,8 @@ public class User {
         return this.todos;
     }
 
-    public void setTodos(ArrayList<Todo>todos) {
-       this.todos = todos;
+    public void setTodos(Todo todo) {
+       todos.add(todo);
     }
 
     public void addTodo(Todo todo){
@@ -51,7 +51,7 @@ public class User {
     }
 
     public String toString(){
-       return "Name: "+ getName() + "Age: "+getAge();
+       return "\nAssigned to: "+ getName() + "\nAge: "+getAge();
     }
 
 }
