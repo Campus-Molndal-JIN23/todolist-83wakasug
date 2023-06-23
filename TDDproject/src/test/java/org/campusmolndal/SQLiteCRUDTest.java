@@ -36,7 +36,7 @@ class SQLiteCRUDTest {
         doNothing().when(mockPstm).setInt(anyInt(),anyInt());
         when(mockSqLite.connection()).thenReturn(mockConn);
 
-        sqLiteCrud = new DBCRUD(mockConn);
+        sqLiteCrud = new DBCRUD(new SQLite("Test"));
 
     }
 

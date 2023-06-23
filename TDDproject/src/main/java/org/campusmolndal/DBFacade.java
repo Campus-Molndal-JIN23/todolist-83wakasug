@@ -106,7 +106,7 @@ Connection conn;
 
     public void updateString (String table,String colum,String columId,int id,String description)  {
         try{
-            dbCRUD.updateDataString( DBQuery.updateTODOTable(table,colum,columId,id),description);
+            dbCRUD.updateDataString( DBQuery.updateTODOTable(table,colum,id),description);
             }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -114,7 +114,7 @@ Connection conn;
 
     public void updateInt (String table,String colum,String columId,int id,int StatusNo)  {
         try{
-            dbCRUD.updateDataInt( DBQuery.updateTODOTable(table,colum,columId,id),StatusNo);
+            dbCRUD.updateDataInt( DBQuery.updateTODOTable(table,colum,id),StatusNo);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

@@ -66,7 +66,7 @@ class DBQueryTest {
     @Test
     void checkIfProgresshasData() {
         // Arrange
-        String expected = "SELECT COUNT(ID) AS COUNT FROM PROGRESS WHERE ID IN(1,2)"
+        String expected = "SELECT COUNT(ID) AS COUNT FROM PROGRESS WHERE ID IN(1,2)";
 
         // Act
         String actual = DBQuery.checkIfProgresshasData();
@@ -272,7 +272,7 @@ class DBQueryTest {
     @Test
     void addDataToTODO() {
         // Arrange
-        String expected = "INSERT INTO TODO (DESCRIPTION, PROGRESS,ASSIGNEDTO) VALUES (?,1,?)"
+        String expected = "INSERT INTO TODO (DESCRIPTION, PROGRESS,ASSIGNEDTO) VALUES (?,1,?)";
 
         // Act
         String actual = DBQuery.addDataToTODO();
@@ -284,7 +284,7 @@ class DBQueryTest {
     @Test
     void addDataToUser() {
         // Arrange
-        String expected =  "INSERT INTO USER (NAME, AGE) VALUES (?,?)"
+        String expected =  "INSERT INTO USER (NAME, AGE) VALUES (?,?)";
         // Act
         String actual = DBQuery.addDataToUser();
 
@@ -294,7 +294,7 @@ class DBQueryTest {
 
     @ParameterizedTest
     @CsvSource( {"Todo,Progress,1",
-            "USER,Name,Wasabi," +
+            "USER,Name,4" ,
                     "TODO,Assigned,3"})
     @Test
     void updateTODOTable(String value,String value2,int value3) {
