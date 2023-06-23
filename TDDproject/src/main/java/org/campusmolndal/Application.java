@@ -31,22 +31,25 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.mainMenu();
-            int input = Input.number();
-
-            switch (input) {
-                case 1: showDataMenu();
-                    break;
-                case 2:addDataMenu();
-                    break;
-                case 3:updateDataMenu();
-                    break;
-                case 4:deleteDataMenu();
-                    break;
-                case 5: run = false;
-                break;
-                default: Text.wrongInput();
-            }
+            run = mainMenuChoice();
         }
+    }
+
+    public boolean mainMenuChoice(){
+        int input = Input.number();
+        switch (input) {
+            case 1: showDataMenu();
+                break;
+            case 2:addDataMenu();
+                break;
+            case 3:updateDataMenu();
+                break;
+            case 4:deleteDataMenu();
+                break;
+            case 5: return false;
+            default: Text.wrongInput();
+        }
+        return true;
     }
 
     public void showDataMenu(){
@@ -114,7 +117,7 @@ public class Application {
             dbFacade.showSingleUser(userId);
         }
         else{
-            Text.wrongInput();
+
         }
     }
 
