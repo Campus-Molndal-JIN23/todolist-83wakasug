@@ -45,23 +45,6 @@ public class DBQuery {
     }
 
     public static String showAllTODO(){
-        /*return "SELECT\n" +
-                "  TODO.ID,\n" +
-                "  TODO.DESCRIPTION,\n" +
-                "  TODO.AssignedTo,\n" +
-                "  TODO.PROGRESS,\n"+
-                "  USER.NAME,\n" +
-                "  USER.AGE,\n" +
-                "  PROGRESS.STATUS\n" +
-                "\n" +
-                "FROM\n" +
-                "  TODO\n" +
-                "\n" +
-                "Left  JOIN\n" +
-                "  USER ON USER.ID = TODO.AssignedTo\n" +
-                "Left JOIN \n" +
-                "PROGRESS ON PROGRESS.ID = TODO.PROGRESS ";
-                */
         return "SELECT\n" +
                 "  TODO.*,\n" +
                 "  USER.NAME,\n" +
@@ -130,9 +113,6 @@ public class DBQuery {
 
     }
 
-    public static String showAllTODOTable(){
-        return  "SELECT * FROM TODO";
-    }
 
     public static String ShowALLAssignedTODO(){
         return "SELECT TODO.ID AS TODOID,\n" +
@@ -179,7 +159,7 @@ public class DBQuery {
         return  "INSERT INTO USER (NAME, AGE) VALUES (?,?)";
     }
 
-   public static String updateTODOTable(String table,String colum,String columID,int oldStatus){
+   public static String updateTODOTable(String table,String colum,int oldStatus){
        return  "UPDATE "+table+" SET " +colum +" = "+ " ? " +" WHERE ID = "+ oldStatus ;
    }
 

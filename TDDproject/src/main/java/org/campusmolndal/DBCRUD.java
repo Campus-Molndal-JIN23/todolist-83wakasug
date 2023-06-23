@@ -9,13 +9,13 @@ public class DBCRUD {
     private SQLite sqlite;
     private Connection conn;
 
-    public DBCRUD(Connection conn){
-       this.conn = conn;
+    public DBCRUD(SQLite sqlite){
+       this.sqlite = sqlite;
     }
 
 
     public void addData(String query,String value1,int value2){
-
+        conn = sqlite.connection();
             try{
                 PreparedStatement pstmt=conn.prepareStatement(query);
                 pstmt.setString(1, value1);
@@ -25,11 +25,13 @@ public class DBCRUD {
             catch(SQLException e){
                 System.out.println(e.getMessage());
             }
+
+            sqlite.disConnect(conn);
         }
 
 
     public Map<Todo,User> showALLTodo(String query){
-
+        conn = sqlite.connection();
         Todo todo = null;
         User user = null;
         Map<Todo, User> allTodo = new HashMap<>();
@@ -58,12 +60,13 @@ public class DBCRUD {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-
+         sqlite.disConnect(conn);
         return  allTodo;
+
     }
 
     public Map<Integer,Todo> showTodo(String query){
-
+        conn = sqlite.connection();
         Todo todo = null;
         Map<Integer, Todo> allTodo = new HashMap<>();
 
@@ -86,12 +89,12 @@ public class DBCRUD {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-
+        sqlite.disConnect(conn);
         return  allTodo;
     }
 
     public Todo showONETodo(String query){
-        this.conn = conn;
+        this.conn = sqlite.connection();
         Todo todo = null;
 
         try{
@@ -111,12 +114,12 @@ public class DBCRUD {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-
+        sqlite.disConnect(conn);
         return todo;
     }
 
     public User showSingleUser(String query){
-        this.conn = conn;
+        this.conn = sqlite.connection();
         User user = null;
 
         try{
@@ -136,11 +139,12 @@ public class DBCRUD {
             System.out.println(e.getMessage());
         }
 
+        sqlite.disConnect(conn);
         return user;
     }
 
     public Map<Integer,User> showUsers(String query){
-        this.conn = conn;
+        this.conn = sqlite.connection();
         User user = null;
         Todo todo = null;
         Map<Integer,User>allUsers = new HashMap<Integer,User>();
@@ -174,11 +178,12 @@ public class DBCRUD {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
+        sqlite.disConnect(conn);
         return allUsers;
     }
 
     public Map<Integer,User> showALLUser(String query){
-
+            conn=sqlite.connection();
              User user;
             Map<Integer, User> usersList = new HashMap<>();
 
@@ -199,11 +204,12 @@ public class DBCRUD {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-
+        sqlite.disConnect(conn);
         return  usersList;
     }
 
     public void updateDataInt(String query,int value) {
+        conn=sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, value);
@@ -211,9 +217,11 @@ public class DBCRUD {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        sqlite.disConnect(conn);
     }
 
     public void updateDataString(String query,String value) {
+        conn=sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1,value);
@@ -221,9 +229,11 @@ public class DBCRUD {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        sqlite.disConnect(conn);
     }
 
     public void deleteData(String query,int id)  {
+        conn=sqlite.connection();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1,id);
@@ -231,6 +241,7 @@ public class DBCRUD {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        sqlite.disConnect(conn);
     }
 
 

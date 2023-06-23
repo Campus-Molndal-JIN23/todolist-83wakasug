@@ -30,7 +30,6 @@ public class Application {
     public void mainMenu(){
         boolean run = true;
         while(run) {
-            run = false;
             Text.mainMenu();
             int input = Input.number();
 

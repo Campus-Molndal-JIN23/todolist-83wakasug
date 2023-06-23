@@ -41,8 +41,8 @@ void connectionTestWhenURLISNULL() throws SQLException {
   @Test
    void connectDatabaseThenReturnMessageConnected() throws SQLException {
       when(mockConn.isClosed()).thenReturn(false);
-        Connection expected= mockConn;
-       Connection actual = sqLite.connection();
+      Connection expected= mockConn;
+      Connection actual = sqLite.connection();
        assertEquals(expected,actual);
    }
 

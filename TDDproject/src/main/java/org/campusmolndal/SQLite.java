@@ -55,14 +55,6 @@ public class SQLite implements Database {
             System.out.println(e.getMessage());
         }
 
-        try{
-            if (conn == null || conn.isClosed()) {
-                System.out.println("Connection is closed");
-            }
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-
         return false;
     }
 
