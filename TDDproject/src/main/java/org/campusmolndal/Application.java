@@ -17,7 +17,7 @@ public class Application {
     private Map<Integer, Todo> toDoList;
 
     public Application (){
-        dbFacade = new DBFacade("TODO");
+        dbFacade = new DBFacade("TODODB");
         usersList = dbFacade.showUsersList();
         //allTodoList = dbFacade.showALLTODOList();
         //toDoList = dbFacade.showOnlyDescription();
@@ -80,24 +80,26 @@ public class Application {
 
     private void ShowSingleTODO(){
         int id;
-        Text.whichDescripion();
+
         Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
 
         if(list.isEmpty()){
             noDataFound();
-        }
+        }else{
+            Text.whichDescripion();
+            Text.inputNumber();
+            Todo todo = null;
 
-        Text.inputNumber();
-        Todo todo = null;
-
-        try{
-             todo = list.get(Input.number());
-            id=todo.getId();
-            dbFacade.showONETODO(id);
-        }
+            try{
+                todo = list.get(Input.number());
+                id=todo.getId();
+                dbFacade.showONETODO(id);
+            }
             catch(Exception e){
                 noDataFound();
+            }
         }
+
     }
 
     public void showAllUsers(){
@@ -333,7 +335,6 @@ public class Application {
 
         boolean run = true;
         while(run) {
-            run = false;
             Text.deleteDataMenu();
             int input = Input.number();
 
@@ -342,7 +343,6 @@ public class Application {
                     break;
                     case 2:deleteUser();
                     break;
-
                     case 3:run = false;
                         mainMenu();
                     break;
@@ -373,23 +373,16 @@ public class Application {
     }
 
     public void deleteUser(){
-        Map<Integer, Todo> toDoList ;
-        int toDoid;
 
-        Text.choseTodo();
-        toDoList=dbFacade.showOnlyDescription();
+        try {
+            Text.choseUser();
+            showAllUsers();
+            int userID = getUserID(dbFacade.showUsersList());
+            dbFacade.deleteData(userTable, userID);
+        }catch (Exception e){
+             Text.noDataFound();
+        }
 
-        if(toDoList.isEmpty()){
-            Text.noDataFound();
-        }
-        else{
-            try {
-                toDoid = getTodoID(toDoList);
-                dbFacade.deleteData(todoTable, toDoid);
-            }catch (Exception e) {
-                Text.noDataFound();
-            }
-        }
     }
 
     public void noDataFound(){

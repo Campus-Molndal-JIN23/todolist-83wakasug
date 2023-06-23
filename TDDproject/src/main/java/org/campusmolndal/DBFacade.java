@@ -76,11 +76,9 @@ Connection conn;
              showSingleResult(todo);
 
            }catch (Exception e){
-               System.out.println(e);
+               showSingleResultNull(user);
            }
-        })
-
-        ;
+        });
     }
 
 
@@ -132,7 +130,7 @@ Connection conn;
 
     public void deleteData(String table,int id){
 
-        dbCRUD.deleteData(table,id);
+        dbCRUD.deleteData(DBQuery.deleteData(table),id);
 
     }
 
