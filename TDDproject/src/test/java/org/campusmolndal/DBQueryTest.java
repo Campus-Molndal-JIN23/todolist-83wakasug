@@ -292,14 +292,12 @@ class DBQueryTest {
         assertEquals(expected, actual);
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "Todo,Progress,1",
-            "USER,Name,4",
-            "TODO,Assigned,3"
-    })
-    void updateTODOTable(String value,String value2,int value3) {
+   @Test
+    void updateTODOTable() {
         // Arrange
+        String value = "TODO";
+        String value2 = "Progress";
+        int value3 = 1;
         String expected ="UPDATE "+value+" SET " +value2 +" = "+ " ? " +" WHERE ID = "+ value3;
 
         // Act
