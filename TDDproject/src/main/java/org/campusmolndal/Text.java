@@ -78,6 +78,10 @@ public class Text {
         public static void inputNumber(){
             System.out.println("Please input Number");
         }
+
+        public static void choseUser(){
+            System.out.println("Chose User");
+        }
         public static void choseName(){
             System.out.println("Who do you want to assign to assign?");
             System.out.println("");
@@ -85,6 +89,12 @@ public class Text {
 
         public static void inputName(){
         System.out.println("Enter Name");
+        }
+        public static void inputNewName(){
+        System.out.println("Enter New Name");
+    }
+        public static void inputNewAge(){
+            System.out.println("Enter New Age");
         }
 
         public static void inputAge(){

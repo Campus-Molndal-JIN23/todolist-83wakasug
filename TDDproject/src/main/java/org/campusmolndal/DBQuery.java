@@ -153,8 +153,8 @@ public class DBQuery {
     }
 
    public static String updateTODOTable(String table,String colum,String columID,int oldStatus){
-      return  "UPDATE "+table+" SET " +colum +" = "+ " ? " +" WHERE "+ columID +" = "+ oldStatus ;
-
+      //return  "UPDATE "+table+" SET " +colum +" = "+ " ? " +" WHERE "+ columID +" = "+ oldStatus ;
+       return  "UPDATE "+table+" SET " +colum +" = "+ " ? " +" WHERE ID = "+ oldStatus ;
    }
 
    public static String deleteData(String table,String id){
