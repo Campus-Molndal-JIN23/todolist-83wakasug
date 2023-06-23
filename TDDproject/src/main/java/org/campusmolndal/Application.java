@@ -114,7 +114,7 @@ public class Application {
             dbFacade.showSingleUser(userId);
         }
         else{
-
+            Text.wrongInput();
         }
     }
 

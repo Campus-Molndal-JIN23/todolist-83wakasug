@@ -15,7 +15,6 @@ public class SQLite implements Database {
         this.dbName = dbName;
        url = "jdbc:sqlite:" + dbName+ ".db";
         connection();
-        System.out.println(conn);
         initialTable(DBQuery.createTODOTable(),DBQuery.createProgressTable(),DBQuery.createUserTable(),DBQuery.setupTODOProgress(),DBQuery.setupDONEProgress());
     }
     /**
@@ -24,7 +23,6 @@ public class SQLite implements Database {
      * handles any exceptions that may occur during the connection
      * by printing an error message.
      */
-
 
 
     public Connection connection() {
@@ -41,7 +39,7 @@ public class SQLite implements Database {
             conn = DriverManager.getConnection(url);
             return conn;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
 
         return null;

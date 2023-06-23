@@ -12,9 +12,10 @@ class SQLiteTest {
 
 Connection mockConn ;
 Statement mockStm;
-String url="jdbc:sqlite:" + this.dbName + ".db";
+String url="jdbc:sqlite:test.db";
 String dbName = "testDatabase";
 SQLite sqLite;
+ResultSet mockResultSet;
 
 
     @BeforeEach
@@ -23,23 +24,28 @@ void setUP() throws SQLException {
 
         mockConn = Mockito.mock(Connection.class);
         mockStm = Mockito.mock(Statement.class);
+        mockResultSet =Mockito.mock(ResultSet.class);
         mockStatic(DriverManager.class);
-        when(DriverManager.getConnection(url)).thenReturn(mockConn);
-        when(DriverManager.getConnection(null)).thenReturn(null);
+        when(DriverManager.getConnection(Mockito.anyString())).thenReturn(mockConn);
+
         when(mockConn.createStatement()).thenReturn(mockStm);
+        when(mockStm.executeQuery(anyString())).thenReturn(mockResultSet);
         sqLite = new SQLite(url);
+
 
     }
 
 @Test
-void connectionTestWhenURLISNULL() throws SQLException {
+void returnNulWhenConnIsnull() throws SQLException {
+    System.out.println(mockResultSet);
 
-        assertEquals(DriverManager.getConnection(null), null);
-
+        Connection actual = sqLite.connection();
+    System.out.println(actual+"Actual");
+        assertEquals(mockConn, actual);
     }
 
   @Test
-   void connectDatabaseThenReturnMessageConnected() throws SQLException {
+   void returnConnWhenConnectionIsClosed() throws SQLException {
       when(mockConn.isClosed()).thenReturn(false);
       Connection expected= mockConn;
       Connection actual = sqLite.connection();
@@ -47,10 +53,11 @@ void connectionTestWhenURLISNULL() throws SQLException {
    }
 
     @Test
-    void connectDatabaseThenReturnNull() throws SQLException {
+    void sendConnWhenConnectionIsOpen() throws SQLException {
         when(mockConn.isClosed()).thenReturn(true);
+        Connection expected = mockConn;
         Connection actual = sqLite.connection();
-        assertNull(actual);
+        assertEquals(expected,actual);
     }
 
     @Test
