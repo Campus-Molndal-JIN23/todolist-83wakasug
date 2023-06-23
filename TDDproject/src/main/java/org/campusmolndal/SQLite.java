@@ -15,7 +15,8 @@ public class SQLite implements Database {
         this.dbName = dbName;
        url = "jdbc:sqlite:" + dbName+ ".db";
         connection();
-        initialTable(DBQuery.createTODOTable(),DBQuery.createProgressTable(),DBQuery.createUserTable(),DBQuery.setupTODOProgress(),DBQuery.setupDONEProgress(),checkIfInsertData(DBQuery.checkIfProgresshasData()));
+        System.out.println(conn);
+        initialTable(DBQuery.createTODOTable(),DBQuery.createProgressTable(),DBQuery.createUserTable(),DBQuery.setupTODOProgress(),DBQuery.setupDONEProgress());
     }
     /**
      *
@@ -35,9 +36,10 @@ public class SQLite implements Database {
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
-        
+
         try {
             conn = DriverManager.getConnection(url);
+            return conn;
         } catch (SQLException e) {
             System.out.println(e.getMessage());;
         }
@@ -99,14 +101,14 @@ public class SQLite implements Database {
 
     }
 
-    private void initialTable(String descriptionTable,String ProgressTable,String Usertable,String addTODO,String addDone,boolean hasData) {
+    private void initialTable(String descriptionTable,String ProgressTable,String Usertable,String addTODO,String addDone) {
         createTable(descriptionTable);
         createTable(ProgressTable);
         createTable(Usertable);
 
-        if(!hasData){
-        readyForProgressTable(addTODO );
-        readyForProgressTable(addDone);
+        if(!checkIfInsertData(DBQuery.checkIfProgresshasData())){
+            readyForProgressTable(addTODO);
+            readyForProgressTable(addDone);
         }
     }
 }

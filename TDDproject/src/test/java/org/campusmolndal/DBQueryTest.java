@@ -298,7 +298,6 @@ class DBQueryTest {
             "USER,Name,4",
             "TODO,Assigned,3"
     })
-    @Test
     void updateTODOTable(String value,String value2,int value3) {
         // Arrange
         String expected ="UPDATE "+value+" SET " +value2 +" = "+ " ? " +" WHERE ID = "+ value3;
