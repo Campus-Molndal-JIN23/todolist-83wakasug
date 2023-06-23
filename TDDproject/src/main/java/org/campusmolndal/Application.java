@@ -109,7 +109,13 @@ public class Application {
 
     public void showSingleUser(){
         showAllUsers();
-        dbFacade.showSingleUser(getUserID(dbFacade.showUsersList()));
+        int userId = getUserID(dbFacade.showUsersList());
+        if(userId != 0) {
+            dbFacade.showSingleUser(userId);
+        }
+        else{
+
+        }
     }
 
     public void addDataMenu(){
@@ -277,18 +283,17 @@ public class Application {
 
              int todoID =getTodoID(list);
              showAllUsers();
-             int userId = getUserID(usersList);
-
-             if (usersList.isEmpty()) {
-                 Text.noDataFound();
-             } else {
-
+             int userID = getUserID(usersList);
+             if(userID != 0) {
                  try {
-                     dbFacade.updateInt(todoTable, columAssignedTo, columID,todoID , userId);
+                     dbFacade.updateInt(todoTable, columAssignedTo, columID,todoID , userID);
                  } catch (Exception e) {
                      Text.noDataFound();
-                    }
                 }
+             }
+             else{
+                 Text.wrongInput();
+             }
         }
     }
 
@@ -317,8 +322,12 @@ public class Application {
         String newName = Input.Str();
         showAllUsers();
         int userID =getUserID(dbFacade.showUsersList());
-        dbFacade.updateString(userTable,columName,columID,userID,newName);
-
+        if(userID != 0) {
+            dbFacade.updateString(userTable, columName, columID, userID, newName);
+        }
+        else{
+            Text.wrongInput();
+        }
     }
 
     public void updateAge(){
@@ -326,8 +335,12 @@ public class Application {
         int newAge = Input.number();
         showAllUsers();
         int userID =getUserID(dbFacade.showUsersList());
-        dbFacade.updateInt(userTable,columName,columID,userID,newAge);
-
+        if(userID != 0) {
+            dbFacade.updateInt(userTable,columName,columID,userID,newAge);
+        }
+        else {
+            Text.wrongInput();
+        }
     }
 
 
@@ -378,7 +391,12 @@ public class Application {
             Text.choseUser();
             showAllUsers();
             int userID = getUserID(dbFacade.showUsersList());
-            dbFacade.deleteData(userTable, userID);
+            if(userID != 0) {
+                dbFacade.deleteData(userTable, userID);
+            }
+            else{
+                Text.wrongInput();
+            }
         }catch (Exception e){
              Text.noDataFound();
         }
@@ -415,7 +433,11 @@ public class Application {
             user = userList.get(number);
         } catch (Exception e){
             Text.noDataFound();
-            return null;
+            return 0;
+        }
+        if(user == null){
+            Text.noDataFound();
+            return 0;
         }
         return user.getId();
     }
