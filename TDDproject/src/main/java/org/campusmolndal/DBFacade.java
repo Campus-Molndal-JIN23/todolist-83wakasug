@@ -1,11 +1,10 @@
 package org.campusmolndal;
 
-import java.sql.Array;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DBFacade {
 SQLite sqlite;
@@ -64,15 +63,20 @@ Connection conn;
     }
 
     public void showSingleUser(int id){
-        Map<Todo, User> allTodoList ;
-        allTodoList =dbCRUD.showALLTodo(DBQuery.showSpecificUsersTODO(id));
-        ArrayList<Todo>userAssignedtask;
-        allTodoList.forEach((todo,user)->{
+        Map<Integer, User> userList ;
+        User user =dbCRUD.showSingleUser(DBQuery.showSingleUser(id));
+        System.out.println(user.toString());
+
+        userList =dbCRUD.showUsers(DBQuery.showSingleUser(id));
+        userList.forEach((key,todo)->{
+
+            showSingleResult(todo);
            try{
-               user.setTodos(todo);
+
+             showSingleResult(todo);
 
            }catch (Exception e){
-                 showSingleResultNull(user);
+               System.out.println(e);
            }
         })
 
@@ -143,15 +147,16 @@ Connection conn;
         }
     }
 
-    public void showSingleResult(User user,Todo todo){
-            System.out.println(user.toString() );
+    public void showSingleResult(User user){
+
             ArrayList<Todo> todoList =user.getTodos();
             for(Todo mission:todoList){
-                System.out.println(mission.toString());
+                System.out.println("Progress: "+mission.getDone());
+                System.out.println("Todo :" + mission.getText());
             }
             System.out.println("-----------------------------------------");
-        }
     }
+
     public void showSingleResultNull(User user){
         System.out.println( user.toString() + " Todo: No Assigment");
         System.out.println("-----------------------------------------");

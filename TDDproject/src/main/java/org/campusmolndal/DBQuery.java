@@ -83,6 +83,19 @@ public class DBQuery {
                "WHERE DESCRIPTION NOT NULL";
     }
 
+    public static String singleUserTodoList(){
+        return "SELECT\n" +
+                "TODO.*,\n" +
+                " USER.*,\n" +
+                "PROGRESS.STATUS\n" +
+                "FROM\n" +
+                "TODO\n" +
+                "Left  JOIN\n" +
+                "USER ON USER.ID = TODO.AssignedTo\n" +
+                "Left JOIN \n" +
+                "PROGRESS ON PROGRESS.ID = TODO.PROGRESS";
+    }
+
     public static String showONETODO(int id){
        return "SELECT\n" +
                "TODO.ID,\n" +

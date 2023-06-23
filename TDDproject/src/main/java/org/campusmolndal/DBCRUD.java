@@ -82,7 +82,6 @@ public class DBCRUD {
                 allTodo.put(i,todo);
                 i++;
             }
-
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
@@ -116,6 +115,30 @@ public class DBCRUD {
         return todo;
     }
 
+    public User showSingleUser(String query){
+        this.conn = conn;
+        User user = null;
+
+        try{
+            PreparedStatement pstmt=conn.prepareStatement(query);
+            ResultSet rst = pstmt.executeQuery();
+
+            while(rst.next()){
+                user = new User(
+                        rst.getInt("ID"),
+                        rst.getString("NAME"),
+                        rst.getInt("AGE")
+                );
+            }
+
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        return user;
+    }
+
     public Map<Integer,User> showUsers(String query){
         this.conn = conn;
         User user = null;
@@ -136,15 +159,16 @@ public class DBCRUD {
                             rst.getInt("AGE")
                     );
                     allUsers.put(user.getId(), user);
+                    user.setTodos(new ArrayList<>());
                 }
                 todo = new Todo(
-                        rst.getInt("TODOID"),
+                        rst.getInt("ID"),
                         rst.getString("DESCRIPTION"),
                         rst.getInt("AssignedTo"),
                         rst.getString("Status")
                 );
 
-                allUsers.get(rst.getInt("ID")).setTodos(todo);
+                allUsers.get(rst.getInt("ID")).addTodo(todo);
             }
         }
         catch(SQLException e){

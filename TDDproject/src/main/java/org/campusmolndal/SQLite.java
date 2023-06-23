@@ -94,8 +94,9 @@ public class SQLite implements Database {
         createTable(descriptionTable);
         createTable(ProgressTable);
         createTable(Usertable);
-        readyForProgressTable(addDone);
         readyForProgressTable(addTODO );
+        readyForProgressTable(addDone);
+
     }
 
 

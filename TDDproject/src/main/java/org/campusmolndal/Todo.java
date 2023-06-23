@@ -50,10 +50,13 @@ public class Todo {
     }
 
     public String getProgress(){
-        if(Integer.parseInt(done) ==1) return "TODO";
-        if(Integer.parseInt(done)  ==2) return "DONE";
-
-        return "Not Registered";
+        if (done.equals("1")) {
+            return "TODO";
+        } else if (done.equals("2")) {
+            return "DONE";
+        } else {
+            return "Not Registered";
+        }
     }
     public String toString(){
         return "\nTODO: "+ getText() + "\nProgress: "+ getProgress();

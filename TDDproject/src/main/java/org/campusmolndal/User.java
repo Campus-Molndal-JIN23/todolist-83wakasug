@@ -42,8 +42,8 @@ public class User {
         return this.todos;
     }
 
-    public void setTodos(Todo todo) {
-       todos.add(todo);
+    public void setTodos(ArrayList<Todo> list) {
+       todos = list;
     }
 
     public void addTodo(Todo todo){
