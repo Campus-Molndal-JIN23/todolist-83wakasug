@@ -293,9 +293,11 @@ class DBQueryTest {
     }
 
     @ParameterizedTest
-    @CsvSource( {"Todo,Progress,1",
-            "USER,Name,4" ,
-                    "TODO,Assigned,3"})
+    @CsvSource({
+            "Todo,Progress,1",
+            "USER,Name,4",
+            "TODO,Assigned,3"
+    })
     @Test
     void updateTODOTable(String value,String value2,int value3) {
         // Arrange
@@ -310,7 +312,7 @@ class DBQueryTest {
 
 
     @ParameterizedTest
-    @ValueSource(ints = {0,1,2,3,100})
+    @ValueSource(strings = {"0","1","2","3","100"})
     void deleteData(String value) {
         // Arrange
         String expected = "DELETE FROM " + value + " WHERE ID = ?";

@@ -27,11 +27,7 @@ public class SQLite implements Database {
 
 
     public Connection connection() {
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());;
-        }
+
         try{
             if (conn != null && !conn.isClosed()) {
                 return conn;
@@ -39,6 +35,13 @@ public class SQLite implements Database {
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
+        
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());;
+        }
+
         return null;
     }
     /**

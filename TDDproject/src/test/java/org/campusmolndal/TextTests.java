@@ -1,5 +1,6 @@
 package org.campusmolndal;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
@@ -10,121 +11,129 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TextTests {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
 
     @BeforeEach
     public void setUpStreams() {
         System.setOut(new PrintStream(outputStream));
+        System.setErr(new PrintStream(errContent));
     }
+
+    @AfterEach
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
+    }
+
 
     @Test
     public void testMainMenu() {
         // Arrange
-        String expected = "Please Enter Number\n" +
-                "1:Show data\n" +
-                "2:Add data\n" +
-                "3:Update data\n" +
-                "4:Delete Data\n" +
-                "5: Close program\n";
+        String expected = "Please Enter Number\r\n" +
+                "1:Show data\r\n" +
+                "2:Add data\r\n" +
+                "3:Update data\r\n" +
+                "4:Delete Data\r\n" +
+                "5: Close program\r\n";
 
-        // Act
         Text.mainMenu();
+        assertEquals(expected, outputStream.toString());
 
-        // Assert
-        assertEquals(expected, outputStream.toString().trim());
     }
 
     @Test
     public void testShowDataMenu() {
         // Arrange
-        String expected = "Please Enter Choice\n" +
-                "1:Show ALL TODO List\n" +
-                "2:Show a TODO List\n" +
-                "3:Show ALL Users\n" +
-                "4:Show a user\n" +
-                "5:Go back to Main Menu\n";
+        String expected = "Please Enter Choice\r\n" +
+                "1:Show ALL TODO List\r\n" +
+                "2:Show a TODO List\r\n" +
+                "3:Show ALL Users\r\n" +
+                "4:Show a user\r\n" +
+                "5:Go back to Main Menu\r\n";
 
         // Act
         Text.showDataMenu();
 
-        // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        //Assert
+        assertEquals(expected, outputStream.toString());
     }
 
     @Test
     public void testAddDataMenu() {
         // Arrange
-        String expected = "Please Enter Choice\n" +
-                "1:Add a TODO List\n" +
-                "2:Add a user\n" +
-                "3:Go back to Main Menu\n";
+        String expected = "Please Enter Choice\r\n" +
+                "1:Add a TODO List\r\n" +
+                "2:Add a user\r\n" +
+                "3:Go back to Main Menu\r\n";
 
         // Act
         Text.addDataMenu();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, outputStream.toString());
     }
 
     @Test
     public void testUpdateDataMenu() {
         // Arrange
-        String expected = "Please Enter Choice\n" +
-                "1:Update a TODO List\n" +
-                "2:Update a user\n" +
-                "3:Go back to Main Menu\n";
+        String expected = "Please Enter Choice\r\n" +
+                "1:Update a TODO List\r\n" +
+                "2:Update a user\r\n" +
+                "3:Go back to Main Menu\r\n";
 
         // Act
         Text.updateDataMenu();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, outputStream.toString());
     }
 
     @Test
     public void testUpdateTODOList() {
         // Arrange
-        String expected = "Please Enter Choice\n" +
-                "1:update Description\n" +
-                "2:update status\n" +
-                "3:update assignedTo\n" +
-                "4:Go back to Main Menu\n";
+        String expected = "Please Enter Choice\r\n" +
+                "1:update Description\r\n" +
+                "2:update status\r\n" +
+                "3:update assignedTo\r\n" +
+                "4:Go back to Main Menu\r\n";
 
         // Act
         Text.updateTODOList();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, outputStream.toString());
     }
 
     @Test
     public void testUpdateUser() {
         // Arrange
-        String expected = "Please Enter Choice\n" +
-                "1:update Name\n" +
-                "2:Update Age\n" +
-                "3:Go back to Main Menu\n";
+        String expected = "Please Enter Choice\r\n" +
+                "1:update Name\r\n" +
+                "2:Update Age\r\n" +
+                "3:Go back to Main Menu\r\n";
 
         // Act
         Text.updateUser();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, outputStream.toString());
     }
 
     @Test
     public void testDeleteDataMenu() {
         // Arrange
-        String expected = "Please Enter Choice\n" +
-                "1:Delete a TODO\n" +
-                "2:Delete a user\n" +
-                "3:Go back to Main Menu\n";
+        String expected = "Please Enter Choice\r\n" +
+                "1:Delete a TODO\r\n" +
+                "2:Delete a user\r\n" +
+                "3:Go back to Main Menu\r\n";
 
         // Act
         Text.deleteDataMenu();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, outputStream.toString());
     }
 
     @Test
@@ -135,10 +144,10 @@ public class TextTests {
         String status = "Sample Status";
         String user = "Sample User";
         int age = 25;
-        String expected = "Description: Sample Description\n" +
-                "Progress: Sample Description\n" +
-                "Status: Sample Status\n" +
-                "Name: Sample User Age: 25\n";
+        String expected = "Description: Sample Description\r\n" +
+                "Progress: Sample Progress\r\n" +
+                "Status: Sample Status\r\n" +
+                "Name: Sample User Age: 25";
 
         // Act
         Text.showData(description, progress, status, user, age);
@@ -212,7 +221,7 @@ public class TextTests {
     @Test
     public void testChoseName() {
         // Arrange
-        String expected = "Who do you want to assign to assign?\n";
+        String expected = "Who do you want to assign to assign?";
 
         // Act
         Text.choseName();
@@ -296,7 +305,7 @@ public class TextTests {
     @Test
     public void testStatusChoice() {
         // Arrange
-        String expected = "Enter number\n1:TODO\n2:DONE";
+        String expected = "Enter number\r\n1:TODO\r\n2:DONE";
 
         // Act
         Text.statusChoice();
@@ -305,9 +314,5 @@ public class TextTests {
         assertEquals(expected, outputStream.toString().trim());
     }
 
-    @BeforeEach
-    public void restoreStreams() {
-        System.setOut(originalOut);
-    }
 
 }
