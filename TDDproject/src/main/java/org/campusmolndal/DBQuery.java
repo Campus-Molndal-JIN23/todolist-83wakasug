@@ -32,7 +32,9 @@ public class DBQuery {
                 ")";
     }
 
-
+   public static String checkIfProgresshasData(){
+        return "SELECT COUNT(ID) AS COUNT FROM PROGRESS WHERE ID IN(1,2)";
+   }
 
     public static String setupTODOProgress(){
         return "INSERT INTO PROGRESS (STATUS) VALUES ('TODO')";

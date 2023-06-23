@@ -48,7 +48,7 @@ Connection conn;
         Map<Integer, Todo> allDescription;
         allDescription=dbCRUD.showTodo(DBQuery.showAllTODO());
         allDescription.forEach((id,todo)->{
-            System.out.println("   | " + todo.getId() + ": " + todo.getText() + " |");
+            System.out.println("   | " + id + ": " + todo.getText() + " |");
             System.out.println("------------------------------");
         });
         return allDescription;

@@ -1,9 +1,6 @@
 package org.campusmolndal;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class SQLite implements Database {
 
@@ -18,7 +15,7 @@ public class SQLite implements Database {
         this.dbName = dbName;
        url = "jdbc:sqlite:" + dbName+ ".db";
         connection();
-        initialTable(DBQuery.createTODOTable(),DBQuery.createProgressTable(),DBQuery.createUserTable(),DBQuery.setupTODOProgress(),DBQuery.setupDONEProgress());
+        initialTable(DBQuery.createTODOTable(),DBQuery.createProgressTable(),DBQuery.createUserTable(),DBQuery.setupTODOProgress(),DBQuery.setupDONEProgress(),checkIfInsertData(DBQuery.checkIfProgresshasData()));
     }
     /**
      *
@@ -80,6 +77,22 @@ public class SQLite implements Database {
         return true;
     }
 
+    private boolean checkIfInsertData(String query){
+        boolean hasData = false;
+        try{
+            Statement stm = conn.createStatement();
+            ResultSet rst=stm.executeQuery(query);
+            if (rst.next()) {
+                int count = rst.getInt("COUNT");
+                hasData = count > 0;
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        return hasData;
+    }
+
     private void readyForProgressTable(String query){
         try{
             Statement stm = conn.createStatement();
@@ -90,18 +103,14 @@ public class SQLite implements Database {
 
     }
 
-    private void initialTable(String descriptionTable,String ProgressTable,String Usertable,String addTODO,String addDone) {
+    private void initialTable(String descriptionTable,String ProgressTable,String Usertable,String addTODO,String addDone,boolean hasData) {
         createTable(descriptionTable);
         createTable(ProgressTable);
         createTable(Usertable);
+
+        if(!hasData){
         readyForProgressTable(addTODO );
         readyForProgressTable(addDone);
-
+        }
     }
-
-
-
-
-
-
 }
