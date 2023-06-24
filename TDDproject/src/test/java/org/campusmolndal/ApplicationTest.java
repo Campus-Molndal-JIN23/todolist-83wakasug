@@ -18,8 +18,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 
-//De här testet Så fick jag hjälp utav Fredrik Jonas Söderström
-
 class ApplicationTest {
 
     Application mockApp;
@@ -333,7 +331,7 @@ class ApplicationTest {
     void updateTODO() {
 
         doCallRealMethod().when(mockApp).updateTODO();
-
+        when(mockApp.getTodoID(any())).thenReturn(1);
         try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
             input.when(Input::Str).thenReturn("test");
             mockApp.updateTODO();
