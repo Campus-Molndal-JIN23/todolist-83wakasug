@@ -21,7 +21,7 @@ Connection mockConn;
 ResultSet mockRst;
 SQLite mockSqlite;
 Statement mockStm;
-ResultSet mockResultSet;
+
 
     @BeforeEach
     void setUp() throws SQLException {
@@ -31,18 +31,29 @@ ResultSet mockResultSet;
         mockConn = Mockito.mock(Connection.class);
         mockRst = Mockito.mock(ResultSet.class);
         mockSqlite = Mockito.mock(SQLite.class);
-        mockResultSet = Mockito.mock(ResultSet.class);
         mockStm = Mockito.mock(Statement.class);
         mockStatic(DriverManager.class);
         when(DriverManager.getConnection(Mockito.anyString())).thenReturn(mockConn);
         when(mockSqlite.connection()).thenReturn(mockConn);
         when(mockConn.prepareStatement(query)).thenReturn(mockpstm);
         //when(mockStm.executeQuery(query)).thenReturn(any());
-        when(mockStm.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockStm.executeQuery(anyString())).thenReturn(mockRst);
         when(mockpstm.executeUpdate()).thenReturn(1);
+
 
     }
 
+    void setupTodoResultSet() throws SQLException {
+        when(mockRst.getInt("ID")).thenReturn(1);
+        when(mockRst.getString("DESCRIPTION")).thenReturn("Home Work");
+        when(mockRst.getInt("ASSIGNEDTO")).thenReturn(3);
+        when(mockRst.getString("PROGRESS")).thenReturn("DONE");
+    }
+    void setupUserResultSet() throws SQLException {
+        when(mockRst.getInt("ID")).thenReturn(1);
+        when(mockRst.getString("NAME")).thenReturn("Hugo");
+        when(mockRst.getInt("Age")).thenReturn(5);
+    }
     @Test
     void checkIfmockpstmAndResultSetRuns() throws SQLException {
         String query = "test";
@@ -55,10 +66,7 @@ ResultSet mockResultSet;
 
         assertEquals(expected,actual);
     }
-    void setUpHashMap(){
 
-
-    }
 
 
     @Test
@@ -74,9 +82,24 @@ ResultSet mockResultSet;
     }
 
     @Test
-    void showALLTodo() {
+    void verifyIfResultsetWorks() throws SQLException {
+        mockRst = mockpstm.executeQuery();
+        String value ="ID";
+        String value2 ="ASSIGNEDTO ";
+        String value3 ="PROGRESS";
+        mockRst.getInt(value);
+        mockRst.getString(value2);
+        mockRst.getString(value3);
+
+        verify(mockRst, times(1)).getString(value);
+        verify(mockRst, times(1)).getInt(value2);
+        verify(mockRst, times(1)).getInt(value3);
     }
 
+    @Test
+    void showAllTodo(){
+        
+    }
     @Test
     void showTodo() {
     }
