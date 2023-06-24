@@ -21,10 +21,6 @@ Connection conn;
         return sqlite.connection();
     }
 
-    public void disconnetDB(Connection conn){
-         sqlite.disConnect(conn);
-    }
-
     public Map<Todo, User> showALLTODOList(){
         Map<Todo, User> allTodoList ;
         allTodoList =dbCRUD.showALLTodo(DBQuery.showALLData());
@@ -104,7 +100,7 @@ Connection conn;
 
 
 
-    public void updateString (String table,String colum,String columId,int id,String description)  {
+    public void updateString (String table,String colum,int id,String description)  {
         try{
             dbCRUD.updateDataString( DBQuery.updateTODOTable(table,colum,id),description);
             }catch (Exception e){
@@ -112,7 +108,7 @@ Connection conn;
         }
     }
 
-    public void updateInt (String table,String colum,String columId,int id,int StatusNo)  {
+    public void updateInt (String table,String colum,int id,int StatusNo)  {
         try{
             dbCRUD.updateDataInt( DBQuery.updateTODOTable(table,colum,id),StatusNo);
         }catch (Exception e){

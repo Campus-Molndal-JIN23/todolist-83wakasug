@@ -245,7 +245,7 @@ public class Application {
                 toDoid = getTodoID(toDoList);
                 Text.inputTodo();
                 String newDescription = Input.Str();
-                dbFacade.updateString(todoTable, columDescription, columID, toDoid, newDescription);
+                dbFacade.updateString(todoTable, columDescription, toDoid, newDescription);
             }catch (Exception e) {
                 Text.noDataFound();
             }
@@ -266,7 +266,7 @@ public class Application {
             try {
                 toDoId = getTodoID(toDoList);
                 status = choseStatus();
-                dbFacade.updateInt(todoTable, columProgress, columID, toDoId, status);
+                dbFacade.updateInt(todoTable, columProgress, toDoId, status);
             }catch (Exception e) {
                 Text.noDataFound();
             }
@@ -302,7 +302,7 @@ public class Application {
              int userID = getUserID(usersList);
              if(userID != 0) {
                  try {
-                     dbFacade.updateInt(todoTable, columAssignedTo, columID,todoID , userID);
+                     dbFacade.updateInt(todoTable, columAssignedTo,todoID , userID);
                  } catch (Exception e) {
                      Text.noDataFound();
                 }
@@ -339,7 +339,7 @@ public class Application {
         showAllUsers();
         int userID =getUserID(dbFacade.showUsersList());
         if(userID != 0) {
-            dbFacade.updateString(userTable, columName, columID, userID, newName);
+            dbFacade.updateString(userTable, columName, userID, newName);
         }
         else{
             Text.wrongInput();
@@ -352,7 +352,7 @@ public class Application {
         showAllUsers();
         int userID =getUserID(dbFacade.showUsersList());
         if(userID != 0) {
-            dbFacade.updateInt(userTable,columName,columID,userID,newAge);
+            dbFacade.updateInt(userTable,columName,userID,newAge);
         }
         else {
             Text.wrongInput();

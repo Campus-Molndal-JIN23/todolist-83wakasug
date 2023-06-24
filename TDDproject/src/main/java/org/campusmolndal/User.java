@@ -51,7 +51,7 @@ public class User {
     }
 
     public String toString(){
-       return "\nAssigned to: "+ getName() + "\nAge: "+getAge();
+       return "\nAssigned to: " + getName() + "\nAge: " + getAge();
     }
 
 }
