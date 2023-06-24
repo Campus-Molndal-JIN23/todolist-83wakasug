@@ -9,10 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.mockito.internal.configuration.injection.scanner.MockScanner;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 
 class InputTest {
-    private InputStream inputStream;
+
     //Reference https://stackoverflow.com/questions/76239380/how-to-take-predefined-user-input-for-unit-tests-in-java
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -42,23 +39,29 @@ class InputTest {
 
 
     @Test
-    void testStr() {
+    void testStr() throws IOException {
+        InputStream inputStream;
         String testInput = "Katt";
         inputStream = new ByteArrayInputStream(testInput.getBytes());
         System.setIn(inputStream);
+
         String expected = "Katt";
         String actual = Input.Str();
+        inputStream.close();
         assertEquals(expected, actual);
+
     }
 
-     //TODO fixTest
+
    @Test
-    void testNumber() {
+    void testNumber() throws IOException {
+      InputStream inputStream;
        String number = String.valueOf(1);  // Convert int to String
-       ByteArrayInputStream inputStream = new ByteArrayInputStream(number.getBytes());
+       inputStream = new ByteArrayInputStream(number.getBytes());
        System.setIn(inputStream);
        int expected = Integer.parseInt(number);
        int actual = Input.number();
+       inputStream.close();
        assertEquals(expected, actual);
     }
 
