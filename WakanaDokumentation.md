@@ -85,4 +85,4 @@ Annars så var det svårt att skapa Testet. Det var typ när jag testar menu med
 ### Vilka möjligheter ser du med de kunskaper du fått under kursen.
 + Jag har lärde mig lite mer funktion inom testet så jag kommer kunna använda dessa teknik. 
 + Att kommer jag göra Bättre planering
-+ 
++ Mockade objekt kan jag göra lite bättre. 
