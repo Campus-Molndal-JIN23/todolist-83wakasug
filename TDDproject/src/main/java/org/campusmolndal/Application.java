@@ -162,7 +162,10 @@ public class Application {
             Text.inputNumber();
             int number = Input.number();
             user = usersList.get(number);
-
+            if(user == null){
+                Text.noDataFound();
+                return;
+            }
             nameId= user.getId();
         }
 
@@ -317,7 +320,7 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.updateUser();
-            updateUserChoice();
+            run = updateUserChoice();
         }
         mainMenu();
     }
