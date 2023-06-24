@@ -6,9 +6,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -21,6 +24,8 @@ Connection mockConn;
 ResultSet mockRst;
 SQLite mockSqlite;
 Statement mockStm;
+DBCRUD dbcrud;
+Todo mockTodo;
 
 
     @BeforeEach
@@ -32,20 +37,70 @@ Statement mockStm;
         mockRst = Mockito.mock(ResultSet.class);
         mockSqlite = Mockito.mock(SQLite.class);
         mockStm = Mockito.mock(Statement.class);
+        mockTodo =Mockito.mock(Todo.class);
         mockStatic(DriverManager.class);
         when(DriverManager.getConnection(Mockito.anyString())).thenReturn(mockConn);
         when(mockSqlite.connection()).thenReturn(mockConn);
         when(mockConn.prepareStatement(query)).thenReturn(mockpstm);
         //when(mockStm.executeQuery(query)).thenReturn(any());
+        when(mockpstm.executeQuery()).thenReturn(mockRst);
+
         when(mockStm.executeQuery(anyString())).thenReturn(mockRst);
+        setupTodoResultSet();
+        setupUserResultSet();
+        when(mockRst.next()).thenAnswer(new Answer<Boolean>() {
+            @Override
+            public Boolean answer(InvocationOnMock invocation) throws Throwable {
+                // Custom logic for ResultSet.next()
+                // You can return true or false based on your specific test scenario
+                // For example, you can maintain a counter to simulate multiple rows
+                // or return false to simulate no more rows
+                // Here's an example that returns true for the first invocation and false for subsequent invocations
+                if (mockRst.getFetchSize() > 0) {
+                    mockRst.setFetchSize(mockRst.getFetchSize() - 1);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
         when(mockpstm.executeUpdate()).thenReturn(1);
+
+
+    }
+
+    void setupResultSet() throws SQLException {
+        when(mockRst.getInt("ID")).thenAnswer(invocation -> {
+            return "1";
+        });
+        when(mockRst.getString("DESCRIPTION")).thenAnswer(invocation -> {
+            return "Homework";
+        });
+        when(mockRst.getInt("ASSIGNEDTO")).thenAnswer(invocation -> {
+            return 3;
+        });
+        when(mockRst.getString("PROGRESS")).thenAnswer(invocation -> {
+            return "DONE";
+        });
+
+    }
+
+    void SetUPRstUser() throws SQLException {
+
+        when(mockRst.getString("NAME")).thenAnswer(invocation -> {
+            return "Hugo";
+        });
+
+        when(mockRst.getInt("Age")).thenAnswer(invocation -> {
+            return 5;
+        });
 
 
     }
 
     void setupTodoResultSet() throws SQLException {
         when(mockRst.getInt("ID")).thenReturn(1);
-        when(mockRst.getString("DESCRIPTION")).thenReturn("Home Work");
+        when(mockRst.getString("DESCRIPTION")).thenReturn("Homework");
         when(mockRst.getInt("ASSIGNEDTO")).thenReturn(3);
         when(mockRst.getString("PROGRESS")).thenReturn("DONE");
     }
@@ -97,8 +152,49 @@ Statement mockStm;
     }
 
     @Test
-    void showAllTodo(){
-        
+    void showAllTodo() throws SQLException {
+        Map<Todo, User> actual = new HashMap<>();
+        Map<Todo, User> expected = new HashMap<>();
+        User userTest =new User(1,"Hugo",5);
+        Todo todoTest = new Todo(1,"Homework",3,"DONE");
+        expected.put(todoTest,userTest);
+
+        DBCRUD sq = new DBCRUD(mockSqlite);
+
+
+        /*this.mockTodo =new Todo ( mockRst.getInt("ID"),
+                 mockRst.getString("DESCRIPTION"),
+                 mockRst.getInt("ASSIGNEDTO"),
+                 mockRst.getString("PROGRESS"));
+
+       */
+        actual = sq.showALLTodo("test");
+
+        assertEquals(expected,actual);
+
+    }
+
+    @Test
+    void ShowAllTodo() throws SQLException {
+        SetUPRstUser();
+        setupUserResultSet();
+        Map<Todo, User> actual = new HashMap<>();
+        Map<Todo, User> expected = new HashMap<>();
+        User userTest = new User(1, "Hugo", 5);
+        Todo todoTest = new Todo(1, "Homework", 3, "DONE");
+        expected.put(todoTest, userTest);
+
+        // Mock the behavior of mockStm.executeQuery()
+        when(mockStm.executeQuery(anyString())).thenReturn(mockRst);
+
+        // Create an instance of DBCRUD
+        DBCRUD sq = new DBCRUD(mockSqlite);
+
+        // Assign the mockRst to the rst variable
+
+        actual = sq.showALLTodo("test");
+
+        assertEquals(expected, actual);
     }
     @Test
     void showTodo() {
