@@ -69,34 +69,7 @@ Todo mockTodo;
 
     }
 
-    void setupResultSet() throws SQLException {
-        when(mockRst.getInt("ID")).thenAnswer(invocation -> {
-            return "1";
-        });
-        when(mockRst.getString("DESCRIPTION")).thenAnswer(invocation -> {
-            return "Homework";
-        });
-        when(mockRst.getInt("ASSIGNEDTO")).thenAnswer(invocation -> {
-            return 3;
-        });
-        when(mockRst.getString("PROGRESS")).thenAnswer(invocation -> {
-            return "DONE";
-        });
 
-    }
-
-    void SetUPRstUser() throws SQLException {
-
-        when(mockRst.getString("NAME")).thenAnswer(invocation -> {
-            return "Hugo";
-        });
-
-        when(mockRst.getInt("Age")).thenAnswer(invocation -> {
-            return 5;
-        });
-
-
-    }
 
     void setupTodoResultSet() throws SQLException {
         when(mockRst.getInt("ID")).thenReturn(1);
@@ -138,46 +111,21 @@ Todo mockTodo;
 
     @Test
     void verifyIfResultsetWorks() throws SQLException {
-        mockRst = mockpstm.executeQuery();
-        String value ="ID";
-        String value2 ="ASSIGNEDTO ";
-        String value3 ="PROGRESS";
-        mockRst.getInt(value);
-        mockRst.getString(value2);
+        String value = "ID";
+        String value2 = "ASSIGNEDTO ";
+        String value3 = "PROGRESS";
+        mockRst.getString(value);
+        mockRst.getInt(value2);
         mockRst.getString(value3);
 
         verify(mockRst, times(1)).getString(value);
         verify(mockRst, times(1)).getInt(value2);
-        verify(mockRst, times(1)).getInt(value3);
+        verify(mockRst, times(1)).getString(value3);
     }
 
-    @Test
-    void showAllTodo() throws SQLException {
-        Map<Todo, User> actual = new HashMap<>();
-        Map<Todo, User> expected = new HashMap<>();
-        User userTest =new User(1,"Hugo",5);
-        Todo todoTest = new Todo(1,"Homework",3,"DONE");
-        expected.put(todoTest,userTest);
-
-        DBCRUD sq = new DBCRUD(mockSqlite);
-
-
-        /*this.mockTodo =new Todo ( mockRst.getInt("ID"),
-                 mockRst.getString("DESCRIPTION"),
-                 mockRst.getInt("ASSIGNEDTO"),
-                 mockRst.getString("PROGRESS"));
-
-       */
-        actual = sq.showALLTodo("test");
-
-        assertEquals(expected,actual);
-
-    }
 
     @Test
     void ShowAllTodo() throws SQLException {
-        SetUPRstUser();
-        setupUserResultSet();
         Map<Todo, User> actual = new HashMap<>();
         Map<Todo, User> expected = new HashMap<>();
         User userTest = new User(1, "Hugo", 5);
@@ -193,6 +141,9 @@ Todo mockTodo;
         // Assign the mockRst to the rst variable
 
         actual = sq.showALLTodo("test");
+
+        System.out.println("Expected: " + expected);
+        System.out.println("Actual: " + actual);
 
         assertEquals(expected, actual);
     }
