@@ -111,7 +111,9 @@ public class Text {
             System.out.println("Wrong Input. Please Enter Again.");
         }
 
-
+        public void test(){
+            System.out.println("hej");
+        }
         public static void statusChoice(){
             System.out.println("Enter number");
             System.out.println("1:TODO");

@@ -1,13 +1,16 @@
 package org.campusmolndal;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -30,9 +33,25 @@ class DBFacadeTest {
     Map <Integer, Todo> mockMap;
     Map <Integer, User> mockMapIntUser;
     Map <Todo, User> mockMaptodoUser;
+
+
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
+
+    @AfterEach
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
+    }
+
     @BeforeEach
     void setUp() throws SQLException {
         String query = "test";
+
+        System.setOut(new PrintStream(outputStream));
+        System.setErr(new PrintStream(errContent));
 
         Mockito.framework().clearInlineMocks();
         mockpstm = Mockito.mock(PreparedStatement.class);
@@ -47,7 +66,6 @@ class DBFacadeTest {
         mockMap = new HashMap<>();
         mockMapIntUser = new HashMap<> ();
         mockMaptodoUser = new HashMap<>();
-
         when(DriverManager.getConnection(Mockito.anyString())).thenReturn(mockConn);
         when(mockSqlite.connection()).thenReturn(mockConn);
         when(mockConn.prepareStatement(query)).thenReturn(mockpstm);
@@ -61,6 +79,7 @@ class DBFacadeTest {
         when(mockRst.next()).thenReturn(true).thenReturn(false);
         when(mockpstm.executeUpdate()).thenReturn(1);
         dbFacade = new DBFacade("test");
+        dbFacade.dbCRUD = mockDBCRUD;
 
     }
 
@@ -91,19 +110,38 @@ class DBFacadeTest {
         assertEquals(actual,expected);
     }
 
-
     @Test
     void showALLTODOList() {
-        when(mockDBCRUD.showTodo(anyString())).thenReturn(mockMap);
-        Map<Integer, Todo> expected = dbFacade.showOnlyDescription();
-        Map<Integer, Todo> actual =mockDBCRUD.showTodo("test");
 
-        assertEquals(expected.toString(),actual.toString());
+        // Create a mock todo-user map
+        Map<Todo, User> mockTodoUserMap = new HashMap<>();
+        User user = new User(1, "Wakana",39);
+        Todo todo = new Todo(1, "Homework", 3, "DONE");
+        mockTodoUserMap.put(todo, user);
+
+        // Stub the mockDbCrud method
+        when(mockDBCRUD.showALLTodo(anyString())).thenReturn(mockTodoUserMap);
+
+        Map<Todo, User> allTodoList = dbFacade.showALLTODOList();
+        System.out.println(originalOut.toString());
+        assertSame(mockTodoUserMap,allTodoList);
     }
 
     @Test
     void showALLTODO() {
 
+        // Create a mock todo-user map
+        Map<Todo, User> mockTodoUserMap = new HashMap<>();
+        User user = new User(1, "Wakana",39);
+        Todo todo = new Todo(1, "Homework", 3, "DONE");
+        mockTodoUserMap.put(todo, user);
+
+        // Stub the mockDbCrud method
+        when(mockDBCRUD.showALLTodo(anyString())).thenReturn(mockTodoUserMap);
+
+        Map<Todo, User> allTodoList = dbFacade.showALLTODOList();
+        System.out.println(originalOut.toString());
+        assertSame(mockTodoUserMap,allTodoList);
     }
 
     @Test
@@ -118,7 +156,6 @@ class DBFacadeTest {
     @Test
     void showONETODO() {
         MockitoAnnotations.openMocks(this);
-        dbFacade = new DBFacade("test");
 
         // Create a mock todo-user map
         Map<Todo, User> mockTodoUserMap = new HashMap<>();
@@ -126,11 +163,6 @@ class DBFacadeTest {
         Todo todo = new Todo(1, "Homework", 3, "DONE");
         mockTodoUserMap.put(todo, user);
 
-        // Redirect console output to capture the printed text
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(outputStream);
-        PrintStream originalOut = System.out;
-        System.setOut(printStream);
 
         // Stub the mockDbCrud method
         when(mockDBCRUD.showALLTodo(anyString())).thenReturn(mockTodoUserMap);
@@ -153,7 +185,6 @@ class DBFacadeTest {
     @Test
     void showSingleUser() {
         MockitoAnnotations.openMocks(this);
-        dbFacade = new DBFacade("test");
 
         // Create a mock user map
         Map<Integer, User> mockUserMap = new HashMap<>();
@@ -200,7 +231,6 @@ class DBFacadeTest {
 
     @Test
     void testUpdateString() {
-        dbFacade = new DBFacade("test");
         String table = "table";
         String column = "column";
         int id = 1;
@@ -213,7 +243,6 @@ class DBFacadeTest {
 
     @Test
     void testUpdateInt() {
-        dbFacade = new DBFacade("test");
         String table = "table";
         String column = "column";
         int id = 1;
@@ -226,7 +255,6 @@ class DBFacadeTest {
 
     @Test
     void testAddTODO() {
-        dbFacade = new DBFacade("test");
         String value1 = "value1";
         int value2 = 2;
 
@@ -237,7 +265,6 @@ class DBFacadeTest {
 
     @Test
     void testAddUser() {
-        dbFacade = new DBFacade("test");
         String name = "Toma";
         int age = 1;
 
@@ -248,7 +275,6 @@ class DBFacadeTest {
 
     @Test
     void testDeleteData() {
-        dbFacade = new DBFacade("test");
         String table = "table";
         int id = 1;
 
@@ -260,7 +286,6 @@ class DBFacadeTest {
     @Test
     void showAllUsers() {
         MockitoAnnotations.openMocks(this);
-        dbFacade = new DBFacade("test");
 
         // Create a mock user map
         Map<Integer, User> mockUserMap = new HashMap<>();
@@ -294,16 +319,38 @@ class DBFacadeTest {
 
     @Test
     void showSingleResult() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Create a user and add some todos
+        User user = new User(1, "Test", 100);
+        ArrayList<Todo> todoList = new ArrayList<>();
+        todoList.add(new Todo(1, "Sleep", 50, "TODO"));
+        todoList.add(new Todo(2, "Work", 100, "DONE"));
+        user.setTodos(todoList);
+
+        // Create an instance of YourClassName
+
+        // Call the method
+        dbFacade.showSingleResult(user);
+
+        // Assert the expected output
+        String expectedOutput = "Progress: TODO\r\n" +
+                "Todo :Sleep\r\n" +
+                "Progress: DONE\r\n" +
+                "Todo :Work\r\n" +
+                "-----------------------------------------\r\n";
+        assertEquals(expectedOutput, outputStream.toString());
     }
 
 
     @Test
     void showSingleResultNull() {
         // Create the expected output
-        String expected = "\n" +
+        String expected =
                 "Assigned to: Wasabi\n" +
                 "Age: 13 Todo: No Assigment\n" +
-                "-----------------------------------------\n";
+                "-----------------------------------------";
 
         // Create a User object with null assignment
         User user = new User(1, "Wasabi",13);
