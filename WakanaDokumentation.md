@@ -1,16 +1,27 @@
-# Ditt namn
+# Wakana Sugihara
 
 ## Egna reflektioner
 
-## Projektet
+### Skapa TODO Application
 
-### Beskrivning av projektet
+Skapa ett program som kan hantera TODO. 
+Programet kan även registrera progress och ansvarig för tasks. 
+Alla data kan lägga,radera uppdatera, och ta bort. 
 
 ### Vad du har gjort
+Planerade hur application fungerar och alla straktur för koden. 
+Skapa test för coden. 
+Försökte undvika hårda code så mycket som möjligt. 
+Försökte dela upp klasser så mycket som möjligt. 
+Försökte att undvika upprepning men det misslyckades jag. 
 
 ## Planering
+Jag började planera hur programet bete sig. 
+Sen bestämde jag vilka databasen jag kommer använda och detta strakturen. 
+Tillslut planerade jag hur jag delar upp klasser och methoder. 
 
 ### Lösningsförslag innan uppgiften påbörjas
+
 
 #### Skisser (exempelvis)
 
