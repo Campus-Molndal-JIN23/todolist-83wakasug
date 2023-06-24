@@ -46,20 +46,43 @@ Jag tror jag hade skapat test för onödiga funktionen också.
 ### Beskriv lite olika lösningar du gjort
 1:När jag listar upp todo eller users så lagd jag upp till HashMap så jag kan undvika använda primaryKey för visa number fram för lista.
 2:Använde doCallRealMethod() för testet så kan faktiskt kallas in till real method fast det är Mock. 
-3:
+3:Använde ByteArrayInputStream inputStream = new ByteArrayInputStream(number.getBytes());  
+System.setIn(inputStream); så att input retunerar värde som definerar tidigare. 
 
 ### Beskriv något som var besvärligt att få till
+Det var jättejobbigt med att skapa test.  
+Det tog jättelång tid och ibland så tog det så jätte lång tid att komma på hur man borde skriva.   
+Speciellt när jag behövde mocka connection eller testa för SQL delen så behövde jag mocka massor och behövde veta vad det borde retunera etc.    
+Det var svårt. 
+
 
 ### Beskriv om du fått byta lösning och varför i sådana fall
+För att skriva Testet så behövde jag byta hur jag behöver skriva koden.   
+Annars så var det svårt att skapa Testet. Det var typ när jag testar menu med loop.
 
 ## Reflektion & Slutsatser
 
 ### Vad gick bra
++ Till slut lyckades jag at test SQLite.   
++ Fungerade koden kunde jag skapa!     
++ Lyckades innan inlämnings datum!  
 
 ### Vad gick dåligt
++ Att skapa test på Application class.   
++ Jag fick hjälp från min man som har aldrig studerat TDD innan men bara han tittade på 1 video  och några försök så blev han mycket bättre förståelse än mig:(  
++ Jag borde ha planerat mycket bättre. Vissa funktion jag är lite missnöjd hur det fungerar. 
++ Jag borde kunna strakturera koden lite bättre. 
 
 ### Vad har du lärt dig
++ Hur man kan skriva test för Static method. 
++ Olika test teknik. 
++ När jag skulle använda HashMap.
 
 ### Vad hade ni gjort annorlunda om ni gjort om projektet
-
++ Lite snyggare kode stractur
++ Skrivar inte test för alla method
++ Hur programet fungera när 
 ### Vilka möjligheter ser du med de kunskaper du fått under kursen.
++ Jag har lärde mig lite mer funktion inom testet så jag kommer kunna använda dessa teknik. 
++ Att kommer jag göra Bättre planering
++ 
