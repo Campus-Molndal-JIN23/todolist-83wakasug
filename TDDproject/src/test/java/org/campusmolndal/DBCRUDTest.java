@@ -42,32 +42,13 @@ Todo mockTodo;
         when(DriverManager.getConnection(Mockito.anyString())).thenReturn(mockConn);
         when(mockSqlite.connection()).thenReturn(mockConn);
         when(mockConn.prepareStatement(query)).thenReturn(mockpstm);
-        //when(mockStm.executeQuery(query)).thenReturn(any());
+        when(mockConn.prepareStatement(anyString())).thenReturn(mockpstm);
         when(mockpstm.executeQuery()).thenReturn(mockRst);
-
+        when(mockStm.executeQuery(anyString())).thenReturn(mockRst);
         when(mockStm.executeQuery(anyString())).thenReturn(mockRst);
         setupTodoResultSet();
         setupUserResultSet();
         when(mockRst.next()).thenReturn(true).thenReturn(false);
-        /*
-
-        when(mockRst.next()).thenAnswer(new Answer<Boolean>() {
-            @Override
-            public Boolean answer(InvocationOnMock invocation) throws Throwable {
-                // Custom logic for ResultSet.next()
-                // You can return true or false based on your specific test scenario
-                // For example, you can maintain a counter to simulate multiple rows
-                // or return false to simulate no more rows
-                // Here's an example that returns true for the first invocation and false for subsequent invocations
-                if (mockRst.getFetchSize() > 0) {
-                    mockRst.setFetchSize(mockRst.getFetchSize() -1);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
-        */
         when(mockpstm.executeUpdate()).thenReturn(1);
 
 
@@ -152,15 +133,52 @@ Todo mockTodo;
         //assertEquals(expected, actual);
     }
     @Test
-    void showTodo() {
+    void showTodo() throws SQLException {
+         Map<Integer, Todo> actual = new HashMap<>();
+        Map<Integer, Todo>expected =new HashMap<>();
+        Todo todoTest = new Todo(1, "Homework", 3, "DONE");
+        expected.put(1, todoTest);
+
+        // Mock the behavior of mockStm.executeQuery()
+        when(mockpstm.executeQuery()).thenReturn(mockRst);
+
+        // Create an instance of DBCRUD
+        DBCRUD sq = new DBCRUD(mockSqlite);
+
+        // Assign the mockRst to the rst variable
+
+        actual = sq.showTodo("test");
+
+        //to string so it compares only values, and not hashmap ids.
+        assertEquals(actual.toString(),expected.toString());
+        //This returns false becuase of different hashmap IDs
+        //assertEquals(expected, actual);
+
     }
 
     @Test
-    void showONETodo() {
+    void showONETodo() throws SQLException {
+        Todo actual;
+        Todo expected = new Todo(1, "Homework", 3, "DONE");
+        System.out.println(mockRst);
+        // Mock the behavior of mockStm.executeQuery()
+
+        when(mockpstm.executeQuery()).thenReturn(mockRst);
+
+        // Create an instance of DBCRUD
+        DBCRUD sq = new DBCRUD(mockSqlite);
+
+        // Assign the mockRst to the rst variable
+
+        actual = sq.showONETodo("Test");
+
+        //to string so it compares only values, and not hashmap ids.
+        assertEquals(actual.toString(),expected.toString());
     }
 
     @Test
     void showSingleUser() {
+        
     }
 
     @Test
