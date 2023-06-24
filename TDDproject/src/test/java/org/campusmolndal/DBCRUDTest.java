@@ -177,25 +177,71 @@ Todo mockTodo;
     }
 
     @Test
-    void showSingleUser() {
-        
+    void showSingleUser() throws SQLException {
+        User actual;
+        User expected =new User(1, "Hugo", 5);
+        System.out.println(mockRst);
+        // Mock the behavior of mockStm.executeQuery()
+
+        when(mockpstm.executeQuery()).thenReturn(mockRst);
+
+        // Create an instance of DBCRUD
+        DBCRUD sq = new DBCRUD(mockSqlite);
+
+        // Assign the mockRst to the rst variable
+
+        actual = sq.showSingleUser("Test");
+
+        //to string so it compares only values, and not hashmap ids.
+        assertEquals(actual.toString(),expected.toString());
     }
 
     @Test
-    void showUsers() {
+    void showUsers() throws SQLException {
+        Map<Todo, User> actual = new HashMap<>();
+        Map<Todo, User> expected = new HashMap<>();
+        User userTest = new User(1, "Hugo", 5);
+        Todo todoTest = new Todo(1, "Homework", 3, "DONE");
+        expected.put(todoTest, userTest);
+
+        // Mock the behavior of mockStm.executeQuery()
+        when(mockpstm.executeQuery()).thenReturn(mockRst);
+
+        // Create an instance of DBCRUD
+        DBCRUD sq = new DBCRUD(mockSqlite);
+
+        // Assign the mockRst to the rst variable
+
+        actual = sq.showALLTodo("test");
+
+        //to string so it compares only values, and not hashmap ids.
+        assertEquals(actual.toString(),expected.toString());
     }
 
     @Test
-    void showALLUser() {
+    void showALLUser() throws SQLException {
+      User userTest;
+        Map<Integer, User> actual = new HashMap<>();
+        Map<Integer, User>expected =new HashMap<>();
+        userTest =new User(1, "Hugo", 5);
+        expected.put(1, userTest);
+
+        // Mock the behavior of mockStm.executeQuery()
+        when(mockpstm.executeQuery()).thenReturn(mockRst);
+
+        // Create an instance of DBCRUD
+        DBCRUD sq = new DBCRUD(mockSqlite);
+
+        // Assign the mockRst to the rst variable
+
+        actual = sq.showUsers("test");
+
+        //to string so it compares only values, and not hashmap ids.
+        assertEquals(actual.toString(),expected.toString());
+
     }
 
-    @Test
-    void updateDataInt() {
-    }
 
-    @Test
-    void updateDataString() {
-    }
 
     @Test
     void deleteData() {
