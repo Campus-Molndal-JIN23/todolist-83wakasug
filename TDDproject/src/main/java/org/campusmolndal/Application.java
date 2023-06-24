@@ -58,7 +58,6 @@ public class Application {
             Text.showDataMenu();
             run = dataMenuChoice();
         }
-        mainMenu();
     }
 
     public boolean dataMenuChoice(){
@@ -130,7 +129,6 @@ public class Application {
             Text.addDataMenu();
             run = addDataMenuChoice();
         }
-        mainMenu();
     }
     public boolean addDataMenuChoice(){
         int input = Input.number();
@@ -188,7 +186,6 @@ public class Application {
             Text.updateDataMenu();
             run = updateDataMenuChoice();
         }
-        mainMenu();
     }
 
     public boolean updateDataMenuChoice(){
@@ -212,7 +209,6 @@ public class Application {
             Text.updateTODOList();
             run = updateTODOListChoice();
         }
-        mainMenu();
     }
 
     public boolean updateTODOListChoice(){
@@ -234,7 +230,7 @@ public class Application {
 
     public void updateTODO(){
         Map<Integer, Todo> toDoList;
-        int toDoid;
+        int toDoId;
 
         Text.choseTodo();
         toDoList= dbFacade.showOnlyDescription();
@@ -244,10 +240,14 @@ public class Application {
         }
         else{
             try {
-                toDoid = getTodoID(toDoList);
+                toDoId = getTodoID(toDoList);
+                if(toDoId == 0){
+                    Text.noDataFound();
+                    return;
+                }
                 Text.inputTodo();
                 String newDescription = Input.Str();
-                dbFacade.updateString(todoTable, columDescription, toDoid, newDescription);
+                dbFacade.updateString(todoTable, columDescription, toDoId, newDescription);
             }catch (Exception e) {
                 Text.noDataFound();
             }
@@ -267,6 +267,10 @@ public class Application {
         else{
             try {
                 toDoId = getTodoID(toDoList);
+                if(toDoId == 0){
+                    Text.noDataFound();
+                    return;
+                }
                 status = choseStatus();
                 dbFacade.updateInt(todoTable, columProgress, toDoId, status);
             }catch (Exception e) {
@@ -299,12 +303,16 @@ public class Application {
             Text.noDataFound();
         }else {
 
-             int todoID =getTodoID(list);
+             int toDoId =getTodoID(list);
+             if(toDoId == 0){
+                Text.noDataFound();
+                return;
+             }
              showAllUsers();
              int userID = getUserID(usersList);
              if(userID != 0) {
                  try {
-                     dbFacade.updateInt(todoTable, columAssignedTo,todoID , userID);
+                     dbFacade.updateInt(todoTable, columAssignedTo,toDoId , userID);
                  } catch (Exception e) {
                      Text.noDataFound();
                 }
@@ -322,7 +330,6 @@ public class Application {
             Text.updateUser();
             run = updateUserChoice();
         }
-        mainMenu();
     }
 
     public boolean updateUserChoice(){
@@ -372,7 +379,6 @@ public class Application {
             Text.deleteDataMenu();
             run = deleteDataMenuChoice();
         }
-        mainMenu();
     }
 
     public boolean deleteDataMenuChoice(){
@@ -429,10 +435,10 @@ public class Application {
 
     public void noDataFound(){
         Text.noDataFound();
-        mainMenu();
+
     }
 
-    public Integer getTodoID(Map<Integer, Todo> toDoList){
+    public int getTodoID(Map<Integer, Todo> toDoList){
         Todo todo;
         Text.choseTodo();
         Text.inputNumber();
@@ -441,12 +447,15 @@ public class Application {
            todo = toDoList.get(number);
        } catch (Exception e){
            Text.noDataFound();
-           return null;
+           return 0;
+       }
+       if(todo == null){
+           return 0;
        }
         return todo.getId();
     }
 
-    public Integer getUserID(Map<Integer, User> userList){
+    public int getUserID(Map<Integer, User> userList){
         User user;
         Text.choseUser();
         Text.inputNumber();
