@@ -29,7 +29,7 @@ Connection conn;
     }
 
     public void showALLTODO(Map<Todo, User> allTodoList){
-
+        System.out.println("HEJEHEJ");
         if(allTodoList.isEmpty()){
             Text.noDataFound();
         }else{allTodoList.forEach((todo,user)->{
