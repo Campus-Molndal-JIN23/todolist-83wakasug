@@ -57,10 +57,6 @@ class ApplicationTest {
 
         when(mockDBFacade.showUsersList()).thenReturn(new HashMap<Integer, User>(){{put(1,mockUser);}});
 
-
-
-
-
     }
 
 

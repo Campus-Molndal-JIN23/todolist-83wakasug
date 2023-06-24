@@ -1,48 +1,71 @@
 package org.campusmolndal;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TodoTest {
 
-    @Test
-    void getId() {
+    private Todo todo;
+
+    @BeforeEach
+    void setUp() {
+        todo = new Todo(5, "GoShipping", 12, "1");
     }
 
     @Test
-    void setId() {
+    void testGetId() {
+        assertEquals(5, todo.getId());
     }
 
     @Test
-    void getText() {
+    void testSetId() {
+        todo.setId(12);
+        assertEquals(12, todo.getId());
     }
 
     @Test
-    void setText() {
+    void testGetText() {
+        assertEquals("GoShipping", todo.getText());
     }
 
     @Test
-    void getDone() {
+    void testSetText() {
+        todo.setText("GoShipping");
+        assertEquals("GoShipping", todo.getText());
     }
 
     @Test
-    void setDone() {
+    void testGetDone() {
+        assertEquals("1", todo.getDone());
     }
 
     @Test
-    void getAssignedTo() {
+    void testSetDone() {
+        todo.setDone("2");
+        assertEquals("2", todo.getDone());
     }
 
     @Test
-    void setAssignedTO() {
+    void testGetAssignedTo() {
+        assertEquals(12, todo.getAssignedTo());
     }
 
     @Test
-    void getProgress() {
+    void testSetAssignedTo() {
+        todo.setAssignedTO(456);
+        assertEquals(456, todo.getAssignedTo());
+    }
+
+    @Test
+    void testGetProgress() {
+        assertEquals("TODO", todo.getProgress());
     }
 
     @Test
     void testToString() {
+        String expected = "\nTODO: GoShipping\nProgress: TODO";
+        assertEquals(expected, todo.toString());
     }
 }

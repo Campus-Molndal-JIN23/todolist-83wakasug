@@ -84,7 +84,7 @@ public class Text {
             System.out.println("Chose User");
         }
         public static void choseName(){
-            System.out.println("Who do you want to assign to assign?");
+            System.out.println("Who do you want to assign to TODO?");
             System.out.println("");
         }
 

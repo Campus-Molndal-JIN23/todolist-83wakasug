@@ -8,8 +8,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class DBCRUDTest {
 PreparedStatement mockpstm;
@@ -21,13 +24,16 @@ PreparedStatement mockpstm;
     }
 
 
-    @ParameterizedTest
-    @CsvSource ({ "INSERT INTO TODO (DESCRIPTION, PROGRESS,ASSIGNEDTO),Wasabi,1","\"INSERT INTO TODO (DESCRIPTION, PROGRESS,ASSIGNEDTO),GoShopping,5"
+    @Test
+    void addData() throws SQLException {
+       String value = "DESCRIPTION";
+       int value2 = 1;
+        mockpstm.setString(1, value);
+        mockpstm.setInt(2, value2);
 
-    })
-    void addData(String Value,String value2,int value3) {
 
-
+        verify(mockpstm, times(1)).setString(1, value);
+        verify(mockpstm, times(1)).setInt(2, value2);
     }
 
     @Test

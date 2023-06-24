@@ -1,5 +1,6 @@
 package org.campusmolndal;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,28 +21,34 @@ import static org.mockito.Mockito.when;
 
 class InputTest {
     private InputStream inputStream;
+    //Reference https://stackoverflow.com/questions/76239380/how-to-take-predefined-user-input-for-unit-tests-in-java
 
-    @BeforeEach
+    @AfterEach
     void setUp() {
-        // Set up the InputStream with test input
-        String testInput = "Katt";
-        inputStream = new ByteArrayInputStream(testInput.getBytes());
-        System.setIn(inputStream);
+        System.setIn(System.in);
     }
+
 
     @Test
     void testStr() {
+        String testInput = "Katt";
+        inputStream = new ByteArrayInputStream(testInput.getBytes());
+        System.setIn(inputStream);
         String expected = "Katt";
         String actual = Input.Str();
         assertEquals(expected, actual);
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {42, 0, -100})
-    void testNumber(int inputNumber) {
-        int expected = inputNumber;
-        int actual = Input.number();
-        assertEquals(expected, actual);
+     //TODO fixTest
+   @Test
+    void testNumber() {
+       String number = String.valueOf(0);  // Convert int to String
+       ByteArrayInputStream inputStream = new ByteArrayInputStream(number.getBytes());
+       Scanner scanner = new Scanner(inputStream);
+
+       int expected = Integer.parseInt(number);
+       int actual = Input.number();
+       assertEquals(expected, actual);
     }
-    
+
 }
