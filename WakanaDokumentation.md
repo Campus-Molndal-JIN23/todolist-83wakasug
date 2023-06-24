@@ -24,14 +24,13 @@ Tillslut planerade jag hur jag delar upp klasser och methoder.
 
 
 #### Skisser (exempelvis)
+
+![Kanban](./Kanban.png)
+#### Hur du tänker försöka lösa uppgiften
+  
+
+#### Diagram
 ![SQLITe](./SQLite.png)
-![SQLITe](./SQLite.png)
-#### Hur du tänker försöka lösa uppgiften.(exempelvis)
-
-#### Pseudokod.(exempelvis)
-
-#### Diagram.(exempelvis)
-
 ### Jira/Trello/Github Project och projekthantering enligt Scrum/Kanban
 
 ## Arbetet och dess genomförande

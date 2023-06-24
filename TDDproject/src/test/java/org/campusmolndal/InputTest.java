@@ -23,9 +23,21 @@ class InputTest {
     private InputStream inputStream;
     //Reference https://stackoverflow.com/questions/76239380/how-to-take-predefined-user-input-for-unit-tests-in-java
 
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
+
+    @BeforeEach
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outputStream));
+        System.setErr(new PrintStream(errContent));
+    }
+
     @AfterEach
-    void setUp() {
-        System.setIn(System.in);
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
     }
 
 

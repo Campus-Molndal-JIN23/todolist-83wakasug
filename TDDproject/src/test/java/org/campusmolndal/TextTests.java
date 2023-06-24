@@ -156,7 +156,6 @@ public class TextTests {
         assertEquals(expected, outputStream.toString().trim());
     }
 
-    // Write similar tests for the other methods
 
     @Test
     public void testWhichDescription() {
@@ -221,7 +220,7 @@ public class TextTests {
     @Test
     public void testChoseName() {
         // Arrange
-        String expected = "Who do you want to assign to assign?";
+        String expected = "Who do you want to assign to TODO?";
 
         // Act
         Text.choseName();
