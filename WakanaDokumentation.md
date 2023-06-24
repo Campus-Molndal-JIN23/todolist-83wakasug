@@ -44,7 +44,9 @@ Att skapa Test tog mig jäättelång tid. Jag var osäkert vilka behövde jag sk
 Jag tror jag hade skapat test för onödiga funktionen också. 
 
 ### Beskriv lite olika lösningar du gjort
-När jag listar upp todo eller users så lagd jag upp till HashMap så jag kan undvika använda primaryKey för visa number fram för lista.
+1:När jag listar upp todo eller users så lagd jag upp till HashMap så jag kan undvika använda primaryKey för visa number fram för lista.
+2:Använde doCallRealMethod() för testet så kan faktiskt kallas in till real method fast det är Mock. 
+3:
 
 ### Beskriv något som var besvärligt att få till
 
