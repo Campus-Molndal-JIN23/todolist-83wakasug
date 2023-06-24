@@ -18,6 +18,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 
+//De här testet Så fick jag hjälp utav Fredrik Jonas Söderström
+
 class ApplicationTest {
 
     Application mockApp;
