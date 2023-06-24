@@ -24,7 +24,8 @@ Tillslut planerade jag hur jag delar upp klasser och methoder.
 
 
 #### Skisser (exempelvis)
-
+![SQLITe](./SQLite.png)
+![SQLITe](./SQLite.png)
 #### Hur du tänker försöka lösa uppgiften.(exempelvis)
 
 #### Pseudokod.(exempelvis)
