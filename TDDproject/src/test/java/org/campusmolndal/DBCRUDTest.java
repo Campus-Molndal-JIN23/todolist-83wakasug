@@ -48,6 +48,9 @@ Todo mockTodo;
         when(mockStm.executeQuery(anyString())).thenReturn(mockRst);
         setupTodoResultSet();
         setupUserResultSet();
+        when(mockRst.next()).thenReturn(true).thenReturn(false);
+        /*
+
         when(mockRst.next()).thenAnswer(new Answer<Boolean>() {
             @Override
             public Boolean answer(InvocationOnMock invocation) throws Throwable {
@@ -57,13 +60,14 @@ Todo mockTodo;
                 // or return false to simulate no more rows
                 // Here's an example that returns true for the first invocation and false for subsequent invocations
                 if (mockRst.getFetchSize() > 0) {
-                    mockRst.setFetchSize(mockRst.getFetchSize() - 1);
+                    mockRst.setFetchSize(mockRst.getFetchSize() -1);
                     return true;
                 } else {
                     return false;
                 }
             }
         });
+        */
         when(mockpstm.executeUpdate()).thenReturn(1);
 
 
@@ -80,7 +84,7 @@ Todo mockTodo;
     void setupUserResultSet() throws SQLException {
         when(mockRst.getInt("ID")).thenReturn(1);
         when(mockRst.getString("NAME")).thenReturn("Hugo");
-        when(mockRst.getInt("Age")).thenReturn(5);
+        when(mockRst.getInt("AGE")).thenReturn(5);
     }
     @Test
     void checkIfmockpstmAndResultSetRuns() throws SQLException {
@@ -112,13 +116,13 @@ Todo mockTodo;
     @Test
     void verifyIfResultsetWorks() throws SQLException {
         String value = "ID";
-        String value2 = "ASSIGNEDTO ";
+        String value2 = "ASSIGNEDTO";
         String value3 = "PROGRESS";
-        mockRst.getString(value);
+        mockRst.getInt(value);
         mockRst.getInt(value2);
         mockRst.getString(value3);
 
-        verify(mockRst, times(1)).getString(value);
+        verify(mockRst, times(1)).getInt(value);
         verify(mockRst, times(1)).getInt(value2);
         verify(mockRst, times(1)).getString(value3);
     }
@@ -133,7 +137,7 @@ Todo mockTodo;
         expected.put(todoTest, userTest);
 
         // Mock the behavior of mockStm.executeQuery()
-        when(mockStm.executeQuery(anyString())).thenReturn(mockRst);
+        when(mockpstm.executeQuery()).thenReturn(mockRst);
 
         // Create an instance of DBCRUD
         DBCRUD sq = new DBCRUD(mockSqlite);
@@ -142,10 +146,10 @@ Todo mockTodo;
 
         actual = sq.showALLTodo("test");
 
-        System.out.println("Expected: " + expected);
-        System.out.println("Actual: " + actual);
-
-        assertEquals(expected, actual);
+        //to string so it compares only values, and not hashmap ids.
+        assertEquals(actual.toString(),expected.toString());
+        //This returns false becuase of different hashmap IDs
+        //assertEquals(expected, actual);
     }
     @Test
     void showTodo() {

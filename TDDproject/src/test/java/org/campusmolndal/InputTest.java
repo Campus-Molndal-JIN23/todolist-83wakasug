@@ -42,10 +42,9 @@ class InputTest {
      //TODO fixTest
    @Test
     void testNumber() {
-       String number = String.valueOf(0);  // Convert int to String
+       String number = String.valueOf(1);  // Convert int to String
        ByteArrayInputStream inputStream = new ByteArrayInputStream(number.getBytes());
-       Scanner scanner = new Scanner(inputStream);
-
+       System.setIn(inputStream);
        int expected = Integer.parseInt(number);
        int actual = Input.number();
        assertEquals(expected, actual);
