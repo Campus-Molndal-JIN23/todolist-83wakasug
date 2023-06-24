@@ -54,34 +54,37 @@ public class Application {
 
     public void showDataMenu(){
         boolean run = true;
-        int input;
         while(run) {
             Text.showDataMenu();
-            input = Input.number();
-
-            switch (input) {
-
-                case 1:showAllTODO();
-                    break;
-                case 2:ShowSingleTODO();
-                    break;
-                case 3:showAllUsers();
-                    break;
-                case 4:showSingleUser();
-                    break;
-                case 5: run =false;
-                        mainMenu();
-                    break;
-                    default: Text.wrongInput();
-            }
+            run = dataMenuChoice();
         }
+        mainMenu();
     }
 
-    private void showAllTODO(){
+    public boolean dataMenuChoice(){
+        int input = Input.number();
+
+        switch (input) {
+
+            case 1:showAllTODO();
+                break;
+            case 2:ShowSingleTODO();
+                break;
+            case 3:showAllUsers();
+                break;
+            case 4:showSingleUser();
+                break;
+            case 5: return false;
+            default: Text.wrongInput();
+        }
+        return true;
+    }
+
+    public void showAllTODO(){
        dbFacade.showALLTODO(dbFacade.showALLTODOList());
     }
 
-    private void ShowSingleTODO(){
+    public void ShowSingleTODO(){
         int id;
 
         Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
@@ -111,13 +114,13 @@ public class Application {
     }
 
     public void showSingleUser(){
-        showAllUsers();
+        System.out.println("tst");
         int userId = getUserID(dbFacade.showUsersList());
         if(userId != 0) {
             dbFacade.showSingleUser(userId);
         }
         else{
-
+            Text.wrongInput();
         }
     }
 
@@ -125,20 +128,22 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.addDataMenu();
-            int input = Input.number();
-
-            switch (input) {
-                case 1:addTODOData();
-                    break;
-                case 2:addUser();
-                    break;
-                case 3:run = false;
-                    mainMenu();
-                    break;
-
-                default: Text.wrongInput();
-            }
+            run = addDataMenuChoice();
         }
+        mainMenu();
+    }
+    public boolean addDataMenuChoice(){
+        int input = Input.number();
+
+        switch (input) {
+            case 1:addTODOData();
+                break;
+            case 2:addUser();
+                break;
+            case 3:return false;
+            default: Text.wrongInput();
+        }
+        return true;
     }
 
     public void addTODOData(){
@@ -179,19 +184,23 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.updateDataMenu();
-            int input = Input.number();
-
-            switch (input) {
-                case 1:updateTODOList();
-                    break;
-                case 2:updateUser();
-                    break;
-                case 3:run = false;
-                    mainMenu();
-                    break;
-                default: Text.wrongInput();
-            }
+            run = updateDataMenuChoice();
         }
+        mainMenu();
+    }
+
+    public boolean updateDataMenuChoice(){
+        int input = Input.number();
+
+        switch (input) {
+            case 1:updateTODOList();
+                break;
+            case 2:updateUser();
+                break;
+            case 3:return false;
+            default: Text.wrongInput();
+        }
+        return true;
     }
 
     public void updateTODOList(){
@@ -199,22 +208,26 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.updateTODOList();
-            int input = Input.number();
-
-            switch (input) {
-                case 1:updateTODO();
-                    break;
-                case 2:updateStatus();
-                    break;
-                case 3:updateAssignedUser();
-                    break;
-                case 4:run = false;
-                    mainMenu();
-                    break;
-
-                default: Text.wrongInput();
-            }
+            run = updateTODOListChoice();
         }
+        mainMenu();
+    }
+
+    public boolean updateTODOListChoice(){
+        int input = Input.number();
+
+        switch (input) {
+            case 1:updateTODO();
+                break;
+            case 2:updateStatus();
+                break;
+            case 3:updateAssignedUser();
+                break;
+            case 4:return false;
+
+            default: Text.wrongInput();
+        }
+        return true;
     }
 
     public void updateTODO(){
@@ -352,20 +365,23 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.deleteDataMenu();
-            int input = Input.number();
-
-            switch (input) {
-                    case 1:deleteTodo();
-                    break;
-                    case 2:deleteUser();
-                    break;
-                    case 3:run = false;
-                        mainMenu();
-                    break;
-                default: Text.wrongInput();
-                    run = true;
-            }
+            run = deleteDataMenuChoice();
         }
+        mainMenu();
+    }
+
+    public boolean deleteDataMenuChoice(){
+        int input = Input.number();
+
+        switch (input) {
+            case 1:deleteTodo();
+                break;
+            case 2:deleteUser();
+                break;
+            case 3:return false;
+            default: Text.wrongInput();
+        }
+        return true;
     }
 
     public void deleteTodo(){
