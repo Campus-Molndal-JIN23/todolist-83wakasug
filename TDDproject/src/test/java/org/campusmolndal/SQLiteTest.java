@@ -37,10 +37,8 @@ void setUP() throws SQLException {
 
 @Test
 void returnNulWhenConnIsnull() throws SQLException {
-    System.out.println(mockResultSet);
 
         Connection actual = sqLite.connection();
-    System.out.println(actual+"Actual");
         assertEquals(mockConn, actual);
     }
 
@@ -63,9 +61,9 @@ void returnNulWhenConnIsnull() throws SQLException {
     @Test
     void disconnectTestWhenConnectionIsClosed() throws SQLException {
         when(mockConn.isClosed()).thenReturn(true);
-          boolean actual = sqLite.disConnect(this.mockConn);
-
-        assertTrue(actual);
+        when(mockResultSet.next()).thenReturn(false);
+        boolean actual = sqLite.disConnect(this.mockConn);
+        assertFalse(actual);
     }
 
     @Test
