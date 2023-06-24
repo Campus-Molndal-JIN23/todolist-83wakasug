@@ -114,7 +114,7 @@ public class Application {
     }
 
     public void showSingleUser(){
-        System.out.println("tst");
+        showAllUsers();
         int userId = getUserID(dbFacade.showUsersList());
         if(userId != 0) {
             dbFacade.showSingleUser(userId);
@@ -151,7 +151,6 @@ public class Application {
         User user;
         Text.inputTodo();
         String description = Input.Str();
-        usersList= dbFacade.showUsersList();
         usersList= dbFacade.showUsersList();
 
         if(usersList.isEmpty()){
@@ -318,19 +317,22 @@ public class Application {
         boolean run = true;
         while(run) {
             Text.updateUser();
-            int input = Input.number();
-
-            switch (input) {
-                case 1:updateName();
-                    break;
-                case 2:updateAge();
-                    break;
-                case 3:run = false;
-                        mainMenu();
-                     break;
-                     default: Text.wrongInput();
-            }
+            updateUserChoice();
         }
+        mainMenu();
+    }
+
+    public boolean updateUserChoice(){
+        int input = Input.number();
+        switch (input) {
+            case 1:updateName();
+                break;
+            case 2:updateAge();
+                break;
+            case 3:return false;
+            default: Text.wrongInput();
+        }
+        return true;
     }
 
     public void updateName(){

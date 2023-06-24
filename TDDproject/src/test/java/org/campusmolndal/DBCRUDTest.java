@@ -50,6 +50,7 @@ Todo mockTodo;
         setupUserResultSet();
         when(mockRst.next()).thenReturn(true).thenReturn(false);
         when(mockpstm.executeUpdate()).thenReturn(1);
+        doNothing().when(mockpstm).setInt(anyInt(),anyInt());
 
 
     }
@@ -244,6 +245,9 @@ Todo mockTodo;
 
 
     @Test
-    void deleteData() {
+    void deleteData() throws SQLException{
+        DBCRUD sq = new DBCRUD(mockSqlite);
+        sq.deleteData("test",1);
+        verify(mockpstm,times(1)).executeUpdate();
     }
 }

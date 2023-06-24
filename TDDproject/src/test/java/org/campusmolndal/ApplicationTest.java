@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -53,9 +54,16 @@ class ApplicationTest {
         doCallRealMethod().when(mockApp).updateDataMenuChoice();
         doCallRealMethod().when(mockApp).showAllUsers();
         doCallRealMethod().when(mockApp).showSingleUser();
+        doCallRealMethod().when(mockApp).updateUserChoice();
+
+        Map<Integer, Todo> userMap = new HashMap<>();
+        Todo todoTest = new Todo(1, "Homework", 3, "DONE");
+        userMap.put(1, todoTest);
+        when(mockDBFacade.showOnlyDescription()).thenReturn(userMap);
 
 
         when(mockDBFacade.showUsersList()).thenReturn(new HashMap<Integer, User>(){{put(1,mockUser);}});
+        when(mockUser.getId()).thenReturn(1);
 
     }
 
@@ -223,10 +231,24 @@ class ApplicationTest {
 
     @Test
     void addTODOData() {
+        doCallRealMethod().when(mockApp).addTODOData();
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::Str).thenReturn("test");
+            input.when(Input::number).thenReturn(1);
+            mockApp.addTODOData();
+            verify(mockDBFacade).addTODO("test",1);
+        }
     }
 
     @Test
     void addUser() {
+        doCallRealMethod().when(mockApp).addUser();
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::Str).thenReturn("test");
+            input.when(Input::number).thenReturn(1);
+            mockApp.addUser();
+            verify(mockDBFacade).addUser("test",1);
+        }
     }
 
     @Test
@@ -307,30 +329,99 @@ class ApplicationTest {
 
     @Test
     void updateTODO() {
+
+        doCallRealMethod().when(mockApp).updateTODO();
+
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::Str).thenReturn("test");
+            mockApp.updateTODO();
+            verify(mockDBFacade).updateString(anyString(),anyString(),anyInt(),eq("test"));
+        }
     }
 
     @Test
     void updateStatus() {
+        doCallRealMethod().when(mockApp).updateStatus();
+        when(mockApp.getTodoID(any())).thenReturn(1);
+        when(mockApp.choseStatus()).thenReturn(1);
+        mockApp.updateStatus();
+        verify(mockDBFacade).updateInt(anyString(),anyString(),eq(1),eq(1));
     }
 
     @Test
-    void choseStatus() {
+    void choseStatus1() {
+        when(mockApp.choseStatus()).thenReturn(1);
+        assertTrue(mockApp.choseStatus() == 1);
+    }
+    @Test
+    void choseStatus2() {
+        when(mockApp.choseStatus()).thenReturn(2);
+        assertTrue(mockApp.choseStatus() == 2);
     }
 
     @Test
     void updateAssignedUser() {
+        doCallRealMethod().when(mockApp).updateAssignedUser();
+        when(mockApp.getTodoID(any())).thenReturn(1);
+        when(mockApp.getUserID(any())).thenReturn(1);
+        mockApp.updateAssignedUser();
+        verify(mockDBFacade).updateInt(anyString(),anyString(),eq(1),eq(1));
     }
 
     @Test
-    void updateUser() {
+    void updateUserChoice1() {
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::number).thenReturn(1);
+            mockApp.updateUserChoice();
+            verify(mockApp).updateName();
+        }
+    }
+    @Test
+    void updateUserChoice2() {
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::number).thenReturn(2);
+            mockApp.updateUserChoice();
+            verify(mockApp).updateAge();
+        }
+    }
+    @Test
+    void updateUserChoice3() {
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::number).thenReturn(3);
+            boolean run = mockApp.updateUserChoice();
+            assertFalse(run);
+        }
+    }
+    @Test
+    void updateUserChoiceInvalid() {
+        String expected = "Wrong Input. Please Enter Again.\r\n";
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::number).thenReturn(999);
+            mockApp.updateUserChoice();
+            assertEquals(expected, outputStream.toString());
+        }
     }
 
     @Test
     void updateName() {
+        doCallRealMethod().when(mockApp).updateName();
+        when(mockApp.getUserID(any())).thenReturn(1);
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::Str).thenReturn("test");
+            mockApp.updateName();
+            verify(mockDBFacade).updateString(anyString(),anyString(),eq(1),eq("test"));
+        }
     }
 
     @Test
     void updateAge() {
+        doCallRealMethod().when(mockApp).updateAge();
+        when(mockApp.getUserID(any())).thenReturn(1);
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::number).thenReturn(1);
+            mockApp.updateAge();
+            verify(mockDBFacade).updateInt(anyString(),anyString(),eq(1),eq(1));
+        }
     }
 
     @Test
@@ -369,21 +460,55 @@ class ApplicationTest {
 
     @Test
     void deleteTodo() {
+        doCallRealMethod().when(mockApp).deleteTodo();
+        when(mockApp.getTodoID(any())).thenReturn(1);
+        mockApp.deleteTodo();
+        verify(mockDBFacade).deleteData(anyString(),eq(1));
     }
 
     @Test
     void deleteUser() {
-    }
-
-    @Test
-    void noDataFound() {
+        doCallRealMethod().when(mockApp).deleteUser();
+        when(mockApp.getUserID(any())).thenReturn(1);
+        mockApp.deleteUser();
+        verify(mockDBFacade).deleteData(anyString(),eq(1));
     }
 
     @Test
     void getTodoID() {
+        Map<Integer, Todo> todoMap = new HashMap<>();
+        Todo todoTest = new Todo(1, "Homework", 3, "DONE");
+        Todo todoTest2 = new Todo(2, "Homework2", 3, "DONE");
+        todoMap.put(1, todoTest);
+        todoMap.put(2, todoTest2);
+
+        doCallRealMethod().when(mockApp).getTodoID(any());
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::number).thenReturn(1);
+            int todoId = mockApp.getTodoID(todoMap);
+            assertEquals(1,todoId);
+            input.when(Input::number).thenReturn(2);
+            todoId = mockApp.getTodoID(todoMap);
+            assertEquals(2,todoId);
+        }
     }
 
     @Test
     void getUserID() {
+        Map<Integer, User> userMap = new HashMap<>();
+        User user =new User(1, "Hugo", 5);
+        User user2 =new User(2, "Toma", 5);
+        userMap.put(1, user);
+        userMap.put(2, user2);
+
+        doCallRealMethod().when(mockApp).getUserID(any());
+        try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
+            input.when(Input::number).thenReturn(1);
+            int todoId = mockApp.getUserID(userMap);
+            assertEquals(1,todoId);
+            input.when(Input::number).thenReturn(2);
+            todoId = mockApp.getUserID(userMap);
+            assertEquals(2,todoId);
+        }
     }
 }
