@@ -21,21 +21,30 @@ Download program and start from console
 
 ## How program works? 
 ### Show
-1 :Show All todo List  
++ 1 :Show All todo List  
   Show Todos: displays list av TODO, Progress: Assigned User and age  
   If nothing is registered show no data  
-2:Show Single todo List  
+  
+
++ 2:Show Single todo List  
 Chose a TODO from TODO List.  Show Todo: Progress: Assigned User and age if nothing is registered show no data  
-3:Show All User  
+
+  
++ 3:Show All User  
 Show All registered User and their age    
-4:show single User  
+
+  
++ 4:show single User  
 No user -> No data found  
 user list -> Chose one user then shows todo which is assigned to user.  
 If user does not have any todo then shows "no todo assigned. "  
 
+
 ### Add
 1: Add Todo  
 if you create todo, automatically assigned "TODO" to Progress. If user is already registered to DB you can assign User. 
+
+
 2:Add User  
 Register Name and Age
 
@@ -46,7 +55,9 @@ choice -> update Description , update status , update assigned to
 choice -> update Name , update Age
 
 ### Delete
-1: Delete Update
+1: Delete TODO
+
+
 2: Delete User
 
 ## Test

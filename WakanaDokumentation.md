@@ -21,7 +21,9 @@ Försökte att undvika upprepning men det misslyckades jag.
 3.Tillslut planerade jag hur jag delar upp klasser och methoder. 
 
 ### Lösningsförslag innan uppgiften påbörjas
-
+1:Planera väl för hur application vorde fungera innan man börjar skapa koden.   
+2:Använda Heidi SQL för testa query innan man kör kode på java.  
+3:Skapa inte test på alla method. Det bara tog tid. 
 
 #### Hur du tänker försöka lösa uppgiften
 1:Försöka inte hårdkoda så mycket som möjligt.  
@@ -34,6 +36,9 @@ Försökte att undvika upprepning men det misslyckades jag.
 ### Github Project och projekthantering enligt Scrum/Kanban
 ![Kanban](./Kanban.png)
 
+Min Gitt Repository    
+https://github.com/Campus-Molndal-JIN23/todolist-83wakasug.git
+
 ## Arbetet och dess genomförande
 
 ### Vad som varit svårt
@@ -44,26 +49,27 @@ Att skapa Test tog mig jäättelång tid. Jag var osäkert vilka behövde jag sk
 Jag tror jag hade skapat test för onödiga funktionen också. 
 
 ### Beskriv lite olika lösningar du gjort
-1:När jag listar upp todo eller users så lagd jag upp till HashMap så jag kan undvika använda primaryKey för visa number fram för lista.
-2:Använde doCallRealMethod() för testet så kan faktiskt kallas in till real method fast det är Mock. 
-3:Använde ByteArrayInputStream inputStream = new ByteArrayInputStream(number.getBytes());  
-System.setIn(inputStream); så att input retunerar värde som definerar tidigare. 
+1:När jag listar upp todo eller users så lagd jag upp till HashMap så jag kan undvika använda primaryKey för visa number fram för lista.  
+2:Använde doCallRealMethod() för testet så kan faktiskt kallas in till real method fast det är Mock.   
+3:Använde ByteArrayInputStream inputStream = new ByteArrayInputStream(number.getBytes());    
+System.setIn(inputStream); så att input retunerar värde som definerar tidigare.   
 
 ### Beskriv något som var besvärligt att få till
-Det var jättejobbigt med att skapa test.  
-Det tog jättelång tid och ibland så tog det så jätte lång tid att komma på hur man borde skriva.   
-Speciellt när jag behövde mocka connection eller testa för SQL delen så behövde jag mocka massor och behövde veta vad det borde retunera etc.    
-Det var svårt. 
-
+Det var jättejobbigt med att skapa test.  Jag kanske misuppfattat så skapade jag test till alla method även till system.out.print.     
+Iaf jag lärde mig om att lite funktion jag har aldrig använt så det var bra.   
+Det tog jättelång tid att komma på hur man borde skriva koden.     
+Speciellt när jag behövde mocka connection eller testa för SQL delen så behövde jag mocka massor och behövde veta vad det borde retunera etc.     
+Min Engelska är inte så avancerad så det var svårt att skapa rätt Namn för funktions och variabel. 
 
 ### Beskriv om du fått byta lösning och varför i sådana fall
 För att skriva Testet så behövde jag byta hur jag behöver skriva koden.   
-Annars så var det svårt att skapa Testet. Det var typ när jag testar menu med loop.
+Annars var det svårt att skapa Testet.  
+Det var typ när jag testar menu med loop. 
 
 ## Reflektion & Slutsatser
 
 ### Vad gick bra
-+ Till slut lyckades jag at test SQLite.   
++ Jag använde Heidi SQL för testa SQL Query om SQLQuery fungerar hur jag har funderat.   
 + Fungerade koden kunde jag skapa!     
 + Lyckades innan inlämnings datum!  
 
@@ -72,6 +78,7 @@ Annars så var det svårt att skapa Testet. Det var typ när jag testar menu med
 + Jag fick hjälp från min man som har aldrig studerat TDD innan men bara han tittade på 1 video  och några försök så blev han mycket bättre förståelse än mig:(  
 + Jag borde ha planerat mycket bättre. Vissa funktion jag är lite missnöjd hur det fungerar. 
 + Jag borde kunna strakturera koden lite bättre. 
++ Brist på tid. Jag är inte snabba att skriva koden och har två små barn så var det lite svårt att ha tid. 
 
 ### Vad har du lärt dig
 + Hur man kan skriva test för Static method. 
