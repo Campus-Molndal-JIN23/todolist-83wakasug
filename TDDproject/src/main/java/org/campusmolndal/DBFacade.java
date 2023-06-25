@@ -66,15 +66,22 @@ Connection conn;
 
         Map<Integer, User> userList ;
         User user =dbCRUD.showSingleUser(DBQuery.showSingleUser(id));
+        if(user == null){
+            Text.noDataFound();
+        }else{
+            System.out.println(user.toString());
+            userList =dbCRUD.showUsers(DBQuery.showSingleUser(id));
+            userList.forEach((key,todo)->{
+                try{
+                    showSingleResult(todo);
+                }catch (Exception e){
+                    showSingleResultNull(user);
+                }
+            });
 
-        userList =dbCRUD.showUsers(DBQuery.showSingleUser(id));
-        userList.forEach((key,todo)->{
-           try{
-             showSingleResult(todo);
-           }catch (Exception e){
-               showSingleResultNull(user);
-           }
-        });
+        }
+
+
 
     }
 

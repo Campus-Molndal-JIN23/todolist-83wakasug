@@ -114,6 +114,10 @@ public class Application {
 
     public void showSingleUser(){
         showAllUsers();
+        if(!usersExists()){
+            return;
+        }
+
         int userId = getUserID(dbFacade.showUsersList());
         if(userId != 0) {
             dbFacade.showSingleUser(userId);
@@ -399,13 +403,14 @@ public class Application {
         Map<Integer, Todo> toDoList ;
         int toDoid;
 
-        Text.choseTodo();
+
         toDoList=dbFacade.showOnlyDescription();
 
         if(toDoList.isEmpty()){
             Text.noDataFound();
         }
         else{
+                Text.choseTodo();
             try {
                 toDoid = getTodoID(toDoList);
                 dbFacade.deleteData(todoTable, toDoid);
@@ -416,13 +421,16 @@ public class Application {
     }
 
     public void deleteUser(){
-
+        if(!usersExists()){
+            return;
+        }
         try {
             Text.choseUser();
             showAllUsers();
             int userID = getUserID(dbFacade.showUsersList());
             if(userID != 0) {
                 dbFacade.deleteData(userTable, userID);
+
             }
             else{
                 Text.wrongInput();
@@ -459,20 +467,29 @@ public class Application {
         User user;
         Text.choseUser();
         Text.inputNumber();
-
         int number = Input.number();
 
         try {
             user = userList.get(number);
+            if(user == null){
+                Text.noDataFound();
+                return 0;
+            }
+
         } catch (Exception e){
             Text.noDataFound();
             return 0;
         }
-        if(user == null){
-            Text.noDataFound();
-            return 0;
-        }
+
         return user.getId();
     }
 
+    private boolean usersExists(){
+        Map<Integer,User> allUsers = dbFacade.showUsersList();
+        if(allUsers.isEmpty()){
+            Text.noDataFound();
+            return false;
+        }
+        return true;
+    }
 }
