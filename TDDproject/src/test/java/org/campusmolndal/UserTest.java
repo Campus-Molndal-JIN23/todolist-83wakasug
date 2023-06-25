@@ -79,7 +79,7 @@ public class UserTest {
 
     @Test
     void testToString() {
-        String expected = "\nAssigned to: Wasabi\nAge: 12";
+        String expected = "\nUser Name: Wasabi\nAge: 12";
         assertEquals(expected, user.toString());
     }
 }
