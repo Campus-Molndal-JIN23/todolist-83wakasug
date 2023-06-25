@@ -75,7 +75,7 @@ public class Application {
     }
 
     public void showAllTODO(){
-       dbFacade.showALLTODO(dbFacade.showALLTODOList());
+        dbFacade.showALLTODO(dbFacade.showALLTODOList());
     }
 
     public void ShowSingleTODO(){
@@ -277,20 +277,23 @@ public class Application {
     }
 
     public int choseStatus(){
-       int choice = 0;
-       boolean run = true;
+        int choice = 0;
+        boolean run = true;
 
-       while(run){
-           Text.statusChoice();
-           choice =Input.number();
-           if(choice == 1 || choice == 2){
-               run =false;
-           }
-       }
-       return choice;
+        while(run){
+            Text.statusChoice();
+            choice =Input.number();
+            if(choice == 1 || choice == 2){
+                run =false;
+            }
+        }
+        return choice;
     }
 
     public void updateAssignedUser(){
+        if(!usersExists()){
+            return;
+        }
         Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
 
         if(list.isEmpty()){
@@ -303,23 +306,23 @@ public class Application {
             Text.noUserFound();
         }else {
 
-             int toDoId =getTodoID(list);
-             if(toDoId == 0){
+            int toDoId =getTodoID(list);
+            if(toDoId == 0){
                 Text.noTodoFound();
                 return;
-             }
-             showAllUsers();
-             int userID = getUserID(usersList);
-             if(userID != 0) {
-                 try {
-                     dbFacade.updateInt(todoTable, columAssignedTo,toDoId , userID);
-                 } catch (Exception e) {
-                     Text.noDataFound();
+            }
+            showAllUsers();
+            int userID = getUserID(usersList);
+            if(userID != 0) {
+                try {
+                    dbFacade.updateInt(todoTable, columAssignedTo,toDoId , userID);
+                } catch (Exception e) {
+                    Text.noDataFound();
                 }
-             }
-             else{
-                 Text.wrongInput();
-             }
+            }
+            else{
+                Text.wrongInput();
+            }
         }
     }
 
@@ -346,6 +349,9 @@ public class Application {
     }
 
     public void updateName(){
+        if(!usersExists()){
+            return;
+        }
         Text.inputNewName();
         String newName = Input.Str();
         showAllUsers();
@@ -359,6 +365,9 @@ public class Application {
     }
 
     public void updateAge(){
+        if(!usersExists()){
+            return;
+        }
         Text.inputNewAge();
         int newAge = Input.number();
         showAllUsers();
@@ -406,7 +415,7 @@ public class Application {
             Text.noTodoFound();
         }
         else{
-                Text.choseTodo();
+            Text.choseTodo();
             try {
                 toDoid = getTodoID(toDoList);
                 dbFacade.deleteData(todoTable, toDoid);
@@ -432,7 +441,7 @@ public class Application {
                 Text.wrongInput();
             }
         }catch (Exception e){
-             Text.noDataFound();
+            Text.noDataFound();
         }
 
     }
@@ -443,16 +452,16 @@ public class Application {
         Text.choseTodo();
         Text.inputNumber();
         int number = Input.number();
-       try {
-           todo = toDoList.get(number);
-       } catch (Exception e){
-           Text.noDataFound();
-           return 0;
-       }
-       if(todo == null){
-           Text.noTodoFound();
-           return 0;
-       }
+        try {
+            todo = toDoList.get(number);
+        } catch (Exception e){
+            Text.noDataFound();
+            return 0;
+        }
+        if(todo == null){
+            Text.noTodoFound();
+            return 0;
+        }
         return todo.getId();
     }
 
