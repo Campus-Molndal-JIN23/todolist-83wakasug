@@ -55,6 +55,20 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+<build>
+        <testSourceDirectory>TDDproject/src/test/java</testSourceDirectory>
+        <testOutputDirectory>TDDproject/target/test-classes</testOutputDirectory>
+        <sourceDirectory>TDDproject/src/main/java</sourceDirectory>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.1.2</version>
+                    <configuration>
+                        <skipTests>false</skipTests>
+                    </configuration>
+                </plugin>
+            </plugins>
+    </build>
 
 </project>
