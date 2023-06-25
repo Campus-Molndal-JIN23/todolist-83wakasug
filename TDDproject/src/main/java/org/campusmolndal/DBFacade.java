@@ -22,6 +22,7 @@ Connection conn;
     }
 
     public Map<Todo, User> showALLTODOList(){
+
         Map<Todo, User> allTodoList ;
         allTodoList =dbCRUD.showALLTodo(DBQuery.showALLData());
 
@@ -29,13 +30,13 @@ Connection conn;
     }
 
     public void showALLTODO(Map<Todo, User> allTodoList){
+
         if(allTodoList.isEmpty()){
             Text.noDataFound();
         }else{allTodoList.forEach((todo,user)->{
             showResult(user,todo);
         });
         }
-
     }
 
 
@@ -59,7 +60,6 @@ Connection conn;
         allTodoList.forEach((todo,user)->{
             showResult(user,todo);
         });
-
     }
 
     public void showSingleUser(int id){
@@ -78,15 +78,12 @@ Connection conn;
                     showSingleResultNull(user);
                 }
             });
-
         }
-
-
-
     }
 
 
     public Map<Integer, User> showUsersList(){
+
         Map<Integer, User> userList = dbCRUD.showALLUser(DBQuery.showOnlyUsers());
          return userList;
     }
@@ -125,6 +122,7 @@ Connection conn;
     }
 
     public void addUser(String name,int age){
+
         dbCRUD.addData(DBQuery.addDataToUser(),name,age);
 
     }
@@ -137,6 +135,7 @@ Connection conn;
 
 
     public void showResult(User user,Todo todo){
+
         if (user.getName() == null) {
             System.out.println( todo.toString() + " User: Not Registered");
             System.out.println("-----------------------------------------");
@@ -157,6 +156,7 @@ Connection conn;
     }
 
     public void showSingleResultNull(User user){
+
         System.out.println( user.toString() + " Todo: No Assigment");
         System.out.println("-----------------------------------------");
     }

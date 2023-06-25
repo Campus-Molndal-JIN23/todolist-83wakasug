@@ -13,6 +13,13 @@ public class DBCRUD {
        this.sqlite = sqlite;
     }
 
+    /**
+     * Adds data to the database based on the given query and values.
+     *
+     * @param query The SQL query to add the data to the database.
+     * @param value1 The first value to be added (as a string).
+     * @param value2 The second value to be added (as an integer).
+     */
 
     public void addData(String query,String value1,int value2){
         conn = sqlite.connection();
@@ -29,6 +36,13 @@ public class DBCRUD {
             sqlite.disConnect(conn);
         }
 
+
+    /**
+     * Retrieves all Todo objects with their corresponding User objects from the database.
+     *
+     * @param query The SQL query to retrieve the data from the database.
+     * @return A Map containing Todo objects as keys and User objects as values.
+     */
 
     public Map<Todo,User> showALLTodo(String query){
         conn = sqlite.connection();
@@ -65,7 +79,12 @@ public class DBCRUD {
 
     }
 
-
+    /**
+     * Retrieves Todo objects from the database and stores them in a map with integer keys.
+     *
+     * @param query The SQL query to retrieve the data from the database.
+     * @return A Map with integer keys and Todo objects as values.
+     */
 
     public Map<Integer,Todo> showTodo(String query){
         conn = sqlite.connection();
@@ -94,7 +113,12 @@ public class DBCRUD {
         sqlite.disConnect(conn);
         return  allTodo;
     }
-
+    /**
+     * Retrieves a single Todo object from the database based on the given query.
+     *
+     * @param query The SQL query to retrieve the data from the database.
+     * @return The Todo object retrieved from the database, or null if no result is found.
+     */
     public Todo showONETodo(String query){
         this.conn = sqlite.connection();
         Todo todo = null;
@@ -119,6 +143,13 @@ public class DBCRUD {
         sqlite.disConnect(conn);
         return todo;
     }
+
+    /**
+     * Retrieves a single User object from the database based on the given query.
+     *
+     * @param query The SQL query to retrieve the data from the database.
+     * @return The User object retrieved from the database, or null if no result is found.
+     */
 
     public User showSingleUser(String query){
         this.conn = sqlite.connection();
@@ -145,6 +176,13 @@ public class DBCRUD {
         return user;
     }
 
+
+    /**
+     * Retrieves User objects from the database and stores them in a map with integer keys.
+     *
+     * @param query The SQL query to retrieve the data from the database.
+     * @return A Map with integer keys and User objects as values.
+     */
     public Map<Integer,User> showUsers(String query){
         this.conn = sqlite.connection();
         User user = null;
@@ -184,6 +222,12 @@ public class DBCRUD {
         return allUsers;
     }
 
+    /**
+     * Retrieves all User objects from the database and stores them in a map with integer keys.
+     *
+     * @param query The SQL query to retrieve the data from the database.
+     * @return A Map with integer keys and User objects as values.
+     */
     public Map<Integer,User> showALLUser(String query){
             conn=sqlite.connection();
              User user;
@@ -210,6 +254,12 @@ public class DBCRUD {
         return  usersList;
     }
 
+    /**
+     * Updates an integer value in the database based on the given query.
+     *
+     * @param query The SQL query to update the data in the database.
+     * @param value The new integer value to be updated.
+     */
     public void updateDataInt(String query,int value) {
         conn=sqlite.connection();
         try {
@@ -222,6 +272,12 @@ public class DBCRUD {
         sqlite.disConnect(conn);
     }
 
+    /**
+     * Updates a string value in the database based on the given query.
+     *
+     * @param query The SQL query to update the data in the database.
+     * @param value The new string value to be updated.
+     */
     public void updateDataString(String query,String value) {
         conn=sqlite.connection();
         try {
@@ -234,6 +290,12 @@ public class DBCRUD {
         sqlite.disConnect(conn);
     }
 
+    /**
+     * Deletes data from the database based on the given query and ID.
+     *
+     * @param query The SQL query to delete the data from the database.
+     * @param id The ID of the data to be deleted.
+     */
     public void deleteData(String query,int id)  {
         conn=sqlite.connection();
         try {

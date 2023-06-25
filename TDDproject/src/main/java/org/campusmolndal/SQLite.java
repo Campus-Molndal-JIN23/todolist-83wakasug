@@ -10,19 +10,12 @@ public class SQLite implements Database {
 
 
 
-    // The constructor for SQLite class calls connect() and createTable() methods.
     public SQLite(String dbName) {
         this.dbName = dbName;
        url = "jdbc:sqlite:" + dbName+ ".db";
         connection();
         initialTable(DBQuery.createTODOTable(),DBQuery.createProgressTable(),DBQuery.createUserTable(),DBQuery.setupTODOProgress(),DBQuery.setupDONEProgress());
     }
-    /**
-     *
-     * code to connect to a database by using JDBC and
-     * handles any exceptions that may occur during the connection
-     * by printing an error message.
-     */
 
 
     public Connection connection() {
@@ -44,13 +37,7 @@ public class SQLite implements Database {
 
         return null;
     }
-    /**
-     * Code to close the connection to a database and
-     * handle any exceptions that may occur at closure
-     * by printing an error message.
-     *
-     * @return
-     */
+
     public boolean disConnect(Connection conn){
         try {
             conn.close();
