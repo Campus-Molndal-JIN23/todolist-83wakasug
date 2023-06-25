@@ -31,12 +31,23 @@ Show All registered User and their age
 4:show single User  
 No user -> No data found  
 user list -> Chose one user then shows todo which is assigned to user.  
-If user does not have any todo then shows no todo assigned. 
+If user does not have any todo then shows "no todo assigned. "  
 
 ### Add
 1: Add Todo  
-+  
+if you create todo, automatically assigned "TODO" to Progress. If user is already registered to DB you can assign User. 
+2:Add User  
+Register Name and Age
 
+### Update
+1: Update TODO list  
+choice -> update Description , update status , update assigned to
+2:Update User 
+choice -> update Name , update Age
+
+### Delete
+1: Delete Update
+2: Delete User
 
 ## Test
 Tested by Emil Sivertsson

@@ -236,7 +236,6 @@ public class Application {
             Text.noTodoFound();
         }
         else{
-            Text.choseTodo();
             try {
                 toDoId = getTodoID(toDoList);
                 if(toDoId == 0){
