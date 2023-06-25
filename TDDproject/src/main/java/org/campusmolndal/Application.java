@@ -38,16 +38,14 @@ public class Application {
     public boolean mainMenuChoice(){
         int input = Input.number();
         switch (input) {
-            case 1: showDataMenu();
-                break;
-            case 2:addDataMenu();
-                break;
-            case 3:updateDataMenu();
-                break;
-            case 4:deleteDataMenu();
-                break;
-            case 5: return false;
-            default: Text.wrongInput();
+            case 1 -> showDataMenu();
+            case 2 -> addDataMenu();
+            case 3 -> updateDataMenu();
+            case 4 -> deleteDataMenu();
+            case 5 -> {
+                return false;
+            }
+            default -> Text.wrongInput();
         }
         return true;
     }
@@ -64,17 +62,14 @@ public class Application {
         int input = Input.number();
 
         switch (input) {
-
-            case 1:showAllTODO();
-                break;
-            case 2:ShowSingleTODO();
-                break;
-            case 3:showAllUsers();
-                break;
-            case 4:showSingleUser();
-                break;
-            case 5: return false;
-            default: Text.wrongInput();
+            case 1 -> showAllTODO();
+            case 2 -> ShowSingleTODO();
+            case 3 -> showAllUsers();
+            case 4 -> showSingleUser();
+            case 5 -> {
+                return false;
+            }
+            default -> Text.wrongInput();
         }
         return true;
     }
@@ -89,7 +84,7 @@ public class Application {
         Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
 
         if(list.isEmpty()){
-            noDataFound();
+            Text.noDataFound();
         }else{
             Text.whichDescripion();
             Text.inputNumber();
@@ -101,7 +96,7 @@ public class Application {
                 dbFacade.showONETODO(id);
             }
             catch(Exception e){
-                noDataFound();
+                Text.noDataFound();
             }
         }
 
@@ -138,12 +133,12 @@ public class Application {
         int input = Input.number();
 
         switch (input) {
-            case 1:addTODOData();
-                break;
-            case 2:addUser();
-                break;
-            case 3:return false;
-            default: Text.wrongInput();
+            case 1 -> addTODOData();
+            case 2 -> addUser();
+            case 3 -> {
+                return false;
+            }
+            default -> Text.wrongInput();
         }
         return true;
     }
@@ -219,15 +214,13 @@ public class Application {
         int input = Input.number();
 
         switch (input) {
-            case 1:updateTODO();
-                break;
-            case 2:updateStatus();
-                break;
-            case 3:updateAssignedUser();
-                break;
-            case 4:return false;
-
-            default: Text.wrongInput();
+            case 1 -> updateTODO();
+            case 2 -> updateStatus();
+            case 3 -> updateAssignedUser();
+            case 4 -> {
+                return false;
+            }
+            default -> Text.wrongInput();
         }
         return true;
     }
@@ -339,12 +332,12 @@ public class Application {
     public boolean updateUserChoice(){
         int input = Input.number();
         switch (input) {
-            case 1:updateName();
-                break;
-            case 2:updateAge();
-                break;
-            case 3:return false;
-            default: Text.wrongInput();
+            case 1 -> updateName();
+            case 2 -> updateAge();
+            case 3 -> {
+                return false;
+            }
+            default -> Text.wrongInput();
         }
         return true;
     }
@@ -389,12 +382,12 @@ public class Application {
         int input = Input.number();
 
         switch (input) {
-            case 1:deleteTodo();
-                break;
-            case 2:deleteUser();
-                break;
-            case 3:return false;
-            default: Text.wrongInput();
+            case 1 -> deleteTodo();
+            case 2 -> deleteUser();
+            case 3 -> {
+                return false;
+            }
+            default -> Text.wrongInput();
         }
         return true;
     }
@@ -440,11 +433,7 @@ public class Application {
         }
 
     }
-
-    public void noDataFound(){
-        Text.noDataFound();
-
-    }
+    
 
     public int getTodoID(Map<Integer, Todo> toDoList){
         Todo todo;
