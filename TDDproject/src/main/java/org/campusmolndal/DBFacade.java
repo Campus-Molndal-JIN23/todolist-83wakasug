@@ -32,7 +32,7 @@ Connection conn;
     public void showALLTODO(Map<Todo, User> allTodoList){
 
         if(allTodoList.isEmpty()){
-            Text.noDataFound();
+            Text.noTodoFound();
         }else{allTodoList.forEach((todo,user)->{
             showResult(user,todo);
         });
@@ -67,7 +67,7 @@ Connection conn;
         Map<Integer, User> userList ;
         User user =dbCRUD.showSingleUser(DBQuery.showSingleUser(id));
         if(user == null){
-            Text.noDataFound();
+            Text.noTodoFound();
         }else{
             System.out.println(user.toString());
             userList =dbCRUD.showUsers(DBQuery.showSingleUser(id));

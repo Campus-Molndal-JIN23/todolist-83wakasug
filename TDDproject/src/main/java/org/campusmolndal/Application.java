@@ -84,7 +84,7 @@ public class Application {
         Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
 
         if(list.isEmpty()){
-            Text.noDataFound();
+            Text.noTodoFound();
         }else{
             Text.whichDescripion();
             Text.inputNumber();
@@ -160,7 +160,7 @@ public class Application {
             int number = Input.number();
             user = usersList.get(number);
             if(user == null){
-                Text.noDataFound();
+                Text.noUserFound();
                 return;
             }
             nameId= user.getId();
@@ -229,17 +229,18 @@ public class Application {
         Map<Integer, Todo> toDoList;
         int toDoId;
 
-        Text.choseTodo();
+
         toDoList= dbFacade.showOnlyDescription();
 
         if(toDoList.isEmpty()){
-            Text.noDataFound();
+            Text.noTodoFound();
         }
         else{
+            Text.choseTodo();
             try {
                 toDoId = getTodoID(toDoList);
                 if(toDoId == 0){
-                    Text.noDataFound();
+                    Text.noTodoFound();
                     return;
                 }
                 Text.inputTodo();
@@ -259,13 +260,13 @@ public class Application {
         toDoList= dbFacade.showOnlyDescription();
 
         if(toDoList.isEmpty()){
-            Text.noDataFound();
+            Text.noTodoFound();
         }
         else{
             try {
                 toDoId = getTodoID(toDoList);
                 if(toDoId == 0){
-                    Text.noDataFound();
+                    Text.noTodoFound();
                     return;
                 }
                 status = choseStatus();
@@ -293,16 +294,19 @@ public class Application {
     public void updateAssignedUser(){
         Map<Integer, Todo>  list =dbFacade.showOnlyDescription();
 
-
-       usersList = dbFacade.showUsersList();
+        if(list.isEmpty()){
+            Text.noTodoFound();
+            return;
+        }
+        usersList = dbFacade.showUsersList();
 
         if(usersList.isEmpty()){
-            Text.noDataFound();
+            Text.noUserFound();
         }else {
 
              int toDoId =getTodoID(list);
              if(toDoId == 0){
-                Text.noDataFound();
+                Text.noTodoFound();
                 return;
              }
              showAllUsers();
@@ -400,7 +404,7 @@ public class Application {
         toDoList=dbFacade.showOnlyDescription();
 
         if(toDoList.isEmpty()){
-            Text.noDataFound();
+            Text.noTodoFound();
         }
         else{
                 Text.choseTodo();
@@ -447,6 +451,7 @@ public class Application {
            return 0;
        }
        if(todo == null){
+           Text.noTodoFound();
            return 0;
        }
         return todo.getId();
@@ -461,7 +466,7 @@ public class Application {
         try {
             user = userList.get(number);
             if(user == null){
-                Text.noDataFound();
+                Text.noUserFound();
                 return 0;
             }
 
@@ -476,7 +481,7 @@ public class Application {
     private boolean usersExists(){
         Map<Integer,User> allUsers = dbFacade.showUsersList();
         if(allUsers.isEmpty()){
-            Text.noDataFound();
+            Text.noUsersExists();
             return false;
         }
         return true;

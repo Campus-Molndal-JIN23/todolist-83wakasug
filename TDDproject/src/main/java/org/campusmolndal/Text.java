@@ -73,8 +73,18 @@ public class Text {
             System.out.println("Chose ToDO");
         }
         public static void noDataFound(){
-            System.out.println("Data not Found");
-        }
+        System.out.println("Data not Found");
+    }
+    public static void noTodoFound(){
+        System.out.println("There are no todos");
+    }
+    public static void noUserFound(){
+        System.out.println("The user doesn't exist");
+    }
+    public static void noUsersExists(){
+        System.out.println("No user exists");
+    }
+
 
         public static void inputNumber(){
             System.out.println("Please input Number");
@@ -108,7 +118,7 @@ public class Text {
 
 
         public static void wrongInput(){
-            System.out.println("Wrong Input. Please Enter Again.");
+            System.out.println("Wrong Input. Returning to menu.");
         }
 
         public void test(){
