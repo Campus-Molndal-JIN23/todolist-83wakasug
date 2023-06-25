@@ -119,5 +119,8 @@ public class Text {
             System.out.println("1:TODO");
             System.out.println("2:DONE");
         }
+        public static void noTodoAssigned(){
+            System.out.println("User does not have any TODO!");
+        }
 
 }
