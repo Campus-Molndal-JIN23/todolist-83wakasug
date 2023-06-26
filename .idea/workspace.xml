@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf7df4cf-4bdb-4447-98ee-8722426c89c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +22,10 @@
     <setting file="file://$PROJECT_DIR$/TDDproject/src/main/java/org/campusmolndal/SQLite.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TDDproject/src/main/java/org/campusmolndal/Text.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/ApplicationTest.java" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/DBFacadeTest.java" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/DBQueryTest.java" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/SQLiteTest.java" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/TextTests.java" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
