@@ -255,7 +255,7 @@ class DBFacadeTest {
 
 
 
-  /*  @Test
+   @Test
     void showSingleResult() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
@@ -273,11 +273,11 @@ class DBFacadeTest {
         dbFacade.showSingleResult(user);
 
         // Assert the expected output
-        String expectedOutput = "Progress: TODO\r\n" +
-                "Todo :Sleep\r\n" +
-                "Progress: DONE\r\n" +
-                "Todo :Work\r\n" +
-                "-----------------------------------------\r\n";
+        String expectedOutput = "Progress: TODO\n" +
+                "Todo :Sleep\n" +
+                "Progress: DONE\n" +
+                "Todo :Work\n" +
+                "-----------------------------------------\n";
         assertEquals(expectedOutput.trim(), outputStream.toString().trim());
     }
 
