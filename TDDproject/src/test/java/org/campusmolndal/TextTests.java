@@ -72,7 +72,7 @@ public class TextTests {
         Text.addDataMenu();
 
         // Assert
-        assertEquals(expected.trim(), outputStream.toString().trim();
+        assertEquals(expected.trim(), outputStream.toString().trim());
     }
 
     @Test

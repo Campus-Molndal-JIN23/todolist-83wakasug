@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf7df4cf-4bdb-4447-98ee-8722426c89c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TDDproject/src/main/java/org/campusmolndal/DBFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/TDDproject/src/main/java/org/campusmolndal/DBFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/DBFacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/DBFacadeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +59,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.campusmolndal in JinTDD">
+  <component name="RunManager" selected="JUnit.java in JinTDD">
     <configuration name="DBFacadeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JinTDD" />
       <extension name="coverage">
@@ -82,6 +83,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="java in JinTDD" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JinTDD" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/TDDproject/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="todolist-83wakasug" />
       <method v="2">
@@ -97,6 +106,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.java in JinTDD" />
         <item itemvalue="JUnit.campusmolndal in JinTDD" />
         <item itemvalue="JUnit.DBFacadeTest" />
       </list>
@@ -120,5 +130,26 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/ApplicationTest.java</url>
+          <line>451</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/ApplicationTest.java</url>
+          <line>320</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TDDproject/src/test/java/org/campusmolndal/ApplicationTest.java</url>
+          <line>395</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
