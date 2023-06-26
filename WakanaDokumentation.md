@@ -97,10 +97,14 @@ Det var typ när jag testar menu med loop.
 ### Lämna förslag på förbättringar av din kod.
 +  använda samma straktur på namnet
 +  ger Bättre namn på method och variabel
-+  
++  använda private för method. 
 
-Lämna exempel på lösningar du valde att inte implementera
+### Lämna exempel på lösningar du valde att inte implementera
 + När jag visar siffror för välja något så använde jag inte primary key från DB. 
-+ Jag tänkte också att återanvända primary key efter radera 
-Lämna förslag på förbättringar av din UI/UX design eller reflektera över den.
-i slutet på din dokumantaion
++ Jag tänkte också att återanvända primary key efter raderade data men det dålig ide för den kan används som foregien key på annan tabel så gjord ejag inte.
++ Loop och menu i samma method.Men då blev det svårt att skapa test så är tvungen att dela upp loop och menu separat. 
+
++ Lämna förslag på förbättringar av din UI/UX design eller reflektera över den.
++ Jag saknar att visa comment att säga data updated,deleted etc. Det är bra att ha så folk kan se om det faktiskt körts. 
++ När jag läggar todo och om det finns inte användaren så säger det ingenting och bara kan registrera todo. Men kanske har varit snällt om jag kan visa nummer 0:Not Assigned to anyone etc. 
++ Kanske för många menu? 

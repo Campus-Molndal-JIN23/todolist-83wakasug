@@ -205,7 +205,6 @@ public class DBCRUD {
     public Map<Integer,User> showALLUser(String query){
         conn=sqlite.connection();
 
-
         try{
             ResultSet rst = getQuery(query);
             return  createIndexUserMap(rst);
