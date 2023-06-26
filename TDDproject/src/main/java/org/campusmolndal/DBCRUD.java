@@ -10,32 +10,36 @@ public class DBCRUD {
     private Connection conn;
 
     public DBCRUD(SQLite sqlite){
-       this.sqlite = sqlite;
+        this.sqlite = sqlite;
     }
 
-    /**
-     * Adds data to the database based on the given query and values.
-     *
-     * @param query The SQL query to add the data to the database.
-     * @param value1 The first value to be added (as a string).
-     * @param value2 The second value to be added (as an integer).
-     */
+
+    public PreparedStatement preparedStatement(String query) throws SQLException {
+        PreparedStatement pstmt=conn.prepareStatement(query);
+        return pstmt;
+    }
+
 
     public void addData(String query,String value1,int value2){
         conn = sqlite.connection();
-            try{
-                PreparedStatement pstmt=conn.prepareStatement(query);
-                pstmt.setString(1, value1);
-                pstmt.setInt(2,value2);
-                pstmt.executeUpdate();
-            }
-            catch(SQLException e){
-                System.out.println(e.getMessage());
-            }
 
-            sqlite.disConnect(conn);
+        try{
+            addDataExecuteQuery (query,value1,value2);
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
         }
 
+        sqlite.disConnect(conn);
+    }
+
+    private void addDataExecuteQuery (String query,String value1,int value2) throws SQLException {
+
+        PreparedStatement pstmt = preparedStatement(query);
+        pstmt.setString(1, value1);
+        pstmt.setInt(2,value2);
+        pstmt.executeUpdate();
+    }
 
     /**
      * Retrieves all Todo objects with their corresponding User objects from the database.
@@ -46,39 +50,49 @@ public class DBCRUD {
 
     public Map<Todo,User> showALLTodo(String query){
         conn = sqlite.connection();
-        Todo todo = null;
-        User user = null;
-        Map<Todo, User> allTodo = new HashMap<>();
 
         try{
-            PreparedStatement pstmt=conn.prepareStatement(query);
-            ResultSet rst = pstmt.executeQuery();
-
-            while(rst.next()){
-                todo = new Todo(
-                        rst.getInt("ID"),
-                        rst.getString("DESCRIPTION"),
-                        rst.getInt("ASSIGNEDTO"),
-                        rst.getString("PROGRESS"));
-
-
-                user = new User(
-                        rst.getInt("ID"),
-                        rst.getString("NAME"),
-                        rst.getInt("AGE")
-                );
-                allTodo.put(todo,user);
-            }
-
+            ResultSet rst = getQuery(query);
+           return  CreateTodoUserMap(rst);
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-         sqlite.disConnect(conn);
-        return  allTodo;
+        sqlite.disConnect(conn);
+
+        return new HashMap<>();
 
     }
 
+    private ResultSet getQuery(String query) throws SQLException {
+        PreparedStatement pstmt = preparedStatement(query);
+        return pstmt.executeQuery();
+    }
+
+    private Map<Todo,User> CreateTodoUserMap(ResultSet rst) throws SQLException {
+        Map<Todo, User> allTodo = new HashMap<>();
+        Todo todo = null;
+        User user = null;
+
+        while(rst.next()){
+            todo = new Todo(
+                    rst.getInt("ID"),
+                    rst.getString("DESCRIPTION"),
+                    rst.getInt("ASSIGNEDTO"),
+                    rst.getString("PROGRESS"));
+
+
+            user = new User(
+                    rst.getInt("ID"),
+                    rst.getString("NAME"),
+                    rst.getInt("AGE")
+            );
+            allTodo.put(todo,user);
+        }
+        return allTodo;
+    }
+
+    private
     /**
      * Retrieves Todo objects from the database and stores them in a map with integer keys.
      *
@@ -229,9 +243,9 @@ public class DBCRUD {
      * @return A Map with integer keys and User objects as values.
      */
     public Map<Integer,User> showALLUser(String query){
-            conn=sqlite.connection();
-             User user;
-            Map<Integer, User> usersList = new HashMap<>();
+        conn=sqlite.connection();
+        User user;
+        Map<Integer, User> usersList = new HashMap<>();
 
         try{
             PreparedStatement pstmt=conn.prepareStatement(query);
@@ -307,7 +321,5 @@ public class DBCRUD {
         }
         sqlite.disConnect(conn);
     }
-
-
 
 }
