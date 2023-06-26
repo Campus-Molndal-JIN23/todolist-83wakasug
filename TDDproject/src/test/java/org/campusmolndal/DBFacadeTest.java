@@ -254,12 +254,9 @@ class DBFacadeTest {
 
 
 
-    @Test
-    void showResult() {
-    }
 
-    @Test
-  /*  void showSingleResult() {
+  /*  @Test
+    void showSingleResult() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
