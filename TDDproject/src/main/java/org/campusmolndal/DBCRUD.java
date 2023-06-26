@@ -18,7 +18,29 @@ public class DBCRUD {
         PreparedStatement pstmt=conn.prepareStatement(query);
         return pstmt;
     }
+    private ResultSet getQuery(String query) throws SQLException {
+        PreparedStatement pstmt = preparedStatement(query);
+        return pstmt.executeQuery();
+    }
 
+    private Todo createTodoObject(ResultSet rst) throws SQLException{
+       Todo todo;
+        todo = new Todo(
+                rst.getInt("ID"),
+                rst.getString("DESCRIPTION"),
+                rst.getInt("ASSIGNEDTO"),
+                rst.getString("PROGRESS"));
+        return todo;
+    }
+    private User createUserObject(ResultSet rst) throws SQLException{
+        User user;
+        user = new User(
+                rst.getInt("ID"),
+                rst.getString("NAME"),
+                rst.getInt("AGE")
+        );
+        return user;
+    }
 
     public void addData(String query,String value1,int value2){
         conn = sqlite.connection();
@@ -64,91 +86,52 @@ public class DBCRUD {
 
     }
 
-    private ResultSet getQuery(String query) throws SQLException {
-        PreparedStatement pstmt = preparedStatement(query);
-        return pstmt.executeQuery();
-    }
+
 
     private Map<Todo,User> CreateTodoUserMap(ResultSet rst) throws SQLException {
         Map<Todo, User> allTodo = new HashMap<>();
-        Todo todo = null;
-        User user = null;
 
         while(rst.next()){
-            todo = new Todo(
-                    rst.getInt("ID"),
-                    rst.getString("DESCRIPTION"),
-                    rst.getInt("ASSIGNEDTO"),
-                    rst.getString("PROGRESS"));
 
-
-            user = new User(
-                    rst.getInt("ID"),
-                    rst.getString("NAME"),
-                    rst.getInt("AGE")
-            );
-            allTodo.put(todo,user);
+            allTodo.put(createTodoObject(rst),createUserObject(rst));
         }
         return allTodo;
     }
 
-    private
-    /**
-     * Retrieves Todo objects from the database and stores them in a map with integer keys.
-     *
-     * @param query The SQL query to retrieve the data from the database.
-     * @return A Map with integer keys and Todo objects as values.
-     */
 
     public Map<Integer,Todo> showTodo(String query){
         conn = sqlite.connection();
-        Todo todo = null;
+
         Map<Integer, Todo> allTodo = new HashMap<>();
-
         try{
-            PreparedStatement pstmt=conn.prepareStatement(query);
-            ResultSet rst = pstmt.executeQuery();
-
-            int i = 1;
-            while(rst.next()){
-                todo = new Todo(
-                        rst.getInt("ID"),
-                        rst.getString("DESCRIPTION"),
-                        rst.getInt("ASSIGNEDTO"),
-                        rst.getString("PROGRESS"));
-
-                allTodo.put(i,todo);
-                i++;
-            }
+            ResultSet rst = getQuery(query);
+            return  CreateIntTODOMap(rst);
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
         sqlite.disConnect(conn);
-        return  allTodo;
+        return  new HashMap<>();
     }
-    /**
-     * Retrieves a single Todo object from the database based on the given query.
-     *
-     * @param query The SQL query to retrieve the data from the database.
-     * @return The Todo object retrieved from the database, or null if no result is found.
-     */
+
+    private Map<Integer,Todo> CreateIntTODOMap(ResultSet rst) throws SQLException {
+        Map<Integer, Todo> allTodo = new HashMap<>();
+
+        int i = 1;
+        while(rst.next()){
+            allTodo.put(i,createTodoObject(rst));
+            i++;
+        }
+        return allTodo;
+    }
+
     public Todo showONETodo(String query){
         this.conn = sqlite.connection();
         Todo todo = null;
 
         try{
-            PreparedStatement pstmt=conn.prepareStatement(query);
-            ResultSet rst = pstmt.executeQuery();
-
-            while(rst.next()){
-                todo = new Todo(
-                        rst.getInt("ID"),
-                        rst.getString("DESCRIPTION"),
-                        rst.getInt("ASSIGNEDTO"),
-                        rst.getString("PROGRESS")
-                );
-            }
+            ResultSet rst = getQuery(query);
+            return  createTodo(rst);
 
         }
         catch(SQLException e){
@@ -158,164 +141,144 @@ public class DBCRUD {
         return todo;
     }
 
-    /**
-     * Retrieves a single User object from the database based on the given query.
-     *
-     * @param query The SQL query to retrieve the data from the database.
-     * @return The User object retrieved from the database, or null if no result is found.
-     */
+    private Todo createTodo(ResultSet rst) throws SQLException {
+        Todo todo = null;
+
+        while(rst.next()){
+            todo = createTodoObject(rst);
+        }
+        return todo;
+    }
+
 
     public User showSingleUser(String query){
         this.conn = sqlite.connection();
         User user = null;
-
         try{
-            PreparedStatement pstmt=conn.prepareStatement(query);
-            ResultSet rst = pstmt.executeQuery();
-
-            while(rst.next()){
-                user = new User(
-                        rst.getInt("ID"),
-                        rst.getString("NAME"),
-                        rst.getInt("AGE")
-                );
-            }
-
+            ResultSet rst = getQuery(query);
+            return  createUser(rst);
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-
         sqlite.disConnect(conn);
         return user;
     }
 
+    private User createUser(ResultSet rst) throws SQLException {
+            User user = null;
+            while(rst.next()){
+                user = createUserObject(rst);
+            }
+        return user;
+    }
 
-    /**
-     * Retrieves User objects from the database and stores them in a map with integer keys.
-     *
-     * @param query The SQL query to retrieve the data from the database.
-     * @return A Map with integer keys and User objects as values.
-     */
+
     public Map<Integer,User> showUsers(String query){
         this.conn = sqlite.connection();
+
+        try{
+            ResultSet rst = getQuery(query);
+            return  createIntUserMap(rst);
+
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        sqlite.disConnect(conn);
+        return new HashMap<>();
+    }
+
+    private Map<Integer,User> createIntUserMap(ResultSet rst) throws SQLException {
         User user = null;
         Todo todo = null;
         Map<Integer,User>allUsers = new HashMap<Integer,User>();
 
-        try{
-            PreparedStatement pstmt=conn.prepareStatement(query);
-            ResultSet rst = pstmt.executeQuery();
+        while(rst.next()){
+            if(!allUsers.containsKey(rst.getInt("ID"))){
 
+                user = user = createUserObject(rst);
 
-            while(rst.next()){
-                if(!allUsers.containsKey(rst.getInt("ID"))){
-
-                    user = new User(
-                            rst.getInt("ID"),
-                            rst.getString("NAME"),
-                            rst.getInt("AGE")
-                    );
-                    allUsers.put(user.getId(), user);
-                    user.setTodos(new ArrayList<>());
-                }
-                todo = new Todo(
-                        rst.getInt("ID"),
-                        rst.getString("DESCRIPTION"),
-                        rst.getInt("AssignedTo"),
-                        rst.getString("Status")
-                );
-
-                allUsers.get(rst.getInt("ID")).addTodo(todo);
+                allUsers.put(user.getId(), user);
+                user.setTodos(new ArrayList<>());
             }
+            todo =  createTodoObject(rst);
+
+            allUsers.get(rst.getInt("ID")).addTodo(todo);
         }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-        sqlite.disConnect(conn);
         return allUsers;
     }
 
-    /**
-     * Retrieves all User objects from the database and stores them in a map with integer keys.
-     *
-     * @param query The SQL query to retrieve the data from the database.
-     * @return A Map with integer keys and User objects as values.
-     */
+
+
     public Map<Integer,User> showALLUser(String query){
         conn=sqlite.connection();
-        User user;
-        Map<Integer, User> usersList = new HashMap<>();
+
 
         try{
-            PreparedStatement pstmt=conn.prepareStatement(query);
-            ResultSet rst = pstmt.executeQuery();
-            int i = 1;
-            while(rst.next()){
-                user = new User(
-                        rst.getInt("ID"),
-                        rst.getString("NAME"),
-                        rst.getInt("AGE")
-                );
-                usersList.put(i,user);
-                i++;
-            }
+            ResultSet rst = getQuery(query);
+            return  createIndexUserMap(rst);
+
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
         sqlite.disConnect(conn);
-        return  usersList;
+        return  new HashMap<>();
     }
 
-    /**
-     * Updates an integer value in the database based on the given query.
-     *
-     * @param query The SQL query to update the data in the database.
-     * @param value The new integer value to be updated.
-     */
+    private Map<Integer,User> createIndexUserMap(ResultSet rst) throws SQLException {
+        User user;
+        Map<Integer, User> usersList = new HashMap<>();
+
+        int i = 1;
+        while(rst.next()){
+            user = createUserObject(rst);
+            usersList.put(i,user);
+            i++;
+        }
+        return usersList;
+    }
+
+
+
     public void updateDataInt(String query,int value) {
         conn=sqlite.connection();
         try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, value);
-            stmt.executeUpdate();
+            preparedStatement1IntExecuteQuery(query,value);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         sqlite.disConnect(conn);
     }
 
-    /**
-     * Updates a string value in the database based on the given query.
-     *
-     * @param query The SQL query to update the data in the database.
-     * @param value The new string value to be updated.
-     */
+    private void preparedStatement1IntExecuteQuery (String query,int value1) throws SQLException {
+
+        PreparedStatement pstmt = preparedStatement(query);
+        pstmt.setInt(1, value1);
+        pstmt.executeUpdate();
+    }
+
     public void updateDataString(String query,String value) {
         conn=sqlite.connection();
         try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1,value);
-            stmt.executeUpdate();
+            preparedStatement1StringExecuteQuery(query,value);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         sqlite.disConnect(conn);
     }
+    private void preparedStatement1StringExecuteQuery (String query, String value1) throws SQLException {
 
-    /**
-     * Deletes data from the database based on the given query and ID.
-     *
-     * @param query The SQL query to delete the data from the database.
-     * @param id The ID of the data to be deleted.
-     */
+        PreparedStatement pstmt = preparedStatement(query);
+        pstmt.setString(1, value1);
+        pstmt.executeUpdate();
+    }
+
     public void deleteData(String query,int id)  {
         conn=sqlite.connection();
         try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1,id);
-            stmt.executeUpdate();
+            preparedStatement1IntExecuteQuery(query,id);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
