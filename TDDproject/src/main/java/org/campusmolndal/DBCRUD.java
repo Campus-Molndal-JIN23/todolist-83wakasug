@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DBCRUD {
-    private SQLite sqlite;
+    private final SQLite sqlite;
     private Connection conn;
 
     public DBCRUD(SQLite sqlite){
@@ -15,9 +15,9 @@ public class DBCRUD {
 
 
     public PreparedStatement preparedStatement(String query) throws SQLException {
-        PreparedStatement pstmt=conn.prepareStatement(query);
-        return pstmt;
+        return conn.prepareStatement(query);
     }
+
     private ResultSet getQuery(String query) throws SQLException {
         PreparedStatement pstmt = preparedStatement(query);
         return pstmt.executeQuery();
@@ -63,12 +63,6 @@ public class DBCRUD {
         pstmt.executeUpdate();
     }
 
-    /**
-     * Retrieves all Todo objects with their corresponding User objects from the database.
-     *
-     * @param query The SQL query to retrieve the data from the database.
-     * @return A Map containing Todo objects as keys and User objects as values.
-     */
 
     public Map<Todo,User> showALLTodo(String query){
         conn = sqlite.connection();
@@ -126,7 +120,6 @@ public class DBCRUD {
 
     public Todo showONETodo(String query){
         this.conn = sqlite.connection();
-        Todo todo = null;
 
         try{
             ResultSet rst = getQuery(query);
@@ -137,7 +130,7 @@ public class DBCRUD {
             System.out.println(e.getMessage());
         }
         sqlite.disConnect(conn);
-        return todo;
+        return null;
     }
 
     private Todo createTodo(ResultSet rst) throws SQLException {
@@ -152,7 +145,7 @@ public class DBCRUD {
 
     public User showSingleUser(String query){
         this.conn = sqlite.connection();
-        User user = null;
+
         try{
             ResultSet rst = getQuery(query);
             return  createUser(rst);
@@ -161,7 +154,7 @@ public class DBCRUD {
             System.out.println(e.getMessage());
         }
         sqlite.disConnect(conn);
-        return user;
+        return null;
     }
 
     private User createUser(ResultSet rst) throws SQLException {
@@ -189,19 +182,18 @@ public class DBCRUD {
     }
 
     private Map<Integer,User> createIntUserMap(ResultSet rst) throws SQLException {
-        User user = null;
-        Todo todo = null;
+
         Map<Integer,User>allUsers = new HashMap<>();
 
         while(rst.next()){
             if(!allUsers.containsKey(rst.getInt("ID"))){
 
-                user = createUserObject(rst);
+                User user = createUserObject(rst);
 
                 allUsers.put(user.getId(), user);
                 user.setTodos(new ArrayList<>());
             }
-            todo =  createTodoObject(rst);
+            Todo todo =  createTodoObject(rst);
 
             allUsers.get(rst.getInt("ID")).addTodo(todo);
         }

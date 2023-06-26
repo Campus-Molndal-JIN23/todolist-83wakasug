@@ -3,18 +3,13 @@ package org.campusmolndal;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -30,7 +25,6 @@ class DBFacadeTest {
     DBFacade dbFacade;
     DBFacade mockDbFacade;
     Todo mockTDOO;
-    User mockUser;
     Map <Integer, Todo> mockMap;
     Map <Integer, User> mockMapIntUser;
     Map <Todo, User> mockMaptodoUser;
@@ -64,7 +58,6 @@ class DBFacadeTest {
 
         mockStatic(DriverManager.class);
         mockStm = Mockito.mock(Statement.class);
-        mockMap= Mockito.mock(HashMap.class);
         mockMap = new HashMap<>();
         mockMapIntUser = new HashMap<> ();
         mockMaptodoUser = new HashMap<>();
@@ -98,13 +91,6 @@ class DBFacadeTest {
         when(mockRst.getInt("ID")).thenReturn(1);
         when(mockRst.getString("NAME")).thenReturn("Hugo");
         when(mockRst.getInt("AGE")).thenReturn(5);
-    }
-
-    void setUpMapforOnlyDescription(){
-        Map<Integer, Todo> ALLDescription = new HashMap<>();
-        Map <Integer, Todo> mockMap= Mockito.mock(HashMap.class);
-        when(mockMap.put(1,mockTDOO)).thenReturn(mockTDOO);
-        when(mockDBCRUD.showTodo(anyString())).thenReturn(mockMap);
     }
 
 

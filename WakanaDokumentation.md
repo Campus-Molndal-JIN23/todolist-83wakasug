@@ -93,3 +93,14 @@ Det var typ när jag testar menu med loop.
 + Jag har lärde mig lite mer funktion inom testet så jag kommer kunna använda dessa teknik. 
 + Att kommer jag göra Bättre planering
 + Mockade objekt kan jag göra lite bättre. 
+
+### Lämna förslag på förbättringar av din kod.
++  använda samma straktur på namnet
++  ger Bättre namn på method och variabel
++  
+
+Lämna exempel på lösningar du valde att inte implementera
++ När jag visar siffror för välja något så använde jag inte primary key från DB. 
++ Jag tänkte också att återanvända primary key efter radera 
+Lämna förslag på förbättringar av din UI/UX design eller reflektera över den.
+i slutet på din dokumantaion

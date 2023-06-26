@@ -37,7 +37,6 @@ DBCRUD dbCRUD;
     }
 
 
-
     public Map<Integer, Todo> showOnlyDescription(){
 
         Map<Integer, Todo> allDescription;
@@ -78,8 +77,7 @@ DBCRUD dbCRUD;
 
     public Map<Integer, User> showUsersList(){
 
-        Map<Integer, User> userList = dbCRUD.showALLUser(DBQuery.showOnlyUsers());
-         return userList;
+         return dbCRUD.showALLUser(DBQuery.showOnlyUsers());
     }
 
     public void showAllUsers(Map<Integer, User> userList ){

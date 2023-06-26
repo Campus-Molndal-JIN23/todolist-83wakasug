@@ -7,14 +7,8 @@ public class Application {
     DBFacade dbFacade;
     private final String todoTable = "TODO";
     private final String userTable = "USER";
-    private final String columDescription = "DESCRIPTION";
-    private final String columID="ID";
-    private final String columProgress = "PROGRESS";
-    private final String columAssignedTo = "AssignedTo";
     private final String columName = "NAME";
     private Map<Integer, User> usersList;
-    private Map<Todo, User> allTodoList ;
-    private Map<Integer, Todo> toDoList;
 
     public Application (){
         dbFacade = new DBFacade("TODODB");
@@ -88,10 +82,9 @@ public class Application {
         }else{
             Text.whichDescripion();
             Text.inputNumber();
-            Todo todo = null;
 
             try{
-                todo = list.get(Input.number());
+                Todo todo = list.get(Input.number());
                 id=todo.getId();
                 dbFacade.showONETODO(id);
             }
@@ -146,8 +139,7 @@ public class Application {
     }
 
     public void addTODOData(){
-        Integer nameId;
-        User user;
+        int nameId;
         Text.inputTodo();
         String description = Input.Str();
         usersList= dbFacade.showUsersList();
@@ -160,7 +152,7 @@ public class Application {
             showAllUsers();
             Text.inputNumber();
             int number = Input.number();
-            user = usersList.get(number);
+            User user = usersList.get(number);
             if(user == null){
                 Text.noUserFound();
                 return;
@@ -193,12 +185,12 @@ public class Application {
         int input = Input.number();
 
         switch (input) {
-            case 1:updateTODOList();
-                break;
-            case 2:updateUser();
-                break;
-            case 3:return false;
-            default: Text.wrongInput();
+            case 1 -> updateTODOList();
+            case 2 -> updateUser();
+            case 3 -> {
+                return false;
+            }
+            default -> Text.wrongInput();
         }
         return true;
     }
@@ -246,6 +238,7 @@ public class Application {
                 }
                 Text.inputTodo();
                 String newDescription = Input.Str();
+                String columDescription = "DESCRIPTION";
                 dbFacade.updateString(todoTable, columDescription, toDoId, newDescription);
             }catch (Exception e) {
                 Text.noDataFound();
@@ -271,6 +264,7 @@ public class Application {
                     return;
                 }
                 status = choseStatus();
+                String columProgress = "PROGRESS";
                 dbFacade.updateInt(todoTable, columProgress, toDoId, status);
             }catch (Exception e) {
                 Text.noDataFound();
@@ -317,6 +311,7 @@ public class Application {
             int userID = getUserID(usersList);
             if(userID != 0) {
                 try {
+                    String columAssignedTo = "AssignedTo";
                     dbFacade.updateInt(todoTable, columAssignedTo,toDoId , userID);
                 } catch (Exception e) {
                     Text.noDataFound();

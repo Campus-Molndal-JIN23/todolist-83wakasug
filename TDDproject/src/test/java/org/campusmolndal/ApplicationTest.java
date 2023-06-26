@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.*;
 class ApplicationTest {
 
     Application mockApp;
-    Input mockInput;
+
 
     DBFacade mockDBFacade;
     User mockUser;
@@ -37,7 +36,7 @@ class ApplicationTest {
         System.setErr(originalErr);
     }
     @BeforeEach
-    void setUP() throws SQLException {
+    void setUP() {
         System.setOut(new PrintStream(outputStream));
         System.setErr(new PrintStream(errContent));
         Mockito.framework().clearInlineMocks();
