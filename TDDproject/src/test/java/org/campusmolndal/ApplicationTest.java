@@ -117,7 +117,7 @@ class ApplicationTest {
     }
     @Test
     void mainMenuChoiceInvalid() {
-        String expected = "Wrong Input. Please Enter Again.\r\n";
+        String expected = "Wrong Input. Returning to menu.\r\n";
         try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
             input.when(Input::number).thenReturn(999);
             mockApp.mainMenuChoice();
@@ -167,7 +167,7 @@ class ApplicationTest {
     }
     @Test
     void dataMenuChoiceInvalid() {
-        String expected = "Wrong Input. Please Enter Again.\r\n";
+        String expected = "Wrong Input. Returning to menu.\r\n";
         try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
             input.when(Input::number).thenReturn(999);
             mockApp.dataMenuChoice();
@@ -221,7 +221,7 @@ class ApplicationTest {
     }
     @Test
     void addDataMenuChoiceInvalid() {
-        String expected = "Wrong Input. Please Enter Again.\r\n";
+        String expected = "Wrong Input. Returning to menu.\r\n";
         try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
             input.when(Input::number).thenReturn(999);
             mockApp.addDataMenuChoice();
@@ -285,7 +285,7 @@ class ApplicationTest {
     }
     @Test
     void updateTODOListChoiceInvalid() {
-        String expected = "Wrong Input. Please Enter Again.\r\n";
+        String expected = "Wrong Input. Returning to menu.\r\n";
         try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
             input.when(Input::number).thenReturn(999);
             mockApp.updateTODOListChoice();
@@ -319,7 +319,7 @@ class ApplicationTest {
     }
     @Test
     void updateDataMenuChoiceInvalid() {
-        String expected = "Wrong Input. Please Enter Again.\r\n";
+        String expected = "Wrong Input. Returning to menu.\r\n";
         try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
             input.when(Input::number).thenReturn(999);
             mockApp.updateDataMenuChoice();
@@ -394,7 +394,7 @@ class ApplicationTest {
     }
     @Test
     void updateUserChoiceInvalid() {
-        String expected = "Wrong Input. Please Enter Again.\r\n";
+        String expected = "Wrong Input. Returning to menu.\r\n";
         try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
             input.when(Input::number).thenReturn(999);
             mockApp.updateUserChoice();
@@ -450,7 +450,7 @@ class ApplicationTest {
     }
     @Test
     void deleteDataMenuChoiceInvalid() {
-        String expected = "Wrong Input. Please Enter Again.\r\n";
+        String expected = "Wrong Input. Returning to menu.\r\n";
         try (MockedStatic<Input> input = Mockito.mockStatic(Input.class)) {
             input.when(Input::number).thenReturn(999);
             mockApp.deleteDataMenuChoice();

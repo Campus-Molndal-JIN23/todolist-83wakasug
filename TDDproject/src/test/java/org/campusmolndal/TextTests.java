@@ -292,7 +292,7 @@ public class TextTests {
     @Test
     public void testWrongInput() {
         // Arrange
-        String expected = "Wrong Input. Please Enter Again.";
+        String expected = "Wrong Input. Returning to menu.";
 
         // Act
         Text.wrongInput();

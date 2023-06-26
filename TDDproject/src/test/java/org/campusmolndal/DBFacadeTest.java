@@ -137,7 +137,7 @@ class DBFacadeTest {
         // Create a mock todo-user map
         Map<Todo, User> emptyMockTodoUser = new HashMap<>();
         dbFacade.showALLTODO(emptyMockTodoUser);
-        assertEquals("Data not Found",outputStream.toString().trim());
+        assertEquals("There are no todos",outputStream.toString().trim());
     }
 
     @Test
