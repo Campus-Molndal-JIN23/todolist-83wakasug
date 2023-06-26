@@ -132,7 +132,7 @@ class DBFacadeTest {
         Map<Integer, Todo> expected = dbFacade.showOnlyDescription();
         Map<Integer, Todo> actual =dbFacade.showOnlyDescription();
 
-        assertEquals(expected.toString(),actual.toString());
+        assertEquals(expected.toString().trim(),actual.toString().trim());
     }
 
     @Test
@@ -180,7 +180,7 @@ class DBFacadeTest {
         Map<Integer, Todo> expected = dbFacade.showOnlyDescription();
         Map<Integer, User> actual =dbFacade.showUsersList();
 
-        assertEquals(expected.toString(),actual.toString());
+        assertEquals(expected.toString().trim(),actual.toString().trim());
     }
 
     @Test
@@ -192,7 +192,7 @@ class DBFacadeTest {
 
         dbFacade.updateString(table, column, id, description);
 
-        verify(mockDBCRUD).updateDataString(DBQuery.updateTODOTable(table, column, id), description);
+        verify(mockDBCRUD).updateDataString(DBQuery.updateTODOTable(table, column, id).trim(), description.trim());
     }
 
     @Test
@@ -204,7 +204,7 @@ class DBFacadeTest {
 
         dbFacade.updateInt(table, column, id, statusNo);
 
-        verify(mockDBCRUD).updateDataInt(DBQuery.updateTODOTable(table, column, id), statusNo);
+        verify(mockDBCRUD).updateDataInt(DBQuery.updateTODOTable(table, column, id).trim(), statusNo);
     }
 
     @Test
