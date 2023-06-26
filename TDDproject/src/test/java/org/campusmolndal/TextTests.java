@@ -36,10 +36,10 @@ public class TextTests {
                 "2:Add data\n" +
                 "3:Update data\n" +
                 "4:Delete Data\n" +
-                "5: Close program\n";
+                "5: Close program";
 
         Text.mainMenu();
-        assertEquals(expected, outputStream.toString());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
 
     }
 
@@ -51,13 +51,13 @@ public class TextTests {
                 "2:Show a TODO List\n" +
                 "3:Show ALL Users\n" +
                 "4:Show a user\n" +
-                "5:Go back to Main Menu\n";
+                "5:Go back to Main Menu";
 
         // Act
         Text.showDataMenu();
 
         //Assert
-        assertEquals(expected, outputStream.toString());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TextTests {
         Text.addDataMenu();
 
         // Assert
-        assertEquals(expected.trim(), outputStream.toString().trim());
+        assertEquals(expected.trim(), formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class TextTests {
         Text.updateDataMenu();
 
         // Assert
-        assertEquals(expected.trim(), outputStream.toString().trim());
+        assertEquals(expected.trim(), formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class TextTests {
         Text.updateTODOList();
 
         // Assert
-        assertEquals(expected.trim(), outputStream.toString().trim());
+        assertEquals(expected.trim(), formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class TextTests {
         Text.updateUser();
 
         // Assert
-        assertEquals(expected.trim(), outputStream.toString().trim());
+        assertEquals(expected.trim(), formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -133,7 +133,7 @@ public class TextTests {
         Text.deleteDataMenu();
 
         // Assert
-        assertEquals(expected.trim(), outputStream.toString().trim());
+        assertEquals(expected.trim(), formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -153,7 +153,7 @@ public class TextTests {
         Text.showData(description, progress, status, user, age);
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
 
@@ -166,7 +166,7 @@ public class TextTests {
         Text.whichDescripion();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -178,7 +178,7 @@ public class TextTests {
         Text.choseTodo();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -190,7 +190,7 @@ public class TextTests {
         Text.noDataFound();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -202,7 +202,7 @@ public class TextTests {
         Text.inputNumber();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -214,7 +214,7 @@ public class TextTests {
         Text.choseUser();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -226,7 +226,7 @@ public class TextTests {
         Text.choseName();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -238,7 +238,7 @@ public class TextTests {
         Text.inputName();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -250,7 +250,7 @@ public class TextTests {
         Text.inputNewName();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -262,7 +262,7 @@ public class TextTests {
         Text.inputNewAge();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -274,7 +274,7 @@ public class TextTests {
         Text.inputAge();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -286,7 +286,7 @@ public class TextTests {
         Text.inputTodo();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -298,7 +298,7 @@ public class TextTests {
         Text.wrongInput();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected, formatNewLine(outputStream.toString().trim()));
     }
 
     @Test
@@ -310,8 +310,12 @@ public class TextTests {
         Text.statusChoice();
 
         // Assert
-        assertEquals(expected, outputStream.toString().trim());
+        assertEquals(expected,formatNewLine(outputStream.toString().trim()));
     }
 
+    //Intelj skrivar \r\n github skrivar \n
+    private String formatNewLine(String text){
+        return text.replace("\r\n","\n");
+    }
 
 }
