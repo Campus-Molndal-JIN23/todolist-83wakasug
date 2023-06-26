@@ -103,7 +103,9 @@ public class Application {
     }
 
     public void showAllUsers(){
-
+        if(!usersExists()){
+            return;
+        }
         dbFacade.showAllUsers(dbFacade.showUsersList());
     }
 
