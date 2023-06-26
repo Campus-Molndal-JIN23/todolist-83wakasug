@@ -31,12 +31,12 @@ public class TextTests {
     @Test
     public void testMainMenu() {
         // Arrange
-        String expected = "Please Enter Number\r\n" +
-                "1:Show data\r\n" +
-                "2:Add data\r\n" +
-                "3:Update data\r\n" +
-                "4:Delete Data\r\n" +
-                "5: Close program\r\n";
+        String expected = "Please Enter Number\n" +
+                "1:Show data\n" +
+                "2:Add data\n" +
+                "3:Update data\n" +
+                "4:Delete Data\n" +
+                "5: Close program\n";
 
         Text.mainMenu();
         assertEquals(expected, outputStream.toString());
@@ -46,12 +46,12 @@ public class TextTests {
     @Test
     public void testShowDataMenu() {
         // Arrange
-        String expected = "Please Enter Choice\r\n" +
-                "1:Show ALL TODO List\r\n" +
-                "2:Show a TODO List\r\n" +
-                "3:Show ALL Users\r\n" +
-                "4:Show a user\r\n" +
-                "5:Go back to Main Menu\r\n";
+        String expected = "Please Enter Choice\n" +
+                "1:Show ALL TODO List\n" +
+                "2:Show a TODO List\n" +
+                "3:Show ALL Users\n" +
+                "4:Show a user\n" +
+                "5:Go back to Main Menu\n";
 
         // Act
         Text.showDataMenu();
@@ -63,10 +63,10 @@ public class TextTests {
     @Test
     public void testAddDataMenu() {
         // Arrange
-        String expected = "Please Enter Choice\r\n" +
-                "1:Add a TODO List\r\n" +
-                "2:Add a user\r\n" +
-                "3:Go back to Main Menu\r\n";
+        String expected = "Please Enter Choice\n" +
+                "1:Add a TODO List\n" +
+                "2:Add a user\n" +
+                "3:Go back to Main Menu\n";
 
         // Act
         Text.addDataMenu();
@@ -78,10 +78,10 @@ public class TextTests {
     @Test
     public void testUpdateDataMenu() {
         // Arrange
-        String expected = "Please Enter Choice\r\n" +
-                "1:Update a TODO List\r\n" +
-                "2:Update a user\r\n" +
-                "3:Go back to Main Menu\r\n";
+        String expected = "Please Enter Choice\n" +
+                "1:Update a TODO List\n" +
+                "2:Update a user\n" +
+                "3:Go back to Main Menu\n";
 
         // Act
         Text.updateDataMenu();
@@ -93,11 +93,11 @@ public class TextTests {
     @Test
     public void testUpdateTODOList() {
         // Arrange
-        String expected = "Please Enter Choice\r\n" +
-                "1:update Description\r\n" +
-                "2:update status\r\n" +
-                "3:update assignedTo\r\n" +
-                "4:Go back to Main Menu\r\n";
+        String expected = "Please Enter Choice\n" +
+                "1:update Description\n" +
+                "2:update status\n" +
+                "3:update assignedTo\n" +
+                "4:Go back to Main Menu\n";
 
         // Act
         Text.updateTODOList();
@@ -109,10 +109,10 @@ public class TextTests {
     @Test
     public void testUpdateUser() {
         // Arrange
-        String expected = "Please Enter Choice\r\n" +
-                "1:update Name\r\n" +
-                "2:Update Age\r\n" +
-                "3:Go back to Main Menu\r\n";
+        String expected = "Please Enter Choice\n" +
+                "1:update Name\n" +
+                "2:Update Age\n" +
+                "3:Go back to Main Menu\n";
 
         // Act
         Text.updateUser();
@@ -124,10 +124,10 @@ public class TextTests {
     @Test
     public void testDeleteDataMenu() {
         // Arrange
-        String expected = "Please Enter Choice\r\n" +
-                "1:Delete a TODO\r\n" +
-                "2:Delete a user\r\n" +
-                "3:Go back to Main Menu\r\n";
+        String expected = "Please Enter Choice\n" +
+                "1:Delete a TODO\n" +
+                "2:Delete a user\n" +
+                "3:Go back to Main Menu\n";
 
         // Act
         Text.deleteDataMenu();
@@ -144,9 +144,9 @@ public class TextTests {
         String status = "Sample Status";
         String user = "Sample User";
         int age = 25;
-        String expected = "Description: Sample Description\r\n" +
-                "Progress: Sample Progress\r\n" +
-                "Status: Sample Status\r\n" +
+        String expected = "Description: Sample Description\n" +
+                "Progress: Sample Progress\n" +
+                "Status: Sample Status\n" +
                 "Name: Sample User Age: 25";
 
         // Act
@@ -304,7 +304,7 @@ public class TextTests {
     @Test
     public void testStatusChoice() {
         // Arrange
-        String expected = "Enter number\r\n1:TODO\r\n2:DONE";
+        String expected = "Enter number\n1:TODO\n2:DONE";
 
         // Act
         Text.statusChoice();
