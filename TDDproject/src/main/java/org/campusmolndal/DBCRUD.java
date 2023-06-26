@@ -102,7 +102,6 @@ public class DBCRUD {
     public Map<Integer,Todo> showTodo(String query){
         conn = sqlite.connection();
 
-        Map<Integer, Todo> allTodo = new HashMap<>();
         try{
             ResultSet rst = getQuery(query);
             return  CreateIntTODOMap(rst);
@@ -192,12 +191,12 @@ public class DBCRUD {
     private Map<Integer,User> createIntUserMap(ResultSet rst) throws SQLException {
         User user = null;
         Todo todo = null;
-        Map<Integer,User>allUsers = new HashMap<Integer,User>();
+        Map<Integer,User>allUsers = new HashMap<>();
 
         while(rst.next()){
             if(!allUsers.containsKey(rst.getInt("ID"))){
 
-                user = user = createUserObject(rst);
+                user = createUserObject(rst);
 
                 allUsers.put(user.getId(), user);
                 user.setTodos(new ArrayList<>());
