@@ -295,6 +295,6 @@ class DBFacadeTest {
         dbFacade.showSingleResultNull(user);
 
 
-        assertTrue(outputStream.toString().contains("Wasabi"));
+        assertTrue(outputStream.toString().trim().contains("Wasabi"));
     }
 }
