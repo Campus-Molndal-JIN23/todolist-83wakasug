@@ -32,7 +32,6 @@ void setUP() throws SQLException {
         when(mockStm.executeQuery(anyString())).thenReturn(mockResultSet);
         sqLite = new SQLite(url);
 
-
     }
 
 @Test

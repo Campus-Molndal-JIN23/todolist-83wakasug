@@ -276,7 +276,7 @@ class DBFacadeTest {
                 "Progress: DONE\n" +
                 "Todo :Work\n" +
                 "-----------------------------------------\n";
-        assertEquals(expectedOutput.trim(), outputStream.toString().trim());
+        assertEquals(expectedOutput.trim(),formatNewLine(outputStream.toString().trim()) );
     }
 
 
@@ -292,4 +292,10 @@ class DBFacadeTest {
 
         assertTrue(outputStream.toString().trim().contains("Wasabi"));
     }
+
+    //Intelj skrivar \r\n github skrivar \n
+    private String formatNewLine(String text){
+        return text.replace("\r\n","\n");
+    }
+
 }

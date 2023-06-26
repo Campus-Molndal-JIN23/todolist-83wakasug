@@ -234,7 +234,7 @@ public class Application {
             try {
                 toDoId = getTodoID(toDoList);
                 if(toDoId == 0){
-                    Text.noTodoFound();
+                    //Text.noTodoFound(); //Todo Check if program works fine
                     return;
                 }
                 Text.inputTodo();
@@ -261,7 +261,7 @@ public class Application {
             try {
                 toDoId = getTodoID(toDoList);
                 if(toDoId == 0){
-                    Text.noTodoFound();
+                    // Text.noTodoFound(); //checkifitsworks
                     return;
                 }
                 status = choseStatus();
@@ -413,7 +413,6 @@ public class Application {
             Text.noTodoFound();
         }
         else{
-            Text.choseTodo();
             try {
                 toDoid = getTodoID(toDoList);
                 dbFacade.deleteData(todoTable, toDoid);

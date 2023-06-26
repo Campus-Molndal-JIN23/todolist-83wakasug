@@ -280,7 +280,7 @@ public class TextTests {
     @Test
     public void testInputTodo() {
         // Arrange
-        String expected = "Enter Todo";
+        String expected = "Enter Description";
 
         // Act
         Text.inputTodo();

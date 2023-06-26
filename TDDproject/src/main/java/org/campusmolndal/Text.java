@@ -116,7 +116,7 @@ public class Text {
         }
 
         public static void inputTodo(){
-        System.out.println("Enter Todo");
+        System.out.println("Enter Description");
         }
 
 
