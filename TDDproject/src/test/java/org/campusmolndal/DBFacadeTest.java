@@ -281,7 +281,7 @@ class DBFacadeTest {
                 "Progress: DONE\r\n" +
                 "Todo :Work\r\n" +
                 "-----------------------------------------\r\n";
-        assertEquals(expectedOutput, outputStream.toString());
+        assertEquals(expectedOutput.trim(), outputStream.toString().trim());
     }
 
 

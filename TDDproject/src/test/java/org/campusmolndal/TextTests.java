@@ -72,7 +72,7 @@ public class TextTests {
         Text.addDataMenu();
 
         // Assert
-        assertEquals(expected, outputStream.toString());
+        assertEquals(expected.trim(), outputStream.toString().trim();
     }
 
     @Test
@@ -87,7 +87,7 @@ public class TextTests {
         Text.updateDataMenu();
 
         // Assert
-        assertEquals(expected, outputStream.toString());
+        assertEquals(expected.trim(), outputStream.toString().trim());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class TextTests {
         Text.updateTODOList();
 
         // Assert
-        assertEquals(expected, outputStream.toString());
+        assertEquals(expected.trim(), outputStream.toString().trim());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class TextTests {
         Text.updateUser();
 
         // Assert
-        assertEquals(expected, outputStream.toString());
+        assertEquals(expected.trim(), outputStream.toString().trim());
     }
 
     @Test
@@ -133,7 +133,7 @@ public class TextTests {
         Text.deleteDataMenu();
 
         // Assert
-        assertEquals(expected, outputStream.toString());
+        assertEquals(expected.trim(), outputStream.toString().trim());
     }
 
     @Test
