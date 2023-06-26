@@ -3,13 +3,10 @@ package org.campusmolndal;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class DBFacade {
 SQLite sqlite;
 DBCRUD dbCRUD;
-Connection conn;
 
 
     public DBFacade(String dbName) {

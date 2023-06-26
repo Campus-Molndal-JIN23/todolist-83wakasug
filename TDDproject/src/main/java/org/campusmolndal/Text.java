@@ -78,13 +78,13 @@ public class Text {
         public static void noDataFound(){
         System.out.println("Data not Found");
     }
-    public static void noTodoFound(){
+        public static void noTodoFound(){
         System.out.println("There are no todos");
     }
-    public static void noUserFound(){
+        public static void noUserFound(){
         System.out.println("The user doesn't exist");
     }
-    public static void noUsersExists(){
+        public static void noUsersExists(){
         System.out.println("No user exists");
     }
 
@@ -98,7 +98,7 @@ public class Text {
         }
         public static void choseName(){
             System.out.println("Who do you want to assign to TODO?");
-            System.out.println("");
+            System.out.println(" ");
         }
 
         public static void inputName(){
@@ -136,39 +136,39 @@ public class Text {
             System.out.println("User does not have any TODO!");
         }
 
-    public static void showDescription(Map<Integer, Todo> allDescription){
-        allDescription.forEach((id,todo)->{
-            System.out.println("   | " + id + ": " + todo.getText() + " |");
-            System.out.println("------------------------------");
-        });
-    }
+        public static void showDescription(Map<Integer, Todo> allDescription){
+            allDescription.forEach((id,todo)->{
+                System.out.println("   | " + id + ": " + todo.getText() + " |");
+                System.out.println("------------------------------");
+            });
+        }
 
-    public static void showUserName(User user){
+        public static void showUserName(User user){
         System.out.println(user.toString());
     }
 
-    public static void showTodos(ArrayList<Todo> todoList){
-        for(Todo mission:todoList){
-            System.out.println("Progress: "+mission.getDone());
-            System.out.println("Todo :" + mission.getText());
-        }
-        System.out.println("-----------------------------------------");
-    }
+        public static void showTodos(ArrayList<Todo> todoList){
+            for(Todo mission:todoList){
+                System.out.println("Progress: "+mission.getDone());
+                System.out.println("Todo :" + mission.getText());
+            }
+                System.out.println("-----------------------------------------");
+         }
 
-    public static void showSingleUserNullResults(User user){
-        System.out.println( user.toString() + " Todo: No Assigment");
-        System.out.println("-----------------------------------------");
-    }
+        public static void showSingleUserNullResults(User user){
+            System.out.println( user.toString() + " Todo: No Assigment");
+            System.out.println("-----------------------------------------");
+         }
 
-    public static void showResult(User user, Todo todo){
-        if (user.getName() == null) {
-            System.out.println( todo.toString() + " User: Not Registered");
-            System.out.println("-----------------------------------------");
-        } else {
-            System.out.println(todo.toString() + " " + user.toString());
-            System.out.println("-----------------------------------------");
+        public static void showResult(User user, Todo todo){
+            if (user.getName() == null) {
+                System.out.println( todo.toString() + " User: Not Registered");
+                System.out.println("-----------------------------------------");
+            } else {
+                System.out.println(todo.toString() + " " + user.toString());
+                System.out.println("-----------------------------------------");
+            }
         }
-    }
 
     public static void showAllUsers(Map<Integer, User> userList){
         userList.forEach((id,user)->{

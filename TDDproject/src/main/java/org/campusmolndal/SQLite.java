@@ -4,16 +4,15 @@ import java.sql.*;
 
 public class SQLite implements Database {
 
-    private String dbName = null;
     Connection conn;
     String url;
 
 
 
     public SQLite(String dbName) {
-        this.dbName = dbName;
        url = "jdbc:sqlite:" + dbName+ ".db";
         connection();
+        //If DB has no table create TODOTable,ProgressTable,UserTable,and set the value to Todo and DONE to Progress Table.
         initialTable(DBQuery.createTODOTable(),DBQuery.createProgressTable(),DBQuery.createUserTable(),DBQuery.setupTODOProgress(),DBQuery.setupDONEProgress());
     }
 
