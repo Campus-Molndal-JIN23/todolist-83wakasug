@@ -34,7 +34,7 @@ Connection conn;
         if(allTodoList.isEmpty()){
             Text.noTodoFound();
         }else{allTodoList.forEach((todo,user)->{
-            showResult(user,todo);
+            Text.showResult(user,todo);
         });
         }
     }
@@ -45,10 +45,7 @@ Connection conn;
 
         Map<Integer, Todo> allDescription;
         allDescription=dbCRUD.showTodo(DBQuery.showAllTODO());
-        allDescription.forEach((id,todo)->{
-            System.out.println("   | " + id + ": " + todo.getText() + " |");
-            System.out.println("------------------------------");
-        });
+        Text.showDescription(allDescription);
 
         return allDescription;
     }
@@ -58,7 +55,7 @@ Connection conn;
         Map<Todo, User> allTodoList ;
         allTodoList =dbCRUD.showALLTodo(DBQuery.showONETODO(id));
         allTodoList.forEach((todo,user)->{
-            showResult(user,todo);
+            Text.showResult(user,todo);
         });
     }
 
@@ -69,8 +66,8 @@ Connection conn;
         if(user == null){
             Text.noTodoFound();
         }else{
-            System.out.println(user.toString());
             userList =dbCRUD.showUsers(DBQuery.showSingleUser(id));
+            Text.showUserName(user);
             userList.forEach((key,todo)->{
                 try{
                     showSingleResult(todo);
@@ -89,11 +86,7 @@ Connection conn;
     }
 
     public void showAllUsers(Map<Integer, User> userList ){
-        userList.forEach((id,user)->{
-            System.out.print("   | " + id + ": " + user.getName());
-            System.out.println("  Age :"+ user.getAge() +" |");
-            System.out.println("--------------------------------");
-        });
+        Text.showAllUsers(userList);
     }
 
 
@@ -134,30 +127,15 @@ Connection conn;
     }
 
 
-    public void showResult(User user,Todo todo){
-
-        if (user.getName() == null) {
-            System.out.println( todo.toString() + " User: Not Registered");
-            System.out.println("-----------------------------------------");
-        } else {
-            System.out.println(todo.toString() + " " + user.toString());
-            System.out.println("-----------------------------------------");
-        }
-    }
 
     public void showSingleResult(User user){
 
             ArrayList<Todo> todoList =user.getTodos();
-            for(Todo mission:todoList){
-                System.out.println("Progress: "+mission.getDone());
-                System.out.println("Todo :" + mission.getText());
-            }
-            System.out.println("-----------------------------------------");
+            Text.showTodos(todoList);
     }
 
     public void showSingleResultNull(User user){
 
-        System.out.println( user.toString() + " Todo: No Assigment");
-        System.out.println("-----------------------------------------");
+        Text.showSingleUserNullResults(user);
     }
 }

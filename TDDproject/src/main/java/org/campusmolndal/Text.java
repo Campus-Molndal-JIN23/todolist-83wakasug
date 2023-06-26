@@ -1,5 +1,8 @@
 package org.campusmolndal;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class Text {
 
 
@@ -132,5 +135,49 @@ public class Text {
         public static void noTodoAssigned(){
             System.out.println("User does not have any TODO!");
         }
+
+    public static void showDescription(Map<Integer, Todo> allDescription){
+        allDescription.forEach((id,todo)->{
+            System.out.println("   | " + id + ": " + todo.getText() + " |");
+            System.out.println("------------------------------");
+        });
+    }
+
+    public static void showUserName(User user){
+        System.out.println(user.toString());
+    }
+
+    public static void showTodos(ArrayList<Todo> todoList){
+        for(Todo mission:todoList){
+            System.out.println("Progress: "+mission.getDone());
+            System.out.println("Todo :" + mission.getText());
+        }
+        System.out.println("-----------------------------------------");
+    }
+
+    public static void showSingleUserNullResults(User user){
+        System.out.println( user.toString() + " Todo: No Assigment");
+        System.out.println("-----------------------------------------");
+    }
+
+    public static void showResult(User user, Todo todo){
+        if (user.getName() == null) {
+            System.out.println( todo.toString() + " User: Not Registered");
+            System.out.println("-----------------------------------------");
+        } else {
+            System.out.println(todo.toString() + " " + user.toString());
+            System.out.println("-----------------------------------------");
+        }
+    }
+
+    public static void showAllUsers(Map<Integer, User> userList){
+        userList.forEach((id,user)->{
+            System.out.print("   | " + id + ": " + user.getName());
+            System.out.println("  Age :"+ user.getAge() +" |");
+            System.out.println("--------------------------------");
+        });
+    }
+
+
 
 }
