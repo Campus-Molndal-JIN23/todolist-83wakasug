@@ -251,7 +251,7 @@ class DBFacadeTest {
         assertTrue(outputStream.toString().contains("Toma"));
         assertTrue(outputStream.toString().contains("Hugo"));
     }
-    
+
 
    @Test
     void showSingleResult() {

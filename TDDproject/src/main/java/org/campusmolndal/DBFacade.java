@@ -123,13 +123,13 @@ DBCRUD dbCRUD;
 
 
 
-    private void showSingleResult(User user){
+    public void showSingleResult(User user){
 
             ArrayList<Todo> todoList =user.getTodos();
             Text.showTodos(todoList);
     }
 
-    private void showSingleResultNull(User user){
+    public void showSingleResultNull(User user){
 
         Text.showSingleUserNullResults(user);
     }
